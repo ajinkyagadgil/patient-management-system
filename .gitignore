@@ -3,3 +3,13 @@
 ################################################################################
 
 /PMSBackend/.vs/PMSBackend
+/PMSBackend/Patient.Core/obj
+/PMSBackend/Patient.Domain/obj
+/PMSBackend/Patient.Infrastructure/obj
+/PMSBackend/PatientManagementSystemDatabase/bin/Debug
+/PMSBackend/PatientManagementSystemDatabase/obj/Debug
+/PMSBackend/PatientManagementSystemDatabase/PatientManagementSystem.publish.xml
+/PMSBackend/PatientManagementSystemDatabase/PatientManagementSystem.refactorlog
+/PMSBackend/PMS.Dependencies/obj
+/PMSBackend/PMSBackend/bin/Debug/netcoreapp3.1
+/PMSBackend/PMSBackend/obj
