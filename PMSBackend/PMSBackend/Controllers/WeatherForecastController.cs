@@ -23,6 +23,7 @@ namespace PMSBackend.Controllers
             _logger = logger;
         }
 
+        [Route("weather/get")]
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {

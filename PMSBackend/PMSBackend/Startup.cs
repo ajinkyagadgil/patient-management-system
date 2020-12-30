@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PMS.Dependencies;
+using PMSBackend.Handler.Patient;
 
 namespace PMSBackend
 {
@@ -26,6 +28,8 @@ namespace PMSBackend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerDocumentation();
+            services.AddScoped<IPatientHandler, PatientHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +39,8 @@ namespace PMSBackend
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwaggerDocumentation();
 
             app.UseHttpsRedirection();
 

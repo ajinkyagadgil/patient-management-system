@@ -67,6 +67,8 @@
     <Build Include="Schemas\Patient.sql" />
     <Build Include="Tables\UserSchema\Roles.sql" />
     <Build Include="Tables\UserSchema\Users.sql" />
+    <None Include="PostDeployment\User.Users.sql" />
+    <Build Include="Tables\PatientSchema\PatientInformation.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PatientManagementSystem.refactorlog" />
@@ -77,5 +79,6 @@
   <ItemGroup>
     <None Include="PostDeployment\User.Roles.sql" />
     <None Include="PatientManagementSystem.publish.xml" />
+    <None Include="PostDeployment\Patient.PatientInformation.sql" />
   </ItemGroup>
 </Project>

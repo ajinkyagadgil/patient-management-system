@@ -11,3 +11,5 @@ Post-Deployment Script Template
 */
 
 :r .\User.Roles.sql
+:r .\User.Users.sql
+:r .\Patient.PatientInformation.sql

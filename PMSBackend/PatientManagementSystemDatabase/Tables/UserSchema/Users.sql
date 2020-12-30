@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [User].[Users]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [Email] NVARCHAR(50) NOT NULL, 
+    [Email] NVARCHAR(MAX) NOT NULL, 
     [Password] NVARCHAR(MAX) NOT NULL, 
     [RoleId] UNIQUEIDENTIFIER NOT NULL, 
     CONSTRAINT [FK_Users_Roles] FOREIGN KEY ([RoleId]) REFERENCES [User].[Roles]([Id]) 

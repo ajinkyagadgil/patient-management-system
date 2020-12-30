@@ -6,4 +6,12 @@
     <RootNamespace>Patient.Data</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Context\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Patient.Domain\Patient.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
