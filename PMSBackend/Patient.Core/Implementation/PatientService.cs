@@ -1,7 +1,6 @@
 ﻿using Patient.Core.Entities;
 using Patient.Core.IQueries;
 using Patient.Core.Services;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,7 +15,7 @@ namespace Patient.Core.Implementation
             _patientQuery = patientQuery;
         }
 
-        public async Task<List<PatientInformation>> GetPatientsInformation()
+        public async Task<List<PatientInformationEntity>> GetPatientsInformation()
         {
             return await _patientQuery.GetPatientsInformation();
         }

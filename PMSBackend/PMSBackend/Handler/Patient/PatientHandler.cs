@@ -1,7 +1,6 @@
 ﻿using Patient.Core.Services;
 using PMSBackend.Handler.Patient.Converters;
 using PMSBackend.Handler.Patient.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

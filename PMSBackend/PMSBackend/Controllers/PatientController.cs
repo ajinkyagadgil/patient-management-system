@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PMSBackend.Handler.Patient;
+using System.Threading.Tasks;
 
 namespace PMSBackend.Controllers
 {
@@ -15,9 +16,9 @@ namespace PMSBackend.Controllers
 
         [Route("get/all")]
         [HttpGet]
-        public IActionResult GetPatientsInformation()
+        public async Task<IActionResult> GetPatientsInformation()
         {
-            return Ok(_patientHandler.GetPatientsInformation());
+            return Ok(await _patientHandler.GetPatientsInformation());
         }
     }
 }

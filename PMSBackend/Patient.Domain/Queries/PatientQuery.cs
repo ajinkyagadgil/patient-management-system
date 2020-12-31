@@ -1,9 +1,9 @@
 ﻿using Patient.Core.Entities;
 using Patient.Core.IQueries;
 using Patient.Domain.IRepository;
-using System;
+using Patient.Domain.Models;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Patient.Domain.Queries
@@ -17,9 +17,9 @@ namespace Patient.Domain.Queries
             _patientRepository = patientRepository;
         }
 
-        public async Task<List<PatientInformation>> GetPatientsInformation()
+        public async Task<List<PatientInformationEntity>> GetPatientsInformation()
         {
-            throw new NotImplementedException();
+            return (await _patientRepository.GetPatientsInformation()).Select(x => x.ToModelEntity()).ToList();
         }
     }
 }

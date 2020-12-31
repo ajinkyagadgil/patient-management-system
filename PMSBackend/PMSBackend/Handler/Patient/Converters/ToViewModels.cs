@@ -5,7 +5,7 @@ namespace PMSBackend.Handler.Patient.Converters
 {
     public static class ToViewModels
     {
-        public static PatientInfomationViewModel ToViewModel(this PatientInformation patientInformation)
+        public static PatientInfomationViewModel ToViewModel(this PatientInformationEntity patientInformation)
         => patientInformation == null ? null : new PatientInfomationViewModel
         {
             id = patientInformation.Id,

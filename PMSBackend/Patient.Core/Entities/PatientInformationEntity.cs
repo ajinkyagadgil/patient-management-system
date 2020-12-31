@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Patient.Core.Entities
 {
-    public class PatientInformation
+    public class PatientInformationEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
