@@ -1,9 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {HttpClientModule} from '@angular/common/http'
+import { AngularMaterialModule } from './material.module';
+import { AppconfigService } from './shared/appconfig.service';
+
 
 @NgModule({
   declarations: [
@@ -12,9 +17,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [],
+  exports: [
+    AngularMaterialModule
+  ],
+  providers: [
+    AppconfigService,
+    {
+      provide: APP_INITIALIZER, useFactory: initConfig, deps: [AppconfigService], multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+function initConfig(config: AppconfigService){
+  return () => config.loadAppConfig()
+}

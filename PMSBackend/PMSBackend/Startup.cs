@@ -23,10 +23,11 @@ namespace PMSBackend
             services.AddControllers();
 
             var connectionString = Configuration.GetSection("ConnectionStrings").GetSection("DatabaseConnection").Value;
-            services.AddDatabaseContextDependency(connectionString);
-            services.AddSwaggerDocumentation();
+            services.AddDatabaseContextDependency(connectionString); //custom method in dependency project
+            services.AddSwaggerDocumentation(); //custom method in dependency project
             services.AddScoped<IPatientHandler, PatientHandler>();
-            services.RegisterServices();
+            services.RegisterServices(); //custom method in dependency project
+            services.AddCorsDependencies(); //custom method in dependency project
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +41,8 @@ namespace PMSBackend
             app.UseSwaggerDocumentation();
 
             app.UseHttpsRedirection();
+
+            app.UseCorsDependency(); //custom method in dependency project
 
             app.UseRouting();
 

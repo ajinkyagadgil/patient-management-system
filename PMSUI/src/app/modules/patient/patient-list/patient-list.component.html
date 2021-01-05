@@ -1,1 +1,49 @@
-<p>patient-list works!</p>
+<section class="content-header">
+  <div class="container-fluid">
+    <h1>Patient Listing</h1>
+  </div><!-- /.container-fluid -->
+</section>
+
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="patientInformation" matSort>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let patient"> {{patient.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Age </th>
+      <td mat-cell *matCellDef="let patient"> {{patient.age}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+      <td mat-cell *matCellDef="let patient"> {{patient.phone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+      <td mat-cell *matCellDef="let patient"> {{patient.gender}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="history">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> History </th>
+      <td mat-cell *matCellDef="let patient"> {{patient.history}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="caseNo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Case No </th>
+      <td mat-cell *matCellDef="let patient"> {{patient.caseNo}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
