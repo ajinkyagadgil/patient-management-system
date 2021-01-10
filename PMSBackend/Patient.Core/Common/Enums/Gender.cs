@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Patient.Core.Common.Enums
+﻿namespace Patient.Core.Common.Enums
 {
     public enum Gender
     {

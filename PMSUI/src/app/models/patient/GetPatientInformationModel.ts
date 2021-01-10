@@ -3,7 +3,7 @@ export class GetPatientInformationModel {
     name: string
     age: string
     phone: string
-    gender: number
+    gender: string
     history: string
     caseNo: string
     photoPath: string

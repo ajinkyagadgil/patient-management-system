@@ -12,7 +12,7 @@ namespace PMSBackend.Handler.Patient.Converters
             name = patientInformation.Name,
             age = patientInformation.Age,
             phone = patientInformation.Phone,
-            gender = patientInformation.Gender,
+            gender = (patientInformation.Gender).ToString(),
             history = patientInformation.History,
             caseNo = patientInformation.CaseNo,
             photoPath = patientInformation.PhotoPath

@@ -9,7 +9,7 @@ namespace PMSBackend.Handler.Patient.ViewModels
         public string name { get; set; }
         public int age { get; set; }
         public string phone { get; set; }
-        public Gender gender { get; set; }
+        public string gender { get; set; }
         public string history { get; set; }
         public string caseNo { get; set; }
         public string photoPath { get; set; }
