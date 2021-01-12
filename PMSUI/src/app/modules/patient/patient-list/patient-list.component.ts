@@ -5,6 +5,8 @@ import { PatientService } from '../patient.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { EditPatientComponent } from './edit-patient/edit-patient.component';
 
 @Component({
   selector: 'app-patient-list',
@@ -12,12 +14,14 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./patient-list.component.scss']
 })
 export class PatientListComponent implements OnInit {
+
   public patientInformation: MatTableDataSource<GetPatientInformationModel>;
-  displayedColumns: string[] = ['name', 'age', 'phone', 'gender', 'history', 'caseNo'];
+  displayedColumns: string[] = ['fullName', 'email', 'age', 'phone', 'gender', 'history', 'caseNo'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private patientService: PatientService) { }
+  constructor(private patientService: PatientService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadNext();
@@ -34,5 +38,16 @@ export class PatientListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.patientInformation.filter = filterValue.trim().toLowerCase();
+  }
+
+  openAddPatientDialog() {
+    const dialogRef = this.dialog.open(EditPatientComponent, {
+      height: '565px',
+      width: '750px'
+    })
+  }
+
+  OnRowClick(patient: GetPatientInformationModel){
+    console.log(JSON.stringify(patient));
   }
 }

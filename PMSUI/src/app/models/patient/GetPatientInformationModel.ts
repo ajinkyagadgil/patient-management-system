@@ -1,6 +1,7 @@
 export class GetPatientInformationModel {
     id: string
-    name: string
+    fullName: string
+    email: string
     age: string
     phone: string
     gender: string

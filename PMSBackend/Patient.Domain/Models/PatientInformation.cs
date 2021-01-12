@@ -11,7 +11,9 @@ namespace Patient.Domain.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
         public int Age { get; set; }
         public string Phone { get; set; }
         public int Gender { get; set; }
@@ -26,7 +28,9 @@ namespace Patient.Domain.Models
         => patientInformation == null ? null : new PatientEntities.PatientInformationEntity
         {
             Id = patientInformation.Id,
-            Name = patientInformation.Name,
+            FirstName = patientInformation.FirstName,
+            LastName = patientInformation.LastName,
+            Email = patientInformation.Email,
             Age = patientInformation.Age,
             Phone = patientInformation.Phone,
             Gender = (Gender)patientInformation.Gender,

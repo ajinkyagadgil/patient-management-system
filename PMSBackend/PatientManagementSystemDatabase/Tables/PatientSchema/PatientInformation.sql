@@ -1,7 +1,9 @@
 ﻿CREATE TABLE [Patient].[PatientInformation]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [Name] NVARCHAR(MAX) NOT NULL, 
+    [FirstName] NVARCHAR(MAX) NOT NULL,
+    [LastName] NVARCHAR(MAX) NOT NULL,
+    [Email] NVARCHAR(MAX) NULL,
     [Age] INT NOT NULL, 
     [Phone] NVARCHAR(MAX) NOT NULL, 
     [Gender] INT NOT NULL, 
