@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PMS.Dependencies;
+using PMSBackend.Handler.Common;
 using PMSBackend.Handler.Patient;
 
 namespace PMSBackend
@@ -26,6 +27,7 @@ namespace PMSBackend
             services.AddDatabaseContextDependency(connectionString); //custom method in dependency project
             services.AddSwaggerDocumentation(); //custom method in dependency project
             services.AddScoped<IPatientHandler, PatientHandler>();
+            services.AddScoped<ICommonHandler, CommonHandler>();
             services.RegisterServices(); //custom method in dependency project
             services.AddCorsDependencies(); //custom method in dependency project
         }

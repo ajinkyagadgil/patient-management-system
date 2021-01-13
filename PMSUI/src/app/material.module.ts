@@ -8,6 +8,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations: [],
@@ -19,7 +21,9 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatPaginatorModule,
         MatButtonModule,
         MatDialogModule,
-        MatStepperModule
+        MatStepperModule,
+        MatSelectModule,
+        MatIconModule
     ],
     exports: [
         MatTableModule,
@@ -30,6 +34,8 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatButtonModule,
         MatDialogModule,
         MatStepperModule,
+        MatSelectModule,
+        MatIconModule
     ]
 })
 

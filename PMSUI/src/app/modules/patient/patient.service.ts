@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInformationModel';
 import { ApiService } from 'src/app/shared/api.service';
+import { GetGenderInformationModel } from 'src/app/models/common/GetGenderInformationModel';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,9 @@ export class PatientService {
 
   getAllPatients(): Observable<GetPatientInformationModel[]> {
     return this.Api.get("Patient/get/all")
+  }
+
+  getGender(): Observable<GetGenderInformationModel[]> {
+    return this.Api.get("Common/genders")
   }
 }

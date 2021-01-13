@@ -1,4 +1,6 @@
-﻿using Patient.Core.Entities;
+﻿using Patient.Core.Common.Enums;
+using Patient.Core.Entities;
+using PMSBackend.Handler.Common.ViewModels;
 using PMSBackend.Handler.Patient.ViewModels;
 
 namespace PMSBackend.Handler.Patient.Converters
@@ -13,10 +15,17 @@ namespace PMSBackend.Handler.Patient.Converters
             email = patientInformation.Email,
             age = patientInformation.Age,
             phone = patientInformation.Phone,
-            gender = (patientInformation.Gender).ToString(),
+            gender = (patientInformation.Gender).ToViewModel(),
             history = patientInformation.History,
             caseNo = patientInformation.CaseNo,
             photoPath = patientInformation.PhotoPath
+        };
+
+        public static GenderViewModel ToViewModel(this Gender gender)
+        => gender < 0 ? null : new GenderViewModel
+        {
+            id = (int)gender,
+            name = gender.ToString()
         };
     }
 }

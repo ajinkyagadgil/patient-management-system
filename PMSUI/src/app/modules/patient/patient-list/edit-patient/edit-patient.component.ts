@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PatientService } from '../../patient.service';
+import { GetGenderInformationModel } from 'src/app/models/common/GetGenderInformationModel';
 
 @Component({
   selector: 'app-edit-patient',
@@ -8,13 +10,19 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./edit-patient.component.scss']
 })
 export class EditPatientComponent implements OnInit {
+  genders: GetGenderInformationModel[];
   patientInformationFormGroup: FormGroup;
   treatmentInformationFormGroup: FormGroup;
   constructor(public dialogRef: MatDialogRef<EditPatientComponent>,
-    private _formBuilder: FormBuilder) { }
+    private _formBuilder: FormBuilder,
+    private patientService: PatientService) { }
 
   ngOnInit() {
+    this.patientService.getGender().subscribe(res => {
+      this.genders = res;
+      
     this.initForm()
+    })
   }
 
   initForm() {
@@ -35,6 +43,10 @@ export class EditPatientComponent implements OnInit {
       treatmentSummary: [''],
       photo: ['']
     });
+  }
+
+  OnCancel() {
+    this.dialogRef.close();
   }
 
 }

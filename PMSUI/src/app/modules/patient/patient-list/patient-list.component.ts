@@ -43,7 +43,8 @@ export class PatientListComponent implements OnInit {
   openAddPatientDialog() {
     const dialogRef = this.dialog.open(EditPatientComponent, {
       height: '565px',
-      width: '750px'
+      width: '800px',
+      disableClose: true
     })
   }
 
