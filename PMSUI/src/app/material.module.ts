@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
     declarations: [],
@@ -23,7 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
         MatDialogModule,
         MatStepperModule,
         MatSelectModule,
-        MatIconModule
+        MatIconModule,
+        MatToolbarModule 
     ],
     exports: [
         MatTableModule,
@@ -35,7 +37,8 @@ import { MatIconModule } from '@angular/material/icon';
         MatDialogModule,
         MatStepperModule,
         MatSelectModule,
-        MatIconModule
+        MatIconModule,
+        MatToolbarModule
     ]
 })
 

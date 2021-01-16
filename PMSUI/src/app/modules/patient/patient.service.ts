@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInformationModel';
 import { ApiService } from 'src/app/shared/api.service';
 import { GetGenderInformationModel } from 'src/app/models/common/GetGenderInformationModel';
+import { PostPatientInformationModel } from 'src/app/models/patient/PostPatientInformationModel';
+import { PostTreatmentInformationModel } from 'src/app/models/patient/PostTreatmentInformationModel';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,21 @@ export class PatientService {
 
   getGender(): Observable<GetGenderInformationModel[]> {
     return this.Api.get("Common/genders")
+  }
+
+  savePatientInformation(patientInformation: PostPatientInformationModel, treatmentInformation: PostTreatmentInformationModel): Observable<any> {
+    let formData = new FormData();
+    if(patientInformation.photo != null) {
+      formData.append("patientPhoto", patientInformation.photo, patientInformation.photo.name)
+    }
+    formData.append("patientInformation", JSON.stringify(patientInformation));
+
+    if(treatmentInformation.treatmentPhoto.length > 0) {
+      treatmentInformation.treatmentPhoto.forEach(file => {
+        formData.append("treatmentPhoto", file, file.name)
+      });
+      formData.append("treatmentInformation", JSON.stringify(treatmentInformation));
+    }
+    return this.Api.post("Patient/save", formData);
   }
 }

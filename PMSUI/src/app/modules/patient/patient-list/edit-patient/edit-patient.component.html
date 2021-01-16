@@ -70,10 +70,10 @@
                         </mat-form-field>
                     </div>
                     <div class="col-md-6">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Patient Photo</mat-label>
-                            <input matInput formControlName="photo" placeholder="Enter Photo">
-                        </mat-form-field>
+                        <div class="custom-file">
+                            <input formControlName="photo" accept="image/*" type="file" class="custom-file-input" id="customFile" (change)="onPatientPhotoChange($event)">
+                            <label class="custom-file-label" for="customFile">Choose Patient image</label>
+                          </div>
                     </div>
                 </div>
 
@@ -87,17 +87,21 @@
                 class="treatment-form">
                 <mat-form-field appearance="outline">
                     <mat-label>Treatment Title</mat-label>
-                    <input matInput formControlName="treatmentTitle" placeholder="Enter Treatment Title">
+                    <input matInput formControlName="treatmentTitle" placeholder="Enter Treatment Title" required>
                     <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                     <mat-hint>Hint</mat-hint>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Treatment Title</mat-label>
                     <textarea matInput formControlName="treatmentSummary"
-                        placeholder="Enter Treatment Title"></textarea>
+                        placeholder="Enter Treatment Summary"></textarea>
                     <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                     <mat-hint>Hint</mat-hint>
                 </mat-form-field>
+                <div class="custom-file">
+                    <input formControlName="treatmentImage" type="file" class="custom-file-input" id="customFile" (change)="onTreatmentImageChange($event)" multiple>
+                    <label class="custom-file-label" for="customFile">Choose Patient image</label>
+                  </div>
                 <div mat-dialog-actions align="end">
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-button matStepperNext>Next</button>
@@ -109,7 +113,7 @@
             <p>You are now done.</p>
             <div mat-dialog-actions align="end">
                 <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
+                <button mat-button (click)="onSubmit()">Submit</button>
             </div>
         </mat-step>
     </mat-horizontal-stepper>

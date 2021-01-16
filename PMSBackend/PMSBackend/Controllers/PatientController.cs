@@ -20,5 +20,12 @@ namespace PMSBackend.Controllers
         {
             return Ok(await _patientHandler.GetPatientsInformation());
         }
+
+        [Route("save")]
+        [HttpPost]
+        public async Task<IActionResult> SavePatientInformation([FromForm]  string a)
+        {
+            return Ok();
+        }
     }
 }
