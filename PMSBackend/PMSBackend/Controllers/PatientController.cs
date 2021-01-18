@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PMSBackend.Handler.Patient;
+using PMSBackend.Handler.Patient.ViewModels;
 using System.Threading.Tasks;
 
 namespace PMSBackend.Controllers
@@ -23,8 +24,9 @@ namespace PMSBackend.Controllers
 
         [Route("save")]
         [HttpPost]
-        public async Task<IActionResult> SavePatientInformation([FromForm]  string a)
+        public async Task<IActionResult> SavePatientInformation([FromForm]SavePatientInformationViewModel savePatientInformationViewModel)
         {
+            await _patientHandler.SavePatientInformation(savePatientInformationViewModel);
             return Ok();
         }
     }

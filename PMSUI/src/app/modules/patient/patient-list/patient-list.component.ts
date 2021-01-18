@@ -16,7 +16,7 @@ import { EditPatientComponent } from './edit-patient/edit-patient.component';
 export class PatientListComponent implements OnInit {
 
   public patientInformation: MatTableDataSource<GetPatientInformationModel>;
-  displayedColumns: string[] = ['fullName', 'email', 'age', 'phone', 'gender', 'history', 'caseNo'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'age', 'phone', 'gender', 'history', 'caseNo'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

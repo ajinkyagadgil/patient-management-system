@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInformationModel';
 import { ApiService } from 'src/app/shared/api.service';
@@ -22,17 +22,17 @@ export class PatientService {
     return this.Api.get("Common/genders")
   }
 
-  savePatientInformation(patientInformation: PostPatientInformationModel, treatmentInformation: PostTreatmentInformationModel): Observable<any> {
+  savePatientInformation(patientInformation: GetPatientInformationModel, treatmentInformation: PostTreatmentInformationModel, patientPhoto: File): Observable<any> {
     let formData = new FormData();
-    if(patientInformation.photo != null) {
-      formData.append("patientPhoto", patientInformation.photo, patientInformation.photo.name)
+    if(patientPhoto != null) {
+      formData.append("patientPhoto", patientPhoto, patientPhoto.name)
     }
     formData.append("patientInformation", JSON.stringify(patientInformation));
 
     if(treatmentInformation.treatmentPhoto.length > 0) {
-      treatmentInformation.treatmentPhoto.forEach(file => {
-        formData.append("treatmentPhoto", file, file.name)
-      });
+      for(var i=0; i< treatmentInformation.treatmentPhoto.length; i++) {
+        formData.append("treatmentPhoto", treatmentInformation.treatmentPhoto[i], treatmentInformation.treatmentPhoto[i].name)
+      }
       formData.append("treatmentInformation", JSON.stringify(treatmentInformation));
     }
     return this.Api.post("Patient/save", formData);

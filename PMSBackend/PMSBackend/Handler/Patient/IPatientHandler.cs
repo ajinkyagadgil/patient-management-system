@@ -7,5 +7,6 @@ namespace PMSBackend.Handler.Patient
     public interface IPatientHandler
     {
         Task<List<PatientInfomationViewModel>> GetPatientsInformation();
+        Task SavePatientInformation(SavePatientInformationViewModel savePatientInformationViewModel);
     }
 }

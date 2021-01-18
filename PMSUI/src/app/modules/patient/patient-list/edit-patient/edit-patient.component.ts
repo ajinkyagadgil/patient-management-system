@@ -5,6 +5,8 @@ import { PatientService } from '../../patient.service';
 import { GetGenderInformationModel } from 'src/app/models/common/GetGenderInformationModel';
 import { PostTreatmentInformationModel } from 'src/app/models/patient/PostTreatmentInformationModel';
 import { PostPatientInformationModel } from 'src/app/models/patient/PostPatientInformationModel';
+import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInformationModel';
+import { GuidModel } from 'src/app/models/common/GuidModel';
 
 @Component({
   selector: 'app-edit-patient',
@@ -16,7 +18,7 @@ export class EditPatientComponent implements OnInit {
   patientInformationFormGroup: FormGroup;
   treatmentInformationFormGroup: FormGroup;
   postTreatmentInformation: PostTreatmentInformationModel = new PostTreatmentInformationModel();
-  postPatientInformation: PostPatientInformationModel = new PostPatientInformationModel();
+  postPatientInformation: GetPatientInformationModel = new GetPatientInformationModel();
   patientImage: File;
   treatmentImages: File[];
 
@@ -34,7 +36,7 @@ export class EditPatientComponent implements OnInit {
 
   initForm() {
     this.patientInformationFormGroup = this._formBuilder.group({
-      id: [''],
+      id: [new GuidModel().Empty],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.email],
@@ -48,6 +50,7 @@ export class EditPatientComponent implements OnInit {
     this.treatmentInformationFormGroup = this._formBuilder.group({
       treatmentTitle: ['', Validators.required],
       treatmentSummary: [''],
+      treatmentDate: ['', Validators.required],
       treatmentImage: ['']
     });
   }
@@ -74,15 +77,14 @@ export class EditPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    let patientInformation = this.prepareToSendPatientInformation();
-    let treatmentInformation = this.prepareToSendTreatmentInformation();
-    this.patientService.savePatientInformation(this.prepareToSendPatientInformation(), this.prepareToSendTreatmentInformation()).subscribe(res=> {
+    this.patientImage = this.patientImage != null ? this.patientImage: null;
+    this.patientService.savePatientInformation(this.prepareToSendPatientInformation(), this.prepareToSendTreatmentInformation(), this.patientImage).subscribe(res=> {
       let a = res;
     })
     
   }
 
-  prepareToSendPatientInformation(): PostPatientInformationModel {
+  prepareToSendPatientInformation(): GetPatientInformationModel {
     let patientInformationFormData = this.patientInformationFormGroup.value;
 
     this.postPatientInformation.id = patientInformationFormData.id;
@@ -93,7 +95,7 @@ export class EditPatientComponent implements OnInit {
     this.postPatientInformation.email = patientInformationFormData.email;
     this.postPatientInformation.phone = patientInformationFormData.phone;
     this.postPatientInformation.history = patientInformationFormData.history;
-    this.postPatientInformation.photo = this.patientImage != null ? this.patientImage : null;
+    this.postPatientInformation.caseNo = patientInformationFormData.caseNo;
     return this.postPatientInformation;
   }
 
@@ -102,6 +104,7 @@ export class EditPatientComponent implements OnInit {
 
     this.postTreatmentInformation.title = treatmentInformationFormData.treatmentTitle;
     this.postTreatmentInformation.summary = treatmentInformationFormData.treatmentSummary;
+    this.postTreatmentInformation.treatmentDate = treatmentInformationFormData.treatmentDate,
     this.postTreatmentInformation.treatmentPhoto = this.treatmentImages;
     return this.postTreatmentInformation;
   }

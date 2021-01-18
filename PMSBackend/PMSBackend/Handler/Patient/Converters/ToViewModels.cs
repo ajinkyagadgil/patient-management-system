@@ -11,7 +11,8 @@ namespace PMSBackend.Handler.Patient.Converters
         => patientInformation == null ? null : new PatientInfomationViewModel
         {
             id = patientInformation.Id,
-            fullName = string.Concat(patientInformation.LastName, " ", patientInformation.FirstName),
+            firstName = patientInformation.FirstName,
+            lastName = patientInformation.LastName,
             email = patientInformation.Email,
             age = patientInformation.Age,
             phone = patientInformation.Phone,
