@@ -22,12 +22,13 @@ namespace PMSBackend.Handler.Patient
             return (await _patientService.GetPatientsInformation()).Select(x => x.ToViewModel()).ToList();
         }
 
-        public async Task SavePatientInformation(SavePatientInformationViewModel savePatientInformationViewModel)
+        public async Task SavePatientAndTreatmentInformation(SavePatientAndTreatmentInformationViewModel savePatientAndTreatmentInformationViewModel)
         {
             try
             {
-                var patientInformation = JsonConvert.DeserializeObject<PostPatientInformationViewModel>(savePatientInformationViewModel.patientInformation);
-                var treatmentInformation = JsonConvert.DeserializeObject<TreatmentInformationViewModel>(savePatientInformationViewModel.treatmentInformation);
+                var patientInformation = JsonConvert.DeserializeObject<PostPatientInformationViewModel>(savePatientAndTreatmentInformationViewModel.patientInformation);
+                var treatmentInformation = JsonConvert.DeserializeObject<PostTreatmentInformationViewModel>(savePatientAndTreatmentInformationViewModel.treatmentInformation);
+                await _patientService.SavePatientAndTreatmentInformation(patientInformation.ToEntityModel(savePatientAndTreatmentInformationViewModel.patientPhoto), treatmentInformation.ToEntityModel(savePatientAndTreatmentInformationViewModel.treatmentPhoto));
             }
             catch(Exception ex)
             {

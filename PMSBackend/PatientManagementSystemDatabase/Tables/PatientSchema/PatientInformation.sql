@@ -8,6 +8,5 @@
     [Phone] NVARCHAR(MAX) NOT NULL, 
     [Gender] INT NOT NULL, 
     [History] NVARCHAR(MAX) NULL,
-    [CaseNo] NVARCHAR(20) NULL,
-    [PhotoPath] NVARCHAR(MAX) NULL
+    [CaseNo] NVARCHAR(20) NULL
 )

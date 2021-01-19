@@ -61,6 +61,7 @@
     <Folder Include="Tables\UserSchema" />
     <Folder Include="Tables\PatientSchema" />
     <Folder Include="PostDeployment" />
+    <Folder Include="Tables\TreatmentSchema" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\User.sql" />
@@ -69,6 +70,10 @@
     <Build Include="Tables\UserSchema\Users.sql" />
     <None Include="PostDeployment\User.Users.sql" />
     <Build Include="Tables\PatientSchema\PatientInformation.sql" />
+    <Build Include="Schemas\Treatment.sql" />
+    <Build Include="Tables\TreatmentSchema\TreatmentInformation.sql" />
+    <Build Include="Tables\TreatmentSchema\TreatmentFiles.sql" />
+    <Build Include="Tables\PatientSchema\PatientPhoto.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PatientManagementSystem.refactorlog" />
@@ -80,5 +85,6 @@
     <None Include="PostDeployment\User.Roles.sql" />
     <None Include="PatientManagementSystem.publish.xml" />
     <None Include="PostDeployment\Patient.PatientInformation.sql" />
+    <None Include="PostDeployment\Treatment.TreatmentInformation.sql" />
   </ItemGroup>
 </Project>

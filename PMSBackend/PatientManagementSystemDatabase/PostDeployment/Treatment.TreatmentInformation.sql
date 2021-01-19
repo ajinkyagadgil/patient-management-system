@@ -1,0 +1,5 @@
+﻿IF NOT EXISTS (SELECT 1 FROM Treatment.TreatmentInformation)
+	BEGIN
+		INSERT INTO Treatment.TreatmentInformation VALUES
+		('C5F809AF-484D-4100-A793-2690F17BA900', '583DC25D-3101-41C3-AB0C-1EF8F0775B5A', 'Test Title', 'Test Summary', GETUTCDATE())
+	END

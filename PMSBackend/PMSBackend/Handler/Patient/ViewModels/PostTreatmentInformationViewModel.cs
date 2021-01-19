@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PMSBackend.Handler.Patient.ViewModels
 {
-    public class TreatmentInformationViewModel
+    public class PostTreatmentInformationViewModel
     {
         public string title { get; set; }
         public string summary { get; set; }

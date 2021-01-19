@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PMSBackend.Handler.Patient;
 using PMSBackend.Handler.Patient.ViewModels;
 using System.Threading.Tasks;
@@ -24,9 +25,9 @@ namespace PMSBackend.Controllers
 
         [Route("save")]
         [HttpPost]
-        public async Task<IActionResult> SavePatientInformation([FromForm]SavePatientInformationViewModel savePatientInformationViewModel)
+        public async Task<IActionResult> SavePatientAndTreatmentInformation([FromForm]SavePatientAndTreatmentInformationViewModel savePatientAndTreatmentInformationViewModel)
         {
-            await _patientHandler.SavePatientInformation(savePatientInformationViewModel);
+            await _patientHandler.SavePatientAndTreatmentInformation(savePatientAndTreatmentInformationViewModel);
             return Ok();
         }
     }

@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using PMS.Dependencies;
 using PMSBackend.Handler.Common;
 using PMSBackend.Handler.Patient;
+using System.IO;
 
 namespace PMSBackend
 {
@@ -39,6 +41,7 @@ namespace PMSBackend
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFilesDependencies(); //cusom method for static files dependencies
 
             app.UseSwaggerDocumentation();
 

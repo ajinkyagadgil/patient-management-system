@@ -7,5 +7,6 @@ namespace Patient.Core.Services
     public interface IPatientService
     {
         Task<List<PatientInformationEntity>> GetPatientsInformation();
+        Task SavePatientAndTreatmentInformation(PostPatientInformationEntity postPatientInformationEntity, PostTreatmentInformationEntity postTreatmentInformationEntity);
     }
 }

@@ -13,5 +13,10 @@
     <ProjectReference Include="..\PMS.Dependencies\PMS.Dependencies.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\TreatmentImages\" />
+    <Folder Include="Resources\PatientImages\" />
+  </ItemGroup>
+
 
 </Project>

@@ -8,7 +8,7 @@ namespace PMS.Dependencies
     {
         public static IServiceCollection AddDatabaseContextDependency(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<PatientDBContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<PMSDBContext>(options => options.UseSqlServer(connectionString));
             return services;
         }
     }

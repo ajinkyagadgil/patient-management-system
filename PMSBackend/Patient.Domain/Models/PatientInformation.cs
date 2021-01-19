@@ -19,7 +19,6 @@ namespace Patient.Domain.Models
         public int Gender { get; set; }
         public string History { get; set; }
         public string CaseNo { get; set; }
-        public string PhotoPath { get; set; }
     }
 
     public static class PatientInformationExtension
@@ -35,8 +34,7 @@ namespace Patient.Domain.Models
             Phone = patientInformation.Phone,
             Gender = (Gender)patientInformation.Gender,
             History = patientInformation.History,
-            CaseNo = patientInformation.CaseNo,
-            PhotoPath = patientInformation.PhotoPath
+            CaseNo = patientInformation.CaseNo
         };
     }
 }
