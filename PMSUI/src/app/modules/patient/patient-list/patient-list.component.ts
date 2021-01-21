@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
+import { LoadingService } from 'src/app/shared/loading.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -21,17 +22,20 @@ export class PatientListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private patientService: PatientService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private loading: LoadingService) { }
 
   ngOnInit(): void {
     this.loadNext();
   }
 
   loadNext() {
+    this.loading.show();
     this.patientService.getAllPatients().subscribe(res => {
       this.patientInformation = new MatTableDataSource(res);
       this.patientInformation.sort = this.sort;
       this.patientInformation.paginator = this.paginator;
+      this.loading.hide();
     })
   }
 

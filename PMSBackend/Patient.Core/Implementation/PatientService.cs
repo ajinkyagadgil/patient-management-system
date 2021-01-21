@@ -1,9 +1,12 @@
-﻿using Patient.Core.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using Patient.Core.Entities;
+using Patient.Core.Helpers;
 using Patient.Core.IQueries;
 using Patient.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Patient.Core.Implementation
@@ -27,35 +30,18 @@ namespace Patient.Core.Implementation
         public async Task SavePatientAndTreatmentInformation(PostPatientInformationEntity postPatientInformationEntity, PostTreatmentInformationEntity postTreatmentInformationEntity)
         {
             var patientId = await _patientQuery.SavePatientInformation(postPatientInformationEntity);
-            if (patientId != null)
+            Fileuploader fileuploader = new Fileuploader();
+            if (postPatientInformationEntity.PatientPhoto != null)
             {
-                if (postPatientInformationEntity.PatientPhoto != null)
-                {
-                    var fileInformationEntity = new FileInformationEntity();
-                    var patientImagesPath = Path.Combine(Directory.GetCurrentDirectory(), "Resources","PatientImages", patientId.ToString());
-                    if (!Directory.Exists(patientImagesPath))
+                List<IFormFile> patientPhoto = new List<IFormFile>
                     {
-                        Directory.CreateDirectory(patientImagesPath);
-                    }
-
-                    string filePath = Path.Combine(patientImagesPath, postPatientInformationEntity.PatientPhoto.FileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await postPatientInformationEntity.PatientPhoto.CopyToAsync(fileStream);
-                        fileInformationEntity.Path = filePath;
-                        fileInformationEntity.Name = postPatientInformationEntity.PatientPhoto.FileName;
-                        fileInformationEntity.Type = postPatientInformationEntity.PatientPhoto.ContentType;
-
-                    }
-                    using (var ms = new MemoryStream())
-                    {
-                        await postPatientInformationEntity.PatientPhoto.CopyToAsync(ms);
-                        var fileBytes = ms.ToArray();
-                        fileInformationEntity.FileData = fileBytes;
-                        // act on the Base64 data
-                    }
-                    var result = await _patientQuery.SavePatientPhoto(patientId, fileInformationEntity);
-                }
+                        postPatientInformationEntity.PatientPhoto,
+                    };
+                var uploadedFileData = await fileuploader.UploadFiles(patientPhoto, Common.Enums.FileUploadType.Patient, patientId);
+                var savePatientPhotoInformationResult = await _patientQuery.SavePatientPhoto(patientId, uploadedFileData.FirstOrDefault());
+                var treatmentId = await _treatmentQuery.SaveTreatmentInformation(patientId, postTreatmentInformationEntity);
+                var uploadTreatmentFilesResult = await fileuploader.UploadFiles(postTreatmentInformationEntity.TreatmentFiles, Common.Enums.FileUploadType.Treatment, treatmentId);
+                var saveTreatmentFilesInformationResult = await _treatmentQuery.SaveTreatmentFilesInformation(treatmentId, uploadTreatmentFilesResult);
             }
         }
     }

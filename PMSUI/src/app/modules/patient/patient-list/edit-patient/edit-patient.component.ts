@@ -4,9 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PatientService } from '../../patient.service';
 import { GetGenderInformationModel } from 'src/app/models/common/GetGenderInformationModel';
 import { PostTreatmentInformationModel } from 'src/app/models/patient/PostTreatmentInformationModel';
-import { PostPatientInformationModel } from 'src/app/models/patient/PostPatientInformationModel';
 import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInformationModel';
 import { GuidModel } from 'src/app/models/common/GuidModel';
+import { LoadingService } from 'src/app/shared/loading.service';
 
 @Component({
   selector: 'app-edit-patient',
@@ -24,13 +24,16 @@ export class EditPatientComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<EditPatientComponent>,
     private _formBuilder: FormBuilder,
-    private patientService: PatientService) { }
+    private patientService: PatientService,
+    private loading: LoadingService) { }
 
   ngOnInit() {
+    this.loading.show();
     this.patientService.getGender().subscribe(res => {
       this.genders = res;
 
       this.initForm()
+      this.loading.hide();
     })
   }
 
@@ -77,9 +80,11 @@ export class EditPatientComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading.show();
     this.patientImage = this.patientImage != null ? this.patientImage: null;
     this.patientService.savePatientInformation(this.prepareToSendPatientInformation(), this.prepareToSendTreatmentInformation(), this.patientImage).subscribe(res=> {
       let a = res;
+      this.loading.hide();
     })
     
   }

@@ -18,6 +18,5 @@ namespace Patient.Domain.Models
         public string Type { get; set; }
         public long Size { get; set; }
         public DateTime CreationDate { get; set; }
-        public byte[] FileData { get; set; }
     }
 }

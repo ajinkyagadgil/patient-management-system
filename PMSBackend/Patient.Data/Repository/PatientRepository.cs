@@ -54,14 +54,13 @@ namespace Patient.Data.Repository
 
         public async Task<bool> SavePatientPhoto(Guid patientId, FileInformationEntity patientPhoto)
         {
-            var result = _pmsContext.PatientPhoto.Where(x => x.Id == patientId).SingleOrDefault();
+            var result =  _pmsContext.PatientPhoto.Where(x => x.Id == patientId).SingleOrDefault();
             if (result != null)
             {
                 result.Path = patientPhoto.Path;
                 result.Name = patientPhoto.Name;
                 result.Type = patientPhoto.Type;
                 result.Size = patientPhoto.Size;
-                result.FileData = patientPhoto.FileData;
                 await _pmsContext.SaveChangesAsync();
             }
             else
@@ -74,7 +73,7 @@ namespace Patient.Data.Repository
                     Name = patientPhoto.Name,
                     Type = patientPhoto.Type,
                     Size = patientPhoto.Size,
-                    FileData = patientPhoto.FileData
+                    CreationDate = DateTime.Now
                 };
                 _pmsContext.PatientPhoto.Add(patientPhotoData);
                 await _pmsContext.SaveChangesAsync();
