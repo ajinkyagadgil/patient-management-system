@@ -10,6 +10,7 @@
 </mat-form-field>
 
 <button class="float-right add-patient-btn" mat-raised-button color="primary" (click)="openAddPatientDialog()">Add Patient</button>
+<button class="float-left add-patient-btn" mat-raised-button color="primary" (click)="openAddPatient()">Add Patient 2</button>
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="patientInformation" matSort>
@@ -59,3 +60,5 @@
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]=10></mat-paginator>
 </div>
+
+<app-patient-details></app-patient-details>

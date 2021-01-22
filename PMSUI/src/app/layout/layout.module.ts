@@ -13,7 +13,8 @@ import { LoadingComponent } from './loading/loading.component';
   ],
   exports: [
     SideNavComponent,
-    TopNavComponent
+    TopNavComponent,
+    LoadingComponent
   ]
 })
-export class LayoutModule { }
+export class LayoutModuleHolder { }

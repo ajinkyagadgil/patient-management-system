@@ -3,16 +3,25 @@ import { CommonModule } from '@angular/common';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { EditPatientComponent } from './patient-list/edit-patient/edit-patient.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LayoutModuleHolder } from 'src/app/layout/layout.module';
+import { PatientDetailsComponent } from './patient-details/patient-details.component';
+import { EditPatientComponent } from './edit-patient/edit-patient.component';
+import { AddPatientComponent } from './add-patient/add-patient.component';
+import { EditTreatmentComponent } from './edit-treatment/edit-treatment.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'patient', pathMatch: 'full'},
-  { path: 'patient', component: PatientListComponent},
+  { path: '', redirectTo: 'patient', pathMatch: 'full' },
+  { path: 'patient', children:[
+    {path: '', component: PatientListComponent},
+    {path: 'add', component: AddPatientComponent}
+  ] },
+  {path: 'add', component: AddPatientComponent},
+  { path: 'patient/:id', component: PatientDetailsComponent }
 ];
 
 @NgModule({
-  declarations: [PatientListComponent, EditPatientComponent],
+  declarations: [PatientListComponent, EditPatientComponent, PatientDetailsComponent, AddPatientComponent, EditTreatmentComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

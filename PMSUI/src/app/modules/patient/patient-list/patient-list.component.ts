@@ -6,8 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { EditPatientComponent } from './edit-patient/edit-patient.component';
+import { EditPatientComponent } from '../edit-patient/edit-patient.component';
 import { LoadingService } from 'src/app/shared/loading.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient-list',
@@ -23,7 +24,8 @@ export class PatientListComponent implements OnInit {
 
   constructor(private patientService: PatientService,
     public dialog: MatDialog,
-    private loading: LoadingService) { }
+    private loading: LoadingService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.loadNext();
@@ -54,5 +56,9 @@ export class PatientListComponent implements OnInit {
 
   OnRowClick(patient: GetPatientInformationModel){
     console.log(JSON.stringify(patient));
+  }
+
+  openAddPatient() {
+    this.router.navigate(['/add'])
   }
 }

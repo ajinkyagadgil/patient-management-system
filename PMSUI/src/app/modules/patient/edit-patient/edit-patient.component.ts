@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PatientService } from '../../patient.service';
+
 import { GetGenderInformationModel } from 'src/app/models/common/GetGenderInformationModel';
 import { PostTreatmentInformationModel } from 'src/app/models/patient/PostTreatmentInformationModel';
 import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInformationModel';
 import { GuidModel } from 'src/app/models/common/GuidModel';
 import { LoadingService } from 'src/app/shared/loading.service';
+import { PatientService } from '../patient.service';
+import { AddPatientComponent } from '../add-patient/add-patient.component';
+import { EditTreatmentComponent } from '../edit-treatment/edit-treatment.component';
 
 @Component({
   selector: 'app-edit-patient',
@@ -21,6 +24,9 @@ export class EditPatientComponent implements OnInit {
   postPatientInformation: GetPatientInformationModel = new GetPatientInformationModel();
   patientImage: File;
   treatmentImages: File[];
+
+  @ViewChild(AddPatientComponent, { static: true }) addPatientComp: AddPatientComponent;
+  @ViewChild(EditTreatmentComponent, { static: true }) editTreatmentComp: EditTreatmentComponent;
 
   constructor(public dialogRef: MatDialogRef<EditPatientComponent>,
     private _formBuilder: FormBuilder,
@@ -80,6 +86,11 @@ export class EditPatientComponent implements OnInit {
   }
 
   onSubmit() {
+    debugger;
+let a = this.addPatientComp.prepareToSendPatientInformation();
+let b = this.addPatientComp.patientInformationFormGroup.invalid;
+
+
     this.loading.show();
     this.patientImage = this.patientImage != null ? this.patientImage: null;
     this.patientService.savePatientInformation(this.prepareToSendPatientInformation(), this.prepareToSendTreatmentInformation(), this.patientImage).subscribe(res=> {

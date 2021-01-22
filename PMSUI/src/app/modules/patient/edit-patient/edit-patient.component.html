@@ -1,0 +1,24 @@
+<button class="close" mat-button (click)="OnCancel()">X</button>
+<h2 mat-dialog-title cdkFocusInitial >Add Patient</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-horizontal-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="addPatientComp.patientInformationFormGroup">
+           <app-add-patient [isChild]="true"></app-add-patient>
+        </mat-step>
+        <mat-step [stepControl]="editTreatmentComp.treatmentInformationFormGroup" label="Treatment Information">
+            <app-edit-treatment [isChild]="true"></app-edit-treatment>
+            <div mat-dialog-actions align="end">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="onSubmit()">Submit</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div mat-dialog-actions align="end">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="onSubmit()">Submit</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</mat-dialog-content>

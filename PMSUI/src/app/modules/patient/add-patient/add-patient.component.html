@@ -1,0 +1,87 @@
+<mat-card>
+<form *ngIf="patientInformationFormGroup" [formGroup]="patientInformationFormGroup" class="patient-form">
+
+    <!-- <ng-template matStepLabel>Patient Information</ng-template> -->
+
+    <h1 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-office-building mr-1"></i> Company Info</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="Enter First Name" required>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" placeholder="Enter Last Name" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Age</mat-label>
+                <input matInput formControlName="age" placeholder="Enter Age" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender" name="gender" required>
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let gender of genders" [value]="gender.id">
+                        {{gender.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="Enter Email">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Phone</mat-label>
+                <input matInput formControlName="phone" placeholder="Enter phone" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Case No</mat-label>
+                <input matInput formControlName="caseNo" placeholder="Enter Case No">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>History</mat-label>
+                <textarea matInput formControlName="history" placeholder="Enter History"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <div class="custom-file">
+                <input formControlName="photo" accept="image/*" type="file" class="custom-file-input" id="customFile" (change)="onPatientPhotoChange($event)">
+                <label class="custom-file-label" for="customFile">Choose Patient image</label>
+              </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isChild">
+
+    <button mat-button >Submit 1</button>
+    </div>
+
+    <!-- <div mat-dialog-actions align="end">
+        <button mat-button matStepperNext>Next</button>
+    </div> -->
+    
+</form>
+</mat-card>
