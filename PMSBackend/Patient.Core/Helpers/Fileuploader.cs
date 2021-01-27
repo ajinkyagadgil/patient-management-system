@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Patient.Core.Common.Enums;
 using Patient.Core.Entities;
+using Patient.Core.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;

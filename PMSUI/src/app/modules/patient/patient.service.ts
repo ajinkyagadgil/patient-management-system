@@ -5,7 +5,7 @@ import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInf
 import { ApiService } from 'src/app/shared/api.service';
 import { GetGenderInformationModel } from 'src/app/models/common/GetGenderInformationModel';
 import { PostPatientInformationModel } from 'src/app/models/patient/PostPatientInformationModel';
-import { PostTreatmentInformationModel } from 'src/app/models/patient/PostTreatmentInformationModel';
+import { PostTreatmentInformationModel } from 'src/app/models/treatment/PostTreatmentInformationModel';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +29,9 @@ export class PatientService {
     }
     formData.append("patientInformation", JSON.stringify(patientInformation));
 
-    if(treatmentInformation.treatmentPhoto.length > 0) {
-      for(var i=0; i< treatmentInformation.treatmentPhoto.length; i++) {
-        formData.append("treatmentPhoto", treatmentInformation.treatmentPhoto[i], treatmentInformation.treatmentPhoto[i].name)
+    if(treatmentInformation.treatmentFiles.length > 0) {
+      for(var i=0; i< treatmentInformation.treatmentFiles.length; i++) {
+        formData.append("treatmentPhoto", treatmentInformation.treatmentFiles[i], treatmentInformation.treatmentFiles[i].name)
       }
       formData.append("treatmentInformation", JSON.stringify(treatmentInformation));
     }

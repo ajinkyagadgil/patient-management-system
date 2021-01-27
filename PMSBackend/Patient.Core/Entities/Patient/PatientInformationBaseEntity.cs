@@ -1,11 +1,9 @@
 ﻿using Patient.Core.Common.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Patient.Core.Entities
+namespace Patient.Core.Entities.Patient
 {
-    public class PatientInformationEntity
+    public class PatientInformationBaseEntity
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
@@ -16,6 +14,5 @@ namespace Patient.Core.Entities
         public Gender Gender { get; set; }
         public string History { get; set; }
         public string CaseNo { get; set; }
-        public string PhotoPath { get; set; }
     }
 }

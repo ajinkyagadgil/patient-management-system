@@ -1,4 +1,6 @@
 ﻿using Patient.Core.Entities;
+using Patient.Core.Entities.Common;
+using Patient.Core.Entities.Treatment;
 using Patient.Data.Context;
 using Patient.Domain.IRepository;
 using Patient.Domain.Models;

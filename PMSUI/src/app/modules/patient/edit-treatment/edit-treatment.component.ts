@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './edit-treatment.component.html',
   styleUrls: ['./edit-treatment.component.scss']
 })
-export class EditTreatmentComponent implements OnInit {
+export class EditTreatmentComponent implements OnInit {  
   treatmentInformationFormGroup: FormGroup;
   treatmentImages: File[];
   @Input() isChild: boolean;

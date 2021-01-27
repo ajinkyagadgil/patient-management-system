@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Patient.Core.Entities
+namespace Patient.Core.Entities.Common
 {
     public class FileInformationEntity
     {

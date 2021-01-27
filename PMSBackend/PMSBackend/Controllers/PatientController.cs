@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using PMSBackend.Handler.Patient;
 using PMSBackend.Handler.Patient.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace PMSBackend.Controllers
@@ -21,6 +22,13 @@ namespace PMSBackend.Controllers
         public async Task<IActionResult> GetPatientsInformation()
         {
             return Ok(await _patientHandler.GetPatientsInformation());
+        }
+
+        [Route("get/{patientId}")]
+        [HttpGet]
+        public async Task<IActionResult> GetPatientInformation([FromRoute]Guid patientId)
+        {
+            return Ok(await _patientHandler.GetPatientInformation(patientId));
         }
 
         [Route("save")]

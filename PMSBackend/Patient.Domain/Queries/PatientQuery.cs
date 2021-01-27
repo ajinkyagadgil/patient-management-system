@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Patient.Core.Entities;
+using Patient.Core.Entities.Common;
+using Patient.Core.Entities.Patient;
 using Patient.Core.IQueries;
 using Patient.Domain.IRepository;
 using Patient.Domain.Models;
@@ -19,9 +21,15 @@ namespace Patient.Domain.Queries
             _patientRepository = patientRepository;
         }
 
-        public async Task<List<PatientInformationEntity>> GetPatientsInformation()
+
+        public async Task<List<GetPatientInformationEntity>> GetPatientsInformation()
         {
-            return (await _patientRepository.GetPatientsInformation()).Select(x => x.ToModelEntity()).ToList();
+            return (await _patientRepository.GetPatientsInformation()).Select(x => x.ToGetPatientInformationModelEntity()).ToList();
+        }
+
+        public async Task<GetPatientInformationEntity> GetPatientInformation(Guid patientId)
+        {
+            return (await _patientRepository.GetPatientInformation(patientId)).ToGetPatientInformationModelEntity();
         }
 
         public async Task<Guid> SavePatientInformation(PostPatientInformationEntity postPatientInformationEntity )

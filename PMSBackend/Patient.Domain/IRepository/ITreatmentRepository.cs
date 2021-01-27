@@ -1,4 +1,6 @@
 ﻿using Patient.Core.Entities;
+using Patient.Core.Entities.Common;
+using Patient.Core.Entities.Treatment;
 using System;
 using System.Collections.Generic;
 using System.Text;

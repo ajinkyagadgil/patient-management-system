@@ -17,9 +17,14 @@ namespace PMSBackend.Handler.Patient
             _patientService = patientService;
         }
 
-        public async Task<List<PatientInfomationViewModel>> GetPatientsInformation()
+        public async Task<List<GetPatientInfomationViewModel>> GetPatientsInformation()
         {
             return (await _patientService.GetPatientsInformation()).Select(x => x.ToViewModel()).ToList();
+        }
+
+        public async Task<GetPatientInfomationViewModel> GetPatientInformation(Guid patientId)
+        {
+            return (await _patientService.GetPatientInformation(patientId)).ToViewModel();
         }
 
         public async Task SavePatientAndTreatmentInformation(SavePatientAndTreatmentInformationViewModel savePatientAndTreatmentInformationViewModel)

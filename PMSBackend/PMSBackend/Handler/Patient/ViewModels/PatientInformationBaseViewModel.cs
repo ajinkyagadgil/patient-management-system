@@ -1,10 +1,9 @@
-﻿using Patient.Core.Common.Enums;
-using PMSBackend.Handler.Common.ViewModels;
+﻿using PMSBackend.Handler.Common.ViewModels;
 using System;
 
 namespace PMSBackend.Handler.Patient.ViewModels
 {
-    public class PatientInfomationViewModel
+    public class PatientInformationBaseViewModel
     {
         public Guid id { get; set; }
         public string firstName { get; set; }
@@ -15,6 +14,5 @@ namespace PMSBackend.Handler.Patient.ViewModels
         public GenderViewModel gender { get; set; }
         public string history { get; set; }
         public string caseNo { get; set; }
-        public string photoPath { get; set; }
     }
 }

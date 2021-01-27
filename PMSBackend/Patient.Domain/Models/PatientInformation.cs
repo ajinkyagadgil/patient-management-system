@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PatientEntities = Patient.Core.Entities;
+using PatientEntities = Patient.Core.Entities.Patient;
 
 namespace Patient.Domain.Models
 {
@@ -19,12 +19,13 @@ namespace Patient.Domain.Models
         public int Gender { get; set; }
         public string History { get; set; }
         public string CaseNo { get; set; }
+        public virtual PatientPhoto PatientPhoto { get; set; }
     }
 
     public static class PatientInformationExtension
     {
-        public static PatientEntities.PatientInformationEntity ToModelEntity(this PatientInformation patientInformation)
-        => patientInformation == null ? null : new PatientEntities.PatientInformationEntity
+        public static PatientEntities.PatientInformationBaseEntity ToModelEntity(this PatientInformation patientInformation)
+        => patientInformation == null ? null : new PatientEntities.PatientInformationBaseEntity
         {
             Id = patientInformation.Id,
             FirstName = patientInformation.FirstName,
@@ -35,6 +36,21 @@ namespace Patient.Domain.Models
             Gender = (Gender)patientInformation.Gender,
             History = patientInformation.History,
             CaseNo = patientInformation.CaseNo
+        };
+
+        public static PatientEntities.GetPatientInformationEntity ToGetPatientInformationModelEntity(this PatientInformation patientInformation)
+        => patientInformation == null ? null : new PatientEntities.GetPatientInformationEntity
+        {
+            Id = patientInformation.Id,
+            FirstName = patientInformation.FirstName,
+            LastName = patientInformation.LastName,
+            Email = patientInformation.Email,
+            Age = patientInformation.Age,
+            Phone = patientInformation.Phone,
+            Gender = (Gender)patientInformation.Gender,
+            History = patientInformation.History,
+            CaseNo = patientInformation.CaseNo,
+            PatientPhotoInformation = patientInformation.PatientPhoto.ToEntityModel()
         };
     }
 }

@@ -2,7 +2,7 @@
 
 namespace PMSBackend.Handler.Patient.ViewModels
 {
-    public class PostTreatmentInformationViewModel
+    public class TreatmentInformationBaseViewModel
     {
         public Guid id { get; set; }
         public string title { get; set; }

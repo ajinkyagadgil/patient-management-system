@@ -8,7 +8,7 @@ using Patient.Domain.Queries;
 
 namespace PMS.Dependencies
 {
-    public static class PatientServiceDependencies
+    public static class PmsServiceDependencies
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {

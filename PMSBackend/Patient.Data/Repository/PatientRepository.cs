@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Patient.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Patient.Core.Entities.Common;
+using Patient.Core.Entities.Patient;
 using Patient.Data.Context;
 using Patient.Domain.IRepository;
 using Patient.Domain.Models;
@@ -21,7 +21,13 @@ namespace Patient.Data.Repository
 
         public async Task<List<PatientInformation>> GetPatientsInformation()
         {
-            return await _pmsContext.PatientsInformation.ToListAsync();
+            return await _pmsContext.PatientsInformation.Include(x => x.PatientPhoto).ToListAsync();
+        }
+
+        public async Task<PatientInformation> GetPatientInformation(Guid patientId)
+        {
+            var res = await _pmsContext.PatientsInformation.Include(x => x.PatientPhoto).Where(x => x.Id == patientId).FirstOrDefaultAsync();
+            return res;
         }
 
         public async Task<Guid> SavePatientInformation(PostPatientInformationEntity postPatientInformationEntity)

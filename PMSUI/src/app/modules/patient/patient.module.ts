@@ -4,24 +4,23 @@ import { PatientListComponent } from './patient-list/patient-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LayoutModuleHolder } from 'src/app/layout/layout.module';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
-import { AddPatientComponent } from './add-patient/add-patient.component';
 import { EditTreatmentComponent } from './edit-treatment/edit-treatment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'patient', pathMatch: 'full' },
   { path: 'patient', children:[
     {path: '', component: PatientListComponent},
-    {path: 'add', component: AddPatientComponent}
+    {path: 'add', component: EditPatientComponent},
+    {path: 'details', component: PatientDetailsComponent}
   ] },
-  {path: 'add', component: AddPatientComponent},
+  {path: 'add', component: EditPatientComponent},
   { path: 'patient/:id', component: PatientDetailsComponent }
 ];
 
 @NgModule({
-  declarations: [PatientListComponent, EditPatientComponent, PatientDetailsComponent, AddPatientComponent, EditTreatmentComponent],
+  declarations: [PatientListComponent, PatientDetailsComponent, EditPatientComponent, EditTreatmentComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -35,7 +34,7 @@ const routes: Routes = [
     you must include your component class in the list of entryComponents in your NgModule definition 
     so that the Angular compiler knows to create the ComponentFactory for it.
     */
-    EditPatientComponent
+   EditPatientComponent
   ]
 })
 export class PatientModule { }

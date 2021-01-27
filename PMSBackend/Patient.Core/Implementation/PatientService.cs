@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Patient.Core.Entities;
+using Patient.Core.Entities.Patient;
+using Patient.Core.Entities.Treatment;
 using Patient.Core.Helpers;
 using Patient.Core.IQueries;
 using Patient.Core.Services;
@@ -22,9 +23,14 @@ namespace Patient.Core.Implementation
             _treatmentQuery = treatmentQuery;
         }
 
-        public async Task<List<PatientInformationEntity>> GetPatientsInformation()
+        public async Task<List<GetPatientInformationEntity>> GetPatientsInformation()
         {
             return await _patientQuery.GetPatientsInformation();
+        }
+
+        public async Task<GetPatientInformationEntity> GetPatientInformation(Guid patientId)
+        {
+            return await _patientQuery.GetPatientInformation(patientId);
         }
 
         public async Task SavePatientAndTreatmentInformation(PostPatientInformationEntity postPatientInformationEntity, PostTreatmentInformationEntity postTreatmentInformationEntity)

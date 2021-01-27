@@ -1,24 +1,104 @@
-<button class="close" mat-button (click)="OnCancel()">X</button>
-<h2 mat-dialog-title cdkFocusInitial >Add Patient</h2>
-<mat-dialog-content class="mat-typography">
-    <mat-horizontal-stepper [linear]="true" #stepper>
-        <mat-step [stepControl]="addPatientComp.patientInformationFormGroup">
-           <app-add-patient [isChild]="true"></app-add-patient>
-        </mat-step>
-        <mat-step [stepControl]="editTreatmentComp.treatmentInformationFormGroup" label="Treatment Information">
-            <app-edit-treatment [isChild]="true"></app-edit-treatment>
-            <div mat-dialog-actions align="end">
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="onSubmit()">Submit</button>
+<div *ngIf="patientInformationFormGroup">
+    <button class="close" mat-button (click)="onDialogClose()">X</button>
+    <h2 mat-dialog-title>{{dialogTitle}}
+        
+    </h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="profile-image-section">
+           
+            <input id="imageUpload" type="file"/>
+            <div *ngIf="imageUrl != null" class="profile-image">
+                <img for="imageUpload" [src]="imageUrl" alt="Profile Image" class="profile-image">
             </div>
-        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-            <p>You are now done.</p>
-            <div mat-dialog-actions align="end">
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="onSubmit()">Submit</button>
+        </div>
+
+        <!-- <mat-card> -->
+        <!-- <mat-card-content> -->
+        <form *ngIf="patientInformationFormGroup" [formGroup]="patientInformationFormGroup" class="patient-form">
+
+            <!-- <ng-template matStepLabel>Patient Information</ng-template> -->
+            <h3 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-office-building mr-1"></i> Patient
+                Information
+                (Required)</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="firstName" placeholder="Enter First Name" required>
+                        <mat-error *ngFor="let message of patientInformationFormGroup.controls.firstName['errorMessages']">{{message}}</mat-error>
+                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="lastName" placeholder="Enter Last Name" required>
+                    </mat-form-field>
+                </div>
             </div>
-        </mat-step>
-    </mat-horizontal-stepper>
-</mat-dialog-content>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Phone</mat-label>
+                        <input matInput formControlName="phone" placeholder="Enter phone" required>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Age</mat-label>
+                        <input matInput formControlName="age" placeholder="Enter Age" required>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Gender</mat-label>
+                        <mat-select formControlName="gender" name="gender" required>
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let gender of genders" [value]="gender.id">
+                                {{gender.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <h3 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-office-building mr-1"></i> Patient
+                Information
+                (Optional)</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" placeholder="Enter Email">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Case No</mat-label>
+                        <input matInput formControlName="caseNo" placeholder="Enter Case No">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <div class="custom-file">
+                        <input formControlName="photo" accept="image/*" type="file" class="custom-file-input"
+                            id="customFile" (change)="onPatientPhotoChange($event)">
+                        <label class="custom-file-label" for="customFile">Choose Patient image</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>History</mat-label>
+                        <textarea matInput formControlName="history" placeholder="Enter History"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial color="primary">Submit</button>
+    </mat-dialog-actions>
+</div>

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using PMS.Dependencies;
 using PMSBackend.Handler.Common;
 using PMSBackend.Handler.Patient;
+using PMSBackend.Handler.Treatment;
 using System.IO;
 
 namespace PMSBackend
@@ -30,6 +31,7 @@ namespace PMSBackend
             services.AddSwaggerDocumentation(); //custom method in dependency project
             services.AddScoped<IPatientHandler, PatientHandler>();
             services.AddScoped<ICommonHandler, CommonHandler>();
+            services.AddScoped<ITreatmentHandler, TreatmentHandler>();
             services.RegisterServices(); //custom method in dependency project
             services.AddCorsDependencies(); //custom method in dependency project
         }

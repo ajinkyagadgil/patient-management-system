@@ -1,14 +1,14 @@
-﻿using Patient.Core.Common.Enums;
-using Patient.Core.Entities;
-using PMSBackend.Handler.Common.ViewModels;
+﻿using Patient.Core.Entities;
+using Patient.Core.Entities.Patient;
+using PMSBackend.Handler.Common.Converters;
 using PMSBackend.Handler.Patient.ViewModels;
 
 namespace PMSBackend.Handler.Patient.Converters
 {
     public static class ToViewModels
     {
-        public static PatientInfomationViewModel ToViewModel(this PatientInformationEntity patientInformation)
-        => patientInformation == null ? null : new PatientInfomationViewModel
+        public static PatientInformationBaseViewModel ToViewModel(this PatientInformationBaseEntity patientInformation)
+        => patientInformation == null ? null : new GetPatientInfomationViewModel
         {
             id = patientInformation.Id,
             firstName = patientInformation.FirstName,
@@ -16,17 +16,24 @@ namespace PMSBackend.Handler.Patient.Converters
             email = patientInformation.Email,
             age = patientInformation.Age,
             phone = patientInformation.Phone,
-            gender = (patientInformation.Gender).ToViewModel(),
+            gender = patientInformation.Gender.ToViewModel(),
             history = patientInformation.History,
-            caseNo = patientInformation.CaseNo,
-            photoPath = patientInformation.PhotoPath
+            caseNo = patientInformation.CaseNo
         };
 
-        public static GenderViewModel ToViewModel(this Gender gender)
-        => gender < 0 ? null : new GenderViewModel
+        public static GetPatientInfomationViewModel ToViewModel(this GetPatientInformationEntity getPatientInformationEntity)
+        => getPatientInformationEntity == null ? null : new GetPatientInfomationViewModel
         {
-            id = (int)gender,
-            name = gender.ToString()
+            id = getPatientInformationEntity.Id,
+            firstName = getPatientInformationEntity.FirstName,
+            lastName = getPatientInformationEntity.LastName,
+            email = getPatientInformationEntity.Email,
+            age = getPatientInformationEntity.Age,
+            phone = getPatientInformationEntity.Phone,
+            gender = getPatientInformationEntity.Gender.ToViewModel(),
+            history = getPatientInformationEntity.History,
+            caseNo = getPatientInformationEntity.CaseNo,
+            patientPhotoInformation = getPatientInformationEntity.PatientPhotoInformation.ToViewModel()
         };
     }
 }

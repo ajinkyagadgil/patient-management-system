@@ -1,18 +1,11 @@
-﻿using Patient.Core.Common.Enums;
-using System;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace PMSBackend.Handler.Patient.ViewModels
 {
-    public class PostPatientInformationViewModel
+    public class PostPatientInformationViewModel : PatientInformationBaseViewModel
     {
-        public Guid id { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string email { get; set; }
-        public int age { get; set; }
-        public string phone { get; set; }
-        public Gender gender { get; set; }
-        public string history { get; set; }
-        public string caseNo { get; set; }
+        [JsonIgnore]
+        public IFormFile patientPhoto { get; set; }
     }
 }
