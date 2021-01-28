@@ -10,7 +10,7 @@ namespace PMSBackend.Handler.Patient.Converters
 {
     public static class ToEntityModels
     {
-        public static PostPatientInformationEntity ToEntityModel(this PostPatientInformationViewModel postPatientInformationViewModel, IFormFile patientPhoto)
+        public static PostPatientInformationEntity ToEntityModel(this PostPatientInformationViewModel postPatientInformationViewModel)
         => postPatientInformationViewModel == null ? null : new PostPatientInformationEntity
         {
             Id = postPatientInformationViewModel.id,
@@ -19,10 +19,10 @@ namespace PMSBackend.Handler.Patient.Converters
             Email = postPatientInformationViewModel.email,
             Age = postPatientInformationViewModel.age,
             Phone = postPatientInformationViewModel.phone,
-            Gender = (Gender)postPatientInformationViewModel.gender.id,
+            Gender = postPatientInformationViewModel.gender,
             History = postPatientInformationViewModel.history,
             CaseNo = postPatientInformationViewModel.caseNo,
-            PatientPhoto = patientPhoto
+            PatientPhoto = postPatientInformationViewModel.patientPhoto
         };
 
         public static PostTreatmentInformationEntity ToEntityModel(this PostTreatmentInformationViewModel postTreatmentInformationViewModel, List<IFormFile> treatmentFiles)

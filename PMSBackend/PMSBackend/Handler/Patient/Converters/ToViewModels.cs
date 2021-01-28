@@ -16,7 +16,7 @@ namespace PMSBackend.Handler.Patient.Converters
             email = patientInformation.Email,
             age = patientInformation.Age,
             phone = patientInformation.Phone,
-            gender = patientInformation.Gender.ToViewModel(),
+            gender = patientInformation.Gender,
             history = patientInformation.History,
             caseNo = patientInformation.CaseNo
         };
@@ -30,7 +30,7 @@ namespace PMSBackend.Handler.Patient.Converters
             email = getPatientInformationEntity.Email,
             age = getPatientInformationEntity.Age,
             phone = getPatientInformationEntity.Phone,
-            gender = getPatientInformationEntity.Gender.ToViewModel(),
+            gender = getPatientInformationEntity.Gender,
             history = getPatientInformationEntity.History,
             caseNo = getPatientInformationEntity.CaseNo,
             patientPhotoInformation = getPatientInformationEntity.PatientPhotoInformation.ToViewModel()

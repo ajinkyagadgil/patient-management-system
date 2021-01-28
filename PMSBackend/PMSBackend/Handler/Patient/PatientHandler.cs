@@ -33,12 +33,17 @@ namespace PMSBackend.Handler.Patient
             {
                 var patientInformation = JsonConvert.DeserializeObject<PostPatientInformationViewModel>(savePatientAndTreatmentInformationViewModel.patientInformation);
                 var treatmentInformation = JsonConvert.DeserializeObject<PostTreatmentInformationViewModel>(savePatientAndTreatmentInformationViewModel.treatmentInformation);
-                await _patientService.SavePatientAndTreatmentInformation(patientInformation.ToEntityModel(savePatientAndTreatmentInformationViewModel.patientPhoto), treatmentInformation.ToEntityModel(savePatientAndTreatmentInformationViewModel.treatmentPhoto));
+                //await _patientService.SavePatientAndTreatmentInformation(patientInformation.ToEntityModel(savePatientAndTreatmentInformationViewModel.patientPhoto), treatmentInformation.ToEntityModel(savePatientAndTreatmentInformationViewModel.treatmentPhoto));
             }
             catch(Exception ex)
             {
 
             }
+        }
+
+        public async Task SavePatientInformation(PostPatientInformationViewModel postPatientInformationViewModel)
+        {
+            await _patientService.SavePatientInformation(postPatientInformationViewModel.ToEntityModel());
         }
     }
 }

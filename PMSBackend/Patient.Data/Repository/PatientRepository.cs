@@ -53,8 +53,20 @@ namespace Patient.Data.Repository
             }
             else
             {
-                //Edit Information
-                return Guid.NewGuid();
+                var patient = _pmsContext.PatientsInformation.Where(x => x.Id == postPatientInformationEntity.Id).SingleOrDefault();
+                if(patient != null)
+                {
+                    patient.FirstName = postPatientInformationEntity.FirstName;
+                    patient.LastName = postPatientInformationEntity.LastName;
+                    patient.Email = postPatientInformationEntity.Email;
+                    patient.Age = postPatientInformationEntity.Age;
+                    patient.Phone = postPatientInformationEntity.Phone;
+                    patient.Gender = (int)postPatientInformationEntity.Gender;
+                    patient.History = postPatientInformationEntity.History;
+                    patient.CaseNo = postPatientInformationEntity.CaseNo;
+                }
+                await _pmsContext.SaveChangesAsync();
+                return patient.Id;
             }
         }
 

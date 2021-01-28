@@ -99,6 +99,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-raised-button mat-dialog-close>Cancel</button>
-        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial color="primary">Submit</button>
+        <button mat-raised-button (click)="onSavePatientInformation()" cdkFocusInitial color="primary">Submit</button>
     </mat-dialog-actions>
 </div>

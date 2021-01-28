@@ -50,5 +50,20 @@ namespace Patient.Core.Implementation
                 var saveTreatmentFilesInformationResult = await _treatmentQuery.SaveTreatmentFilesInformation(treatmentId, uploadTreatmentFilesResult);
             }
         }
+
+        public async Task SavePatientInformation(PostPatientInformationEntity postPatientInformationEntity)
+        {
+            var patientId = await _patientQuery.SavePatientInformation(postPatientInformationEntity);
+            if (postPatientInformationEntity.PatientPhoto != null)
+            {
+                Fileuploader fileuploader = new Fileuploader();
+                List<IFormFile> patientPhoto = new List<IFormFile>
+                    {
+                        postPatientInformationEntity.PatientPhoto,
+                    };
+                var uploadedFileData = await fileuploader.UploadFiles(patientPhoto, Common.Enums.FileUploadType.Patient, patientId);
+                await _patientQuery.SavePatientPhoto(patientId, uploadedFileData.FirstOrDefault());
+            }
+        }
     }
 }

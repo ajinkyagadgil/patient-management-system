@@ -1,5 +1,3 @@
-import { GetGenderInformationModel } from '../common/GetGenderInformationModel'
-
 export class PatientInformationBaseModel {
     id: string
     firstName: string
@@ -7,7 +5,7 @@ export class PatientInformationBaseModel {
     email: string
     age: string
     phone: string
-    gender: GetGenderInformationModel
+    gender: number
     history: string
     caseNo: string
 }

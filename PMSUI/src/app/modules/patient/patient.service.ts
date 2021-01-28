@@ -22,7 +22,7 @@ export class PatientService {
     return this.Api.get("Common/genders")
   }
 
-  savePatientInformation(patientInformation: GetPatientInformationModel, treatmentInformation: PostTreatmentInformationModel, patientPhoto: File): Observable<any> {
+  savePatientAndTreatmentInformation(patientInformation: GetPatientInformationModel, treatmentInformation: PostTreatmentInformationModel, patientPhoto: File): Observable<any> {
     let formData = new FormData();
     if(patientPhoto != null) {
       formData.append("patientPhoto", patientPhoto, patientPhoto.name)
@@ -35,6 +35,15 @@ export class PatientService {
       }
       formData.append("treatmentInformation", JSON.stringify(treatmentInformation));
     }
+    return this.Api.post("Patient/savePatientAndTreatment", formData);
+  }
+
+  savePatientInformation(patientInformation: PostPatientInformationModel): Observable<any> {
+    let formData = new FormData();
+    if(patientInformation.patientPhoto != null) {
+      formData.append("patientPhoto", patientInformation.patientPhoto, patientInformation.patientPhoto.name);
+    }
+    formData.append("patientInformation", JSON.stringify(patientInformation));
     return this.Api.post("Patient/save", formData);
   }
 }

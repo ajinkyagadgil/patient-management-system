@@ -33,6 +33,23 @@ namespace PMSBackend.Controllers
 
         [Route("save")]
         [HttpPost]
+        public async Task<IActionResult> SavePatientInformation([FromForm]PatientInformationFormDataViewModel patientInformationFormDataViewModel)
+        {
+            try
+            {
+                var patientInformation = JsonConvert.DeserializeObject<PostPatientInformationViewModel>(patientInformationFormDataViewModel.patientInformation);
+                patientInformation.patientPhoto = patientInformationFormDataViewModel.patientPhoto;
+                await _patientHandler.SavePatientInformation(patientInformation);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [Route("savePatientAndTreatment")]
+        [HttpPost]
         public async Task<IActionResult> SavePatientAndTreatmentInformation([FromForm]SavePatientAndTreatmentInformationViewModel savePatientAndTreatmentInformationViewModel)
         {
             await _patientHandler.SavePatientAndTreatmentInformation(savePatientAndTreatmentInformationViewModel);

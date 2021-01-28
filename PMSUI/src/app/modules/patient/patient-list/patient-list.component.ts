@@ -83,9 +83,11 @@ export class PatientListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if(result) {
+        console.log("From Add", result);
+        this.loadNext();
+      }
     });
-    //this.router.navigate(['patient/add'])
   }
 
   OnRowClick(patient: GetPatientInformationModel){
@@ -101,7 +103,9 @@ export class PatientListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if(result) {
+        this.loadNext();
+      }
     });
   }
 

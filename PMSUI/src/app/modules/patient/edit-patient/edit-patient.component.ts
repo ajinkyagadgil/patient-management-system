@@ -17,7 +17,6 @@ import { AppconfigService } from 'src/app/shared/appconfig.service';
 })
 export class EditPatientComponent implements OnInit {
   public dialogTitle: string;
-  postPatientInformation: PostPatientInformationModel
   genders: GetGenderInformationModel[];
   patientInformationFormGroup: FormGroup;
   patientImage: File;
@@ -64,7 +63,7 @@ export class EditPatientComponent implements OnInit {
       email: [this.data.patientInformation.email == null ? null: this.data.patientInformation.email, Validators.email],
       age: [this.data.patientInformation.age == null ? null: this.data.patientInformation.age, Validators.required],
       phone: [this.data.patientInformation.phone == null ? null: this.data.patientInformation.phone, Validators.required],
-      gender: [this.data.patientInformation.gender?.id == null ? null: this.data.patientInformation.gender.id, Validators.required],
+      gender: [this.data.patientInformation.gender == null ? null: this.data.patientInformation.gender, Validators.required],
       history: [this.data.patientInformation.history == null ? null: this.data.patientInformation.history],
       caseNo: [this.data.patientInformation.caseNo == null ? null: this.data.patientInformation.caseNo],
       photo: ['']
@@ -83,19 +82,30 @@ export class EditPatientComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onSavePatientInformation() {
+    this.loading.show();
+    this.patientService.savePatientInformation(this.prepareToSendPatientInformation()).subscribe(res => {
+      this.loading.hide();
+      this.dialogRef.close(true);
+    }, error => {})
+  }
+
   prepareToSendPatientInformation(): PostPatientInformationModel {
     let patientInformationFormData = this.patientInformationFormGroup.value;
 
-    this.postPatientInformation.id = patientInformationFormData.id;
-    this.postPatientInformation.firstName = patientInformationFormData.firstName;
-    this.postPatientInformation.lastName = patientInformationFormData.lastName;
-    this.postPatientInformation.age = patientInformationFormData.age;
-    this.postPatientInformation.gender = patientInformationFormData.gender;
-    this.postPatientInformation.email = patientInformationFormData.email;
-    this.postPatientInformation.phone = patientInformationFormData.phone;
-    this.postPatientInformation.history = patientInformationFormData.history;
-    this.postPatientInformation.caseNo = patientInformationFormData.caseNo;
-    return this.postPatientInformation;
+    let postPatientInformation = {
+      id: patientInformationFormData.id,
+      firstName: patientInformationFormData.firstName,
+      lastName: patientInformationFormData.lastName,
+      age: patientInformationFormData.age,
+      gender: patientInformationFormData.gender,
+      email: patientInformationFormData.email,
+      phone: patientInformationFormData.phone,
+      history: patientInformationFormData.history,
+      caseNo: patientInformationFormData.caseNo,
+      patientPhoto: this.patientImage != null ? this.patientImage : null
+    };
+    return postPatientInformation;
   }
   
 }
