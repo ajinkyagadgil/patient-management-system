@@ -16,6 +16,7 @@ import { AppconfigService } from 'src/app/shared/appconfig.service';
   styleUrls: ['./edit-patient.component.scss']
 })
 export class EditPatientComponent implements OnInit {
+  
   public dialogTitle: string;
   genders: GetGenderInformationModel[];
   patientInformationFormGroup: FormGroup;

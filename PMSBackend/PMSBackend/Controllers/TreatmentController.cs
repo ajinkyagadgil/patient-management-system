@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
+using PMSBackend.Handler.Treatment;
+using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace PMSBackend.Controllers
 {
@@ -11,5 +9,17 @@ namespace PMSBackend.Controllers
     [ApiController]
     public class TreatmentController : ControllerBase
     {
+        private readonly ITreatmentHandler _treatmentHandler;
+        public TreatmentController(ITreatmentHandler treatmentHandler)
+        {
+            _treatmentHandler = treatmentHandler;
+        }
+
+        [Route("all/{patientId}")]
+        [HttpGet]
+        public async Task<IActionResult> GetPatientTreatments([FromRoute]Guid patientId)
+        {
+            return Ok(await _treatmentHandler.GetPatientTreatments(patientId));
+        } 
     }
 }

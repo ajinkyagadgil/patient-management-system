@@ -92,7 +92,7 @@ export class PatientListComponent implements OnInit {
 
   OnRowClick(patient: GetPatientInformationModel){
     this.loading.show();
-    this.router.navigate(['patient/details'])
+    this.router.navigate(['patient/details', patient.id])
     this.loading.hide();
   }
 
@@ -114,6 +114,8 @@ export class PatientListComponent implements OnInit {
   }
 
   onPatientDetails(patientId: string) {
-    console.log(patientId);
+    this.loading.show();
+    this.router.navigate(['patient/details', patientId])
+    this.loading.hide();
   }
 }

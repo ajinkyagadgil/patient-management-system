@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'patient', children:[
     {path: '', component: PatientListComponent},
     {path: 'add', component: EditPatientComponent},
-    {path: 'details', component: PatientDetailsComponent}
+    {path: 'details/:patientId', component: PatientDetailsComponent}
   ] },
   {path: 'add', component: EditPatientComponent},
   { path: 'patient/:id', component: PatientDetailsComponent }

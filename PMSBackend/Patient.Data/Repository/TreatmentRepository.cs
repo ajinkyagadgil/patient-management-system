@@ -1,4 +1,5 @@
-﻿using Patient.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Patient.Core.Entities;
 using Patient.Core.Entities.Common;
 using Patient.Core.Entities.Treatment;
 using Patient.Data.Context;
@@ -17,6 +18,12 @@ namespace Patient.Data.Repository
         public TreatmentRepository(PMSDBContext pmsDBContext)
         {
             _pmsDBContext = pmsDBContext;
+        }
+
+        public async Task<List<TreatmentInformation>> GetPatientTreatments(Guid patientId)
+        {
+            var treatmentInformation = await _pmsDBContext.TreatmentInformation.Include(x => x.TreatmentFiles).Where(x => x.PatientId == patientId).ToListAsync();
+            return treatmentInformation;
         }
 
         public async Task<bool> SaveTreatmentFilesInformation(Guid treatmentId, List<FileInformationEntity> fileInformationEntityList)

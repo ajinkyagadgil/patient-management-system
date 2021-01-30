@@ -6,6 +6,7 @@ using Patient.Domain.IRepository;
 using Patient.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Patient.Domain.Queries
@@ -16,6 +17,11 @@ namespace Patient.Domain.Queries
         public TreatmentQuery(ITreatmentRepository treatmentRepository)
         {
             _treatmentRepository = treatmentRepository;
+        }
+
+        public async Task<List<GetTreatmentInformationEntity>> GetPatientTreatments(Guid patientId)
+        {
+            return (await _treatmentRepository.GetPatientTreatments(patientId)).Select(x => x.ToGetTreatmentInformationEntityEntityModel()).ToList();
         }
 
         public async Task<Guid> SaveTreatmentInformation(Guid patientId, PostTreatmentInformationEntity postTreatmentInformationEntity)

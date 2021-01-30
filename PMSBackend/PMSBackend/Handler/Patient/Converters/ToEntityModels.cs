@@ -24,15 +24,5 @@ namespace PMSBackend.Handler.Patient.Converters
             CaseNo = postPatientInformationViewModel.caseNo,
             PatientPhoto = postPatientInformationViewModel.patientPhoto
         };
-
-        public static PostTreatmentInformationEntity ToEntityModel(this PostTreatmentInformationViewModel postTreatmentInformationViewModel, List<IFormFile> treatmentFiles)
-        => postTreatmentInformationViewModel == null ? null : new PostTreatmentInformationEntity
-        {
-            Id = postTreatmentInformationViewModel.id,
-            Title = postTreatmentInformationViewModel.title,
-            Summary = postTreatmentInformationViewModel.summary,
-            TreatmentDate = postTreatmentInformationViewModel.treatmentDate,
-            TreatmentFiles = treatmentFiles
-        };
     }
 }

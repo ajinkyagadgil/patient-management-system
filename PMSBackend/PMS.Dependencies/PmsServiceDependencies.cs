@@ -14,6 +14,7 @@ namespace PMS.Dependencies
         {
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IPatientQuery, PatientQuery>();
+            services.AddScoped<ITreatmentService, TreatmentService>();
             services.AddScoped<ITreatmentQuery, TreatmentQuery>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<ITreatmentRepository, TreatmentRepository>();
