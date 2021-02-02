@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/shared/api.service';
 import { GetGenderInformationModel } from 'src/app/models/common/GetGenderInformationModel';
 import { PostPatientInformationModel } from 'src/app/models/patient/PostPatientInformationModel';
 import { PostTreatmentInformationModel } from 'src/app/models/treatment/PostTreatmentInformationModel';
+import { GetTreatmentInformationModel } from 'src/app/models/treatment/GetTreatmentInformationModel';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,13 @@ export class PatientService {
     }
     formData.append("patientInformation", JSON.stringify(patientInformation));
     return this.Api.post("Patient/save", formData);
+  }
+
+  getPatientDetails(patientId: string): Observable<GetPatientInformationModel> {
+    return this.Api.get(`Patient/get/${patientId}`);
+  }
+
+  getPatientTreatments(patientId: string): Observable<GetTreatmentInformationModel[]> {
+    return this.Api.get(`Treatment/all/${patientId}`);
   }
 }

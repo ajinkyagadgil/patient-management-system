@@ -10,7 +10,7 @@ namespace Patient.Domain.IRepository
     public interface ITreatmentRepository
     {
         Task<List<TreatmentInformation>> GetPatientTreatments(Guid patientId);
-        Task<Guid> SaveTreatmentInformation(Guid patientId, PostTreatmentInformationEntity postTreatmentInformationEntity);
+        Task<Guid> SaveTreatmentInformation(PostTreatmentInformationEntity postTreatmentInformationEntity);
         Task<bool> SaveTreatmentFilesInformation(Guid treatmentId, List<FileInformationEntity> fileInformationEntityList);
     }
 }

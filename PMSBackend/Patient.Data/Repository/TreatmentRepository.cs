@@ -48,7 +48,7 @@ namespace Patient.Data.Repository
             return true;
         }
 
-        public async Task<Guid> SaveTreatmentInformation(Guid patientId, PostTreatmentInformationEntity postTreatmentInformationEntity)
+        public async Task<Guid> SaveTreatmentInformation(PostTreatmentInformationEntity postTreatmentInformationEntity)
         {
             if (postTreatmentInformationEntity.Id == Guid.Empty)
             {
@@ -56,7 +56,7 @@ namespace Patient.Data.Repository
                 var treatmentInformation = new TreatmentInformation
                 {
                     Id = Guid.NewGuid(),
-                    PatientId = patientId,
+                    PatientId = postTreatmentInformationEntity.PatientId,
                     Title = postTreatmentInformationEntity.Title,
                     Summary = postTreatmentInformationEntity.Summary,
                     Date = postTreatmentInformationEntity.TreatmentDate

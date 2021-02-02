@@ -7,14 +7,15 @@ namespace PMSBackend.Handler.Treatment.Converters
 {
     public static class ToEntityModels
     {
-        public static PostTreatmentInformationEntity ToEntityModel(this PostTreatmentInformationViewModel postTreatmentInformationViewModel, List<IFormFile> treatmentFiles)
+        public static PostTreatmentInformationEntity ToEntityModel(this PostTreatmentInformationViewModel postTreatmentInformationViewModel)
         => postTreatmentInformationViewModel == null ? null : new PostTreatmentInformationEntity
         {
             Id = postTreatmentInformationViewModel.id,
+            PatientId = postTreatmentInformationViewModel.patientId,
             Title = postTreatmentInformationViewModel.title,
             Summary = postTreatmentInformationViewModel.summary,
             TreatmentDate = postTreatmentInformationViewModel.treatmentDate,
-            TreatmentFiles = treatmentFiles
+            TreatmentFiles = postTreatmentInformationViewModel.treatmentFiles
         };
     }
 }

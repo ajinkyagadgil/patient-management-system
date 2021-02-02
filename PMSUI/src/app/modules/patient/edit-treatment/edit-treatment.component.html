@@ -1,32 +1,38 @@
-<form [formGroup]="treatmentInformationFormGroup" class="treatment-form">
-    <mat-form-field appearance="outline">
-        <mat-label>Treatment Title</mat-label>
-        <input matInput formControlName="treatmentTitle" placeholder="Enter Treatment Title" required>
-        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-        <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Treatment Title</mat-label>
-        <textarea matInput formControlName="treatmentSummary" placeholder="Enter Treatment Summary"></textarea>
-        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-        <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Choose Treatment Date</mat-label>
-        <input matInput [matDatepicker]="dp3" formControlName="treatmentDate">
-        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-    </mat-form-field>
+<div *ngIf="treatmentInformationFormGroup">
+    <button class="close" mat-button mat-dialog-close>X</button>
+    <h2 mat-dialog-title>{{dialogTitle}}</h2>
+        <mat-dialog-content class="mat-typography">
+            <form [formGroup]="treatmentInformationFormGroup" class="treatment-form">
+                <mat-form-field appearance="outline">
+                    <mat-label>Treatment Title</mat-label>
+                    <input matInput formControlName="treatmentTitle" placeholder="Enter Treatment Title" required>
+                    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                    <mat-hint>Hint</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Treatment Title</mat-label>
+                    <textarea matInput formControlName="treatmentSummary"
+                        placeholder="Enter Treatment Summary"></textarea>
+                    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                    <mat-hint>Hint</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Choose Treatment Date</mat-label>
+                    <input matInput [matDatepicker]="dp3" formControlName="treatmentDate">
+                    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                </mat-form-field>
 
-    <div class="custom-file">
-        <input formControlName="treatmentImage" type="file" class="custom-file-input" id="customFile"
-            (change)="onTreatmentImageChange($event)" multiple>
-        <label class="custom-file-label" for="customFile">Choose Patient image</label>
-    </div>
-   
-
-    <div *ngIf="!isChild">
-
-        <button mat-button>Submit 2</button>
-    </div>
-</form>
+                <div class="custom-file">
+                    <input formControlName="treatmentImage" type="file" class="custom-file-input" id="customFile"
+                        (change)="onTreatmentImageChange($event)" multiple>
+                    <label class="custom-file-label" for="customFile">Choose Patient image</label>
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-raised-button mat-dialog-close>Cancel</button>
+            <button mat-raised-button (click)="onSaveTreatmentInformation()" cdkFocusInitial
+                color="primary">Submit</button>
+        </mat-dialog-actions>
+</div>

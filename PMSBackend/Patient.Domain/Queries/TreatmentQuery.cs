@@ -24,9 +24,9 @@ namespace Patient.Domain.Queries
             return (await _treatmentRepository.GetPatientTreatments(patientId)).Select(x => x.ToGetTreatmentInformationEntityEntityModel()).ToList();
         }
 
-        public async Task<Guid> SaveTreatmentInformation(Guid patientId, PostTreatmentInformationEntity postTreatmentInformationEntity)
+        public async Task<Guid> SaveTreatmentInformation(PostTreatmentInformationEntity postTreatmentInformationEntity)
         {
-            return await _treatmentRepository.SaveTreatmentInformation(patientId, postTreatmentInformationEntity);
+            return await _treatmentRepository.SaveTreatmentInformation(postTreatmentInformationEntity);
         }
 
         public async Task<bool> SaveTreatmentFilesInformation(Guid treatmentId, List<FileInformationEntity> fileInformationEntityList)

@@ -34,7 +34,8 @@ const routes: Routes = [
     you must include your component class in the list of entryComponents in your NgModule definition 
     so that the Angular compiler knows to create the ComponentFactory for it.
     */
-   EditPatientComponent
+   EditPatientComponent,
+   EditTreatmentComponent
   ]
 })
 export class PatientModule { }

@@ -20,5 +20,10 @@ namespace PMSBackend.Handler.Treatment
         {
             return (await _treatmentService.GetPatientTreatments(patientId)).Select(x => x.ToViewModel()).ToList();
         }
+
+        public async Task SavePatientTreatment(PostTreatmentInformationViewModel postTreatmentInformationViewModel)
+        {
+            await _treatmentService.SavePatientTreatment(postTreatmentInformationViewModel.ToEntityModel());
+        }
     }
 }

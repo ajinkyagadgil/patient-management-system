@@ -35,7 +35,8 @@
               "src/styles.scss",
               "./node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css",
               "./node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
-              "./node_modules/admin-lte/dist/css/adminlte.min.css"
+              "./node_modules/admin-lte/dist/css/adminlte.min.css",
+              "./node_modules/material-icons-font/material-icons-font.css"
             ],
             "scripts": [
               "./node_modules/admin-lte/plugins/jquery/jquery.min.js",

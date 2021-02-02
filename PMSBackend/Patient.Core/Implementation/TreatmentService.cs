@@ -1,4 +1,5 @@
 ﻿using Patient.Core.Entities.Treatment;
+using Patient.Core.Helpers;
 using Patient.Core.IQueries;
 using Patient.Core.Services;
 using System;
@@ -18,6 +19,17 @@ namespace Patient.Core.Implementation
         public async Task<List<GetTreatmentInformationEntity>> GetPatientTreatments(Guid patientId)
         {
             return (await _treatmentQuery.GetPatientTreatments(patientId));
+        }
+
+        public async Task SavePatientTreatment(PostTreatmentInformationEntity postTreatmentInformationEntity)
+        {
+            var treatmentId = await _treatmentQuery.SaveTreatmentInformation(postTreatmentInformationEntity);
+            if (postTreatmentInformationEntity.TreatmentFiles != null)
+            {
+                Fileuploader fileuploader = new Fileuploader();
+                var uploadedFileData = await fileuploader.UploadFiles(postTreatmentInformationEntity.TreatmentFiles, Common.Enums.FileUploadType.Treatment, treatmentId);
+                await _treatmentQuery.SaveTreatmentFilesInformation(treatmentId, uploadedFileData);
+            }
         }
     }
 }

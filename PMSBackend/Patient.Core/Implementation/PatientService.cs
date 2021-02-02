@@ -45,7 +45,7 @@ namespace Patient.Core.Implementation
                     };
                 var uploadedFileData = await fileuploader.UploadFiles(patientPhoto, Common.Enums.FileUploadType.Patient, patientId);
                 var savePatientPhotoInformationResult = await _patientQuery.SavePatientPhoto(patientId, uploadedFileData.FirstOrDefault());
-                var treatmentId = await _treatmentQuery.SaveTreatmentInformation(patientId, postTreatmentInformationEntity);
+                var treatmentId = await _treatmentQuery.SaveTreatmentInformation(postTreatmentInformationEntity);
                 var uploadTreatmentFilesResult = await fileuploader.UploadFiles(postTreatmentInformationEntity.TreatmentFiles, Common.Enums.FileUploadType.Treatment, treatmentId);
                 var saveTreatmentFilesInformationResult = await _treatmentQuery.SaveTreatmentFilesInformation(treatmentId, uploadTreatmentFilesResult);
             }
