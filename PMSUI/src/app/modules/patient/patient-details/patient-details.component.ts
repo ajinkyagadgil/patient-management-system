@@ -8,6 +8,8 @@ import { forkJoin } from 'rxjs';
 import { GuidModel } from 'src/app/models/common/GuidModel';
 import { MatDialog } from '@angular/material/dialog';
 import { EditTreatmentComponent } from '../edit-treatment/edit-treatment.component';
+import { AppconfigService } from 'src/app/shared/appconfig.service';
+import { FileInformationModel } from 'src/app/models/common/FileInformationModel';
 
 @Component({
   selector: 'app-patient-details',
@@ -17,6 +19,7 @@ import { EditTreatmentComponent } from '../edit-treatment/edit-treatment.compone
 export class PatientDetailsComponent implements OnInit {
 
   patientInformation: GetPatientInformationModel;
+  apiUrl: string;
   patientTreatments: GetTreatmentInformationModel[];
   treatmentInformation: GetTreatmentInformationModel;
   patientId: string;
@@ -25,11 +28,18 @@ export class PatientDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private patientService: PatientService,
     private loading: LoadingService,
-    public dialog: MatDialog,) { }
+    public dialog: MatDialog,
+    private appConfigService: AppconfigService) { }
 
   ngOnInit(): void {
+    this.apiUrl = this.appConfigService.apiBaseUrl
     this.patientId = this.route.snapshot.paramMap.get('patientId');
     this.loadNext();
+  }
+
+  getImagePath(treatmentFile: FileInformationModel) {
+    let fullPath: string = '';
+    return fullPath.concat(this.apiUrl, treatmentFile.path, "/", treatmentFile.name);
   }
 
   onTreatmentEdit(treatmentInformation: GetTreatmentInformationModel = {
@@ -40,19 +50,18 @@ export class PatientDetailsComponent implements OnInit {
     treatmentDate: null,
     treatmentFiles: null
   }){
-    console.log(JSON.stringify(treatmentInformation));
+    console.log("Patient Details edit button", JSON.stringify(treatmentInformation));
     this.treatmentInformation = treatmentInformation;
 
     const dialogRef = this.dialog.open(EditTreatmentComponent, {
       disableClose: true,
       width: "500px",
-      data: {treatmentInformation: this.treatmentInformation}
+      data: this.treatmentInformation
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        console.log("From Add", result);
-        this.loadNext();
+        this.getPatientTreatments();
       }
     });
   }
@@ -64,8 +73,8 @@ export class PatientDetailsComponent implements OnInit {
     ).subscribe(([patientDetails, patientTreatments]) => {
       this.patientInformation = patientDetails;
       this.isPatientDataAvailable = true;
-      console.log(JSON.stringify(this.patientInformation));
       this.patientTreatments = patientTreatments;
+      console.log("Treatment information from API", JSON.stringify(this.patientTreatments));
       this.isPatientTreatmentDataAvailable = true;
       this.loading.hide();
     })

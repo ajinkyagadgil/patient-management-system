@@ -55,4 +55,15 @@ export class PatientService {
   getPatientTreatments(patientId: string): Observable<GetTreatmentInformationModel[]> {
     return this.Api.get(`Treatment/all/${patientId}`);
   }
+
+  savePatientTreatment(treatmentInformation: PostTreatmentInformationModel): Observable<any> {
+    let formData = new FormData();
+    if(treatmentInformation.treatmentFiles?.length > 0){
+      for(var file=0; file<treatmentInformation.treatmentFiles.length; file++){
+        formData.append("treatmentFiles", treatmentInformation.treatmentFiles[file], treatmentInformation.treatmentFiles[file].name)
+      }
+    }
+    formData.append("treatmentInformation", JSON.stringify(treatmentInformation));
+    return this.Api.post('Treatment/save', formData);
+  }
 }

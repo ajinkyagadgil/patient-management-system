@@ -84,7 +84,6 @@ export class PatientListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        console.log("From Add", result);
         this.loadNext();
       }
     });
@@ -110,7 +109,6 @@ export class PatientListComponent implements OnInit {
   }
 
   onPatientDelete(patientId: string) {
-    console.log(patientId);
   }
 
   onPatientDetails(patientId: string) {

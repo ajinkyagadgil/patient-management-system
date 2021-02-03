@@ -11,10 +11,11 @@ namespace PMSBackend.Handler.Treatment.Converters
         => getTreatmentInformationEntity == null ? null : new GetTreatmentInformationViewModel
         {
             id = getTreatmentInformationEntity.Id,
+            patientId = getTreatmentInformationEntity.PatientId,
             title = getTreatmentInformationEntity.Title,
             summary = getTreatmentInformationEntity.Summary,
             treatmentDate = getTreatmentInformationEntity.TreatmentDate,
-            treatmentFilesInformation = getTreatmentInformationEntity.TreatmentFilesInformation.Select(x => x.ToViewModel()).ToList()
+            treatmentFiles = getTreatmentInformationEntity.TreatmentFilesInformation.Select(x => x.ToViewModel()).ToList()
         };
 
         public static FileInformationViewModel ToViewModel(this FileInformationEntity fileInformationEntity)

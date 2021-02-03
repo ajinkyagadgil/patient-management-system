@@ -75,9 +75,14 @@
                     </span></h2>
                   <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>{{treatment.treatmentDate}}</span>
                   <p class="text-small mt-2 font-weight-light">{{treatment.summary}}</p>
-                  <div *ngFor="let files of treatment.treatmentFiles">
-                    <img src="" alt="Treatment image">
+                  <div class="row">
+                    <div *ngFor="let treatmentFile of treatment.treatmentFiles">
+                      <div class="col-md-3">
+                      <img [src]="getImagePath(treatmentFile)" height="200px" width="200px" alt="Treatment image">
+                      </div>
+                    </div>
                   </div>
+                
                 </li>
               </ul><!-- End -->
             </div>

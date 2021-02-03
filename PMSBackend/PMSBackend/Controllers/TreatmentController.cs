@@ -25,6 +25,8 @@ namespace PMSBackend.Controllers
             return Ok(await _treatmentHandler.GetPatientTreatments(patientId));
         }
 
+        [Route("save")]
+        [HttpPost]
         public async Task<IActionResult> SavePatientTreatment([FromForm]TreatmentInformationFormDataViewModel treatmentInformationFormDataViewModel )
         {
             var treatmentInformation = JsonConvert.DeserializeObject<PostTreatmentInformationViewModel>(treatmentInformationFormDataViewModel.treatmentInformation);

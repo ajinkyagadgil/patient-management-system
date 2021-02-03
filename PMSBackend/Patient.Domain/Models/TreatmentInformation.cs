@@ -27,6 +27,7 @@ namespace Patient.Domain.Models
         => treatmentInformation == null ? null : new GetTreatmentInformationEntity
         {
             Id = treatmentInformation.Id,
+            PatientId = treatmentInformation.PatientId,
             Title = treatmentInformation.Title,
             Summary = treatmentInformation.Summary,
             TreatmentDate = treatmentInformation.Date,

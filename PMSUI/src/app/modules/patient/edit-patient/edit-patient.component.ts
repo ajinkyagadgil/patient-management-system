@@ -52,7 +52,6 @@ export class EditPatientComponent implements OnInit {
 
       this.initForm()
       this.loading.hide();
-      console.log(JSON.stringify(this.data))
     })
   }
 
