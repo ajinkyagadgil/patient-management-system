@@ -56,7 +56,7 @@
       <div class="card-header p-2">
         <ul class="nav nav-pills nav-fill bg-nav-pills">
           <li class="nav-item"><a class="nav-link active" href="#timeline" data-toggle="tab">Timeline</a></li>
-          <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Edit Patient</a></li>
+          <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab" (click)="onAllFilesTabClick()">All files</a></li>
         </ul>
       </div><!-- /.card-header -->
       <div class="card-body">
@@ -73,11 +73,11 @@
                   <h2 class="h5 mb-0">{{treatment.title}}<span (click)="onTreatmentEdit(treatment)" class="float-right" style="cursor: pointer;">
                       <mat-icon>edit</mat-icon>
                     </span></h2>
-                  <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>{{treatment.treatmentDate}}</span>
+                  <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>{{treatment.treatmentDate | date:'fullDate'}}</span>
                   <p class="text-small mt-2 font-weight-light">{{treatment.summary}}</p>
                   <div class="row">
                     <div *ngFor="let treatmentFile of treatment.treatmentFiles">
-                      <div class="col-md-3">
+                      <div class="col-md-3 mb-2">
                       <img [src]="getImagePath(treatmentFile)" height="200px" width="200px" alt="Treatment image">
                       </div>
                     </div>
@@ -90,8 +90,14 @@
           </div>
           <!-- /.tab-pane -->
 
-          <div class="tab-pane" id="settings">
-            111
+          <div class="tab-pane" id="settings" *ngIf="allFilesAdded">
+            <div class="row">
+              <div *ngFor="let file of allFiles">
+                <div class="col-md-3 mb-2">
+                <img [src]="getImagePath(file)" height="200px" width="200px" alt="Treatment image">
+                </div>
+              </div>
+            </div>
           </div>
           <!-- /.tab-pane -->
         </div>

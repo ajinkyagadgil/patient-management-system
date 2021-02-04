@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditTreatmentComponent } from '../edit-treatment/edit-treatment.component';
 import { AppconfigService } from 'src/app/shared/appconfig.service';
 import { FileInformationModel } from 'src/app/models/common/FileInformationModel';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-patient-details',
@@ -20,6 +21,8 @@ export class PatientDetailsComponent implements OnInit {
 
   patientInformation: GetPatientInformationModel;
   apiUrl: string;
+  allFiles: FileInformationModel[] = [];
+  allFilesAdded: boolean;
   patientTreatments: GetTreatmentInformationModel[];
   treatmentInformation: GetTreatmentInformationModel;
   patientId: string;
@@ -94,6 +97,19 @@ export class PatientDetailsComponent implements OnInit {
       this.patientTreatments = res;
       this.loading.hide();
     })
+  }
+
+  onAllFilesTabClick() {
+    this.allFiles = []; //To reset
+    this.loading.show();
+    this.allFilesAdded = false
+    this.patientTreatments.forEach(treatment => {
+      treatment.treatmentFiles.forEach(file => {
+        this.allFiles.push(file);
+      });
+    });
+    this.allFilesAdded = true;
+    this.loading.hide();
   }
 
 }

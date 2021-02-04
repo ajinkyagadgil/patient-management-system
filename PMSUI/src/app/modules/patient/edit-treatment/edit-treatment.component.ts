@@ -73,9 +73,10 @@ export class EditTreatmentComponent implements OnInit {
       title : treatmentInformationFormData.treatmentTitle,
       summary: treatmentInformationFormData.treatmentSummary,
       patientId: this.treatmentInformation.patientId,
-      treatmentDate: new Date(treatmentInformationFormData.treatmentDate),
+      treatmentDate: treatmentInformationFormData.treatmentDate,
       treatmentFiles: this.treatmentFiles == null ? null : this.treatmentFiles
     };
+    console.log("In post treatment", JSON.stringify(postPatientInformation));
     return postPatientInformation;
   }
 }
