@@ -16,6 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatTabsModule} from '@angular/material/tabs'; 
+// import {} from '@angular/material-moment-adapter';
 
 @NgModule({
     declarations: [],
@@ -32,6 +33,7 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatIconModule,
         MatToolbarModule,
         MatNativeDateModule,
+        // MatMomentDateModule,
         MatDatepickerModule,
         MatCardModule,
         MatMenuModule,
@@ -50,11 +52,15 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatIconModule,
         MatToolbarModule,
         MatNativeDateModule,
+        // MatMomentDateModule,
         MatDatepickerModule,
         MatCardModule,
         MatMenuModule,
         MatTabsModule
-    ]
+    ],
+    // providers: [
+    //     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {strict: true}}
+    //   ]
 })
 
 export class AngularMaterialModule { }

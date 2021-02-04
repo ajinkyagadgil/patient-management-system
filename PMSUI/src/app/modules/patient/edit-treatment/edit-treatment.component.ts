@@ -7,6 +7,7 @@ import { LoadingService } from 'src/app/shared/loading.service';
 import { PostTreatmentInformationModel } from 'src/app/models/treatment/PostTreatmentInformationModel';
 import { PatientService } from '../patient.service';
 import { AppconfigService } from 'src/app/shared/appconfig.service';
+// import * as moment from 'moment';
 
 @Component({
   selector: 'app-edit-treatment',
@@ -73,10 +74,15 @@ export class EditTreatmentComponent implements OnInit {
       title : treatmentInformationFormData.treatmentTitle,
       summary: treatmentInformationFormData.treatmentSummary,
       patientId: this.treatmentInformation.patientId,
-      treatmentDate: treatmentInformationFormData.treatmentDate,
+      treatmentDate: this.formatDate(treatmentInformationFormData.treatmentDate),
       treatmentFiles: this.treatmentFiles == null ? null : this.treatmentFiles
     };
     console.log("In post treatment", JSON.stringify(postPatientInformation));
     return postPatientInformation;
+  }
+
+  formatDate(treatmentDate: Date) {
+    var offsetMs = treatmentDate.getTimezoneOffset() * 60000;
+return new Date(treatmentDate.getTime() - offsetMs);
   }
 }
