@@ -1,17 +1,9 @@
 <div *ngIf="patientInformationFormGroup">
     <button class="close" mat-button (click)="onDialogClose()">X</button>
     <h2 mat-dialog-title>{{dialogTitle}}
-        
+
     </h2>
     <mat-dialog-content class="mat-typography">
-        <div class="profile-image-section">
-           
-            <input id="imageUpload" type="file"/>
-            <div *ngIf="imageUrl != null" class="profile-image">
-                <img for="imageUpload" [src]="imageUrl" alt="Profile Image" class="profile-image">
-            </div>
-        </div>
-
         <!-- <mat-card> -->
         <!-- <mat-card-content> -->
         <form *ngIf="patientInformationFormGroup" [formGroup]="patientInformationFormGroup" class="patient-form">
@@ -25,7 +17,10 @@
                     <mat-form-field appearance="outline">
                         <mat-label>First Name</mat-label>
                         <input matInput formControlName="firstName" placeholder="Enter First Name" required>
-                        <mat-error *ngFor="let message of patientInformationFormGroup.controls.firstName['errorMessages']">{{message}}</mat-error>
+                        <mat-error
+                            *ngIf="patientInformationFormGroup.get('firstName').invalid && (patientInformationFormGroup.get('firstName').dirty || patientInformationFormGroup.get('firstName').touched) && patientInformationFormGroup.get('firstName').errors.required">
+                            First name is required
+                        </mat-error>
                         <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                         <!-- <mat-hint>Hint</mat-hint> -->
                     </mat-form-field>
@@ -34,6 +29,10 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Last Name</mat-label>
                         <input matInput formControlName="lastName" placeholder="Enter Last Name" required>
+                        <mat-error
+                            *ngIf="patientInformationFormGroup.get('lastName').invalid && (patientInformationFormGroup.get('lastName').dirty || patientInformationFormGroup.get('lastName').touched) && patientInformationFormGroup.get('lastName').errors.required">
+                            First name is required
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -42,12 +41,28 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Phone</mat-label>
                         <input matInput formControlName="phone" placeholder="Enter phone" required>
+                        <mat-error
+                            *ngIf="patientInformationFormGroup.get('phone').invalid && (patientInformationFormGroup.get('phone').dirty || patientInformationFormGroup.get('phone').touched) && patientInformationFormGroup.get('phone').errors.required">
+                            Phone number is required
+                        </mat-error>
+                        <mat-error
+                            *ngIf="patientInformationFormGroup.get('phone').invalid && (patientInformationFormGroup.get('phone').dirty || patientInformationFormGroup.get('phone').touched) && patientInformationFormGroup.get('phone').errors.pattern">
+                            Please Enter valid phone number
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
                     <mat-form-field appearance="outline">
                         <mat-label>Age</mat-label>
                         <input matInput formControlName="age" placeholder="Enter Age" required>
+                        <mat-error
+                            *ngIf="patientInformationFormGroup.get('age').invalid && (patientInformationFormGroup.get('age').dirty || patientInformationFormGroup.get('age').touched) && patientInformationFormGroup.get('age').errors.required">
+                            Age is required
+                        </mat-error>
+                        <mat-error
+                        *ngIf="patientInformationFormGroup.get('age').invalid && (patientInformationFormGroup.get('age').dirty || patientInformationFormGroup.get('age').touched) && patientInformationFormGroup.get('age').errors.pattern">
+                        Enter valid age
+                    </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -59,6 +74,10 @@
                                 {{gender.name}}
                             </mat-option>
                         </mat-select>
+                        <mat-error
+                            *ngIf="patientInformationFormGroup.get('gender').invalid && (patientInformationFormGroup.get('gender').dirty || patientInformationFormGroup.get('gender').touched) && patientInformationFormGroup.get('gender').errors.required">
+                            Gender is required
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -67,23 +86,37 @@
                 Information
                 (Optional)</h3>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Email</mat-label>
                         <input matInput formControlName="email" placeholder="Enter Email">
+                        <mat-error
+                        *ngIf="patientInformationFormGroup.get('email').invalid && (patientInformationFormGroup.get('email').dirty || patientInformationFormGroup.get('email').touched) && patientInformationFormGroup.get('email').errors.email">
+                        Please enter valid email
+                    </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Case No</mat-label>
                         <input matInput formControlName="caseNo" placeholder="Enter Case No">
                     </mat-form-field>
                 </div>
-                <div class="col-md-4">
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
                     <div class="custom-file">
                         <input formControlName="photo" accept="image/*" type="file" class="custom-file-input"
                             id="customFile" (change)="onPatientPhotoChange($event)">
                         <label class="custom-file-label" for="customFile">Choose Patient image</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="profile-image-section">
+                        <input id="imageUpload" type="file" />
+                        <div *ngIf="imageUrl != null" class="profile-image">
+                            <img for="imageUpload" [src]="imageUrl" alt="Profile Image" class="profile-image">
+                        </div>
                     </div>
                 </div>
             </div>

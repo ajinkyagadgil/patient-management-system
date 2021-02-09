@@ -9,7 +9,7 @@
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Anything" #input>
 </mat-form-field>
 
-<button class="float-right add-patient-btn" mat-raised-button color="primary" (click)="openAddPatientDialog()">Add Patient</button>
+<button class="float-right add-patient-btn" mat-raised-button color="primary" (click)="onPatientEdit()">Add Patient</button>
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="patientInformation" matSort>

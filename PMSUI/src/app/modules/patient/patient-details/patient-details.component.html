@@ -3,9 +3,18 @@
     <!-- Profile Image -->
     <div class="card card-primary card-outline">
       <div class="card-body box-profile">
+        <span style="cursor: pointer;" class="float-right" (click)="onPatientEdit(patientInformation)">
+          <mat-icon>edit</mat-icon>
+        </span>
         <div class="text-center">
-          <img class="profile-user-img img-fluid img-circle" src="assets/img/user2-160x160.jpg"
+          <div *ngIf="patientInformation.patientPhotoInformation != null">
+          <img class="profile-image" [src]="getImagePath(patientInformation.patientPhotoInformation)"
+          alt="User profile picture">
+          </div>
+          <div *ngIf="patientInformation.patientPhotoInformation == null">
+            <img class="profile-image" src="assets/img/default-profile-image.jpg"
             alt="User profile picture">
+            </div>
         </div>
 
         <h3 class="profile-username text-center">{{patientInformation?.firstName}} {{patientInformation?.lastName}}</h3>

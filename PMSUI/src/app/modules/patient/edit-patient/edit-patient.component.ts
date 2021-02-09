@@ -7,7 +7,6 @@ import { GuidModel } from 'src/app/models/common/GuidModel';
 import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInformationModel';
 import { PostPatientInformationModel } from 'src/app/models/patient/PostPatientInformationModel';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PatientDialogModel } from 'src/app/models/patient/PatientDialogModel';
 import { AppconfigService } from 'src/app/shared/appconfig.service';
 
 @Component({
@@ -16,7 +15,7 @@ import { AppconfigService } from 'src/app/shared/appconfig.service';
   styleUrls: ['./edit-patient.component.scss']
 })
 export class EditPatientComponent implements OnInit {
-  
+
   public dialogTitle: string;
   genders: GetGenderInformationModel[];
   patientInformationFormGroup: FormGroup;
@@ -29,21 +28,21 @@ export class EditPatientComponent implements OnInit {
     private loading: LoadingService,
     private appConfigService: AppconfigService,
     public dialogRef: MatDialogRef<EditPatientComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: PatientDialogModel,) { }
+    @Inject(MAT_DIALOG_DATA) public patientInformation: GetPatientInformationModel,) { }
 
   ngOnInit() {
     this.loading.show();
     this.apiUrl = this.appConfigService.apiBaseUrl
-    if(this.data.patientInformation.id == new GuidModel().Empty){
+    if (this.patientInformation.id == new GuidModel().Empty) {
       this.dialogTitle = "Add Patient"
       this.imageUrl = null;
     }
-    else{
+    else {
       this.dialogTitle = "Edit Patient"
-      if(this.data.patientInformation.patientPhotoInformation != null) {
-        this.imageUrl = `${this.apiUrl}${this.data.patientInformation.patientPhotoInformation.path}/${this.data.patientInformation.patientPhotoInformation.name}`
+      if (this.patientInformation.patientPhotoInformation != null) {
+        this.imageUrl = `${this.apiUrl}${this.patientInformation.patientPhotoInformation.path}/${this.patientInformation.patientPhotoInformation.name}`
       }
-      else{
+      else {
         this.imageUrl = null;
       }
     }
@@ -57,15 +56,15 @@ export class EditPatientComponent implements OnInit {
 
   initForm() {
     this.patientInformationFormGroup = this._formBuilder.group({
-      id: [this.data.patientInformation.id],
-      firstName: [this.data.patientInformation.firstName == null ? null: this.data.patientInformation.firstName, [Validators.required, Validators.maxLength(10)]],
-      lastName: [this.data.patientInformation.lastName == null ? null: this.data.patientInformation.lastName, Validators.required],
-      email: [this.data.patientInformation.email == null ? null: this.data.patientInformation.email, Validators.email],
-      age: [this.data.patientInformation.age == null ? null: this.data.patientInformation.age, Validators.required],
-      phone: [this.data.patientInformation.phone == null ? null: this.data.patientInformation.phone, Validators.required],
-      gender: [this.data.patientInformation.gender == null ? null: this.data.patientInformation.gender, Validators.required],
-      history: [this.data.patientInformation.history == null ? null: this.data.patientInformation.history],
-      caseNo: [this.data.patientInformation.caseNo == null ? null: this.data.patientInformation.caseNo],
+      id: [this.patientInformation.id],
+      firstName: [this.patientInformation.firstName == null ? null : this.patientInformation.firstName, [Validators.required, Validators.maxLength(10)]],
+      lastName: [this.patientInformation.lastName == null ? null : this.patientInformation.lastName, Validators.required],
+      email: [this.patientInformation.email == null ? null : this.patientInformation.email, Validators.email],
+      age: [this.patientInformation.age == null ? null : this.patientInformation.age, [Validators.required, Validators.pattern("^[0-9*]+$")]],
+      phone: [this.patientInformation.phone == null ? null : this.patientInformation.phone, [Validators.required, Validators.pattern("^[0-9*-+,]+$")]],
+      gender: [this.patientInformation.gender == null ? null : this.patientInformation.gender, Validators.required],
+      history: [this.patientInformation.history == null ? null : this.patientInformation.history],
+      caseNo: [this.patientInformation.caseNo == null ? null : this.patientInformation.caseNo],
       photo: ['']
     });
   }
@@ -83,11 +82,19 @@ export class EditPatientComponent implements OnInit {
   }
 
   onSavePatientInformation() {
-    this.loading.show();
-    this.patientService.savePatientInformation(this.prepareToSendPatientInformation()).subscribe(res => {
-      this.loading.hide();
-      this.dialogRef.close(true);
-    }, error => {})
+    if (this.patientInformationFormGroup.invalid) {
+      Object.keys(this.patientInformationFormGroup.controls).forEach(field => {
+        const control = this.patientInformationFormGroup.get(field);
+        control.markAsTouched({ onlySelf: true });
+      });
+    }
+    else {
+      this.loading.show();
+      this.patientService.savePatientInformation(this.prepareToSendPatientInformation()).subscribe(res => {
+        this.loading.hide();
+        this.dialogRef.close(true);
+      }, error => { })
+    }
   }
 
   prepareToSendPatientInformation(): PostPatientInformationModel {
@@ -107,5 +114,5 @@ export class EditPatientComponent implements OnInit {
     };
     return postPatientInformation;
   }
-  
+
 }

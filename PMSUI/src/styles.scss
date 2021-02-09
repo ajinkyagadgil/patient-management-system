@@ -77,5 +77,9 @@
   //This is used when we use other popup and for dropdown on material dialog
   // .cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; } 
 
+   .cdk-overlay-container { z-index: 9999!important; } 
+
+  .mat-dialog-content {max-height: none!important;}
+
 
   

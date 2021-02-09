@@ -79,7 +79,7 @@ export class PatientListComponent implements OnInit {
     this.initData();
     const dialogRef = this.dialog.open(EditPatientComponent, {
       disableClose: true,
-      data: {isFromHomeScreen: true, patientInformation: this.patientData}
+      data: this.patientData
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -95,10 +95,21 @@ export class PatientListComponent implements OnInit {
     this.loading.hide();
   }
 
-  onPatientEdit(patient: GetPatientInformationModel) {
+  onPatientEdit(patient: GetPatientInformationModel= {
+    id: new GuidModel().Empty,
+    firstName : null,
+    lastName : null,
+    email : null,
+    age : null,
+    gender : null,
+    caseNo : null,
+    history : null,
+    phone: null,
+    patientPhotoInformation: null
+  }) {
     const dialogRef = this.dialog.open(EditPatientComponent, {
       disableClose: true,
-      data: {isFromHomeScreen: true, patientInformation: patient}
+      data: patient
     });
 
     dialogRef.afterClosed().subscribe(result => {

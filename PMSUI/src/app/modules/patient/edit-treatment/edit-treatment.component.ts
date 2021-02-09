@@ -14,7 +14,7 @@ import { AppconfigService } from 'src/app/shared/appconfig.service';
   templateUrl: './edit-treatment.component.html',
   styleUrls: ['./edit-treatment.component.scss']
 })
-export class EditTreatmentComponent implements OnInit {  
+export class EditTreatmentComponent implements OnInit {
   treatmentInformationFormGroup: FormGroup;
   treatmentFiles: File[];
   dialogTitle: string;
@@ -28,10 +28,10 @@ export class EditTreatmentComponent implements OnInit {
 
   ngOnInit() {
     this.loading.show();
-    if(this.treatmentInformation.id == new GuidModel().Empty){
+    if (this.treatmentInformation.id == new GuidModel().Empty) {
       this.dialogTitle = 'Add Treatment'
     }
-    else{
+    else {
       this.dialogTitle = 'Edit Treatment'
     }
     this.initForm();
@@ -43,7 +43,7 @@ export class EditTreatmentComponent implements OnInit {
       id: [this.treatmentInformation.id],
       treatmentTitle: [this.treatmentInformation.title == null ? null : this.treatmentInformation.title, [Validators.required]],
       treatmentSummary: [this.treatmentInformation.summary == null ? null : this.treatmentInformation.summary],
-      treatmentDate: [this.treatmentInformation.treatmentDate == null ? null : this.treatmentInformation.treatmentDate, [Validators.required]],
+      treatmentDate: [this.treatmentInformation.treatmentDate == null ? null : new Date(this.treatmentInformation.treatmentDate), [Validators.required]],
       treatmentImage: ['']
     });
   }
@@ -57,13 +57,20 @@ export class EditTreatmentComponent implements OnInit {
     this.treatmentFiles = files;
   }
 
-  onSaveTreatmentInformation(){
-    this.loading.show();
-    this.patientService.savePatientTreatment(this.prepareToSendTreatmentInformation()).subscribe(res=> {
-      this.loading.hide();
-      this.dialogRef.close(true);
-    })
-    
+  onSaveTreatmentInformation() {
+    if (this.treatmentInformationFormGroup.invalid) {
+      Object.keys(this.treatmentInformationFormGroup.controls).forEach(field => {
+        const control = this.treatmentInformationFormGroup.get(field);
+        control.markAsTouched({ onlySelf: true });
+      });
+    }
+    else {
+      this.loading.show();
+      this.patientService.savePatientTreatment(this.prepareToSendTreatmentInformation()).subscribe(res => {
+        this.loading.hide();
+        this.dialogRef.close(true);
+      })
+    }
   }
 
   prepareToSendTreatmentInformation(): PostTreatmentInformationModel {
@@ -71,7 +78,7 @@ export class EditTreatmentComponent implements OnInit {
 
     let postPatientInformation: PostTreatmentInformationModel = {
       id: treatmentInformationFormData.id,
-      title : treatmentInformationFormData.treatmentTitle,
+      title: treatmentInformationFormData.treatmentTitle,
       summary: treatmentInformationFormData.treatmentSummary,
       patientId: this.treatmentInformation.patientId,
       treatmentDate: this.formatDate(treatmentInformationFormData.treatmentDate),
@@ -82,7 +89,8 @@ export class EditTreatmentComponent implements OnInit {
   }
 
   formatDate(treatmentDate: Date) {
+    debugger;
     var offsetMs = treatmentDate.getTimezoneOffset() * 60000;
-return new Date(treatmentDate.getTime() - offsetMs);
+    return new Date(treatmentDate.getTime() - offsetMs);
   }
 }

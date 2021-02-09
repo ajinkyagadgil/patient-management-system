@@ -11,6 +11,7 @@ import { EditTreatmentComponent } from '../edit-treatment/edit-treatment.compone
 import { AppconfigService } from 'src/app/shared/appconfig.service';
 import { FileInformationModel } from 'src/app/models/common/FileInformationModel';
 import { ThisReceiver } from '@angular/compiler';
+import { EditPatientComponent } from '../edit-patient/edit-patient.component';
 
 @Component({
   selector: 'app-patient-details',
@@ -97,6 +98,19 @@ export class PatientDetailsComponent implements OnInit {
       this.patientTreatments = res;
       this.loading.hide();
     })
+  }
+
+  onPatientEdit(patient: GetPatientInformationModel) {
+    const dialogRef = this.dialog.open(EditPatientComponent, {
+      disableClose: true,
+      data: patient
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.getPatientDetails();
+      }
+    });
   }
 
   onAllFilesTabClick() {
