@@ -15,5 +15,6 @@ namespace Patient.Domain.IRepository
         Task<PatientInformation> GetPatientInformation(Guid patientId);
         Task<Guid> SavePatientInformation(PostPatientInformationEntity postPatientInformationEntity);
         Task<bool> SavePatientPhoto(Guid patientId, FileInformationEntity patientPhoto);
+        Task DeletePatientInformation(Guid patientId);
     }
 }

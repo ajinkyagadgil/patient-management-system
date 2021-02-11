@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Patient.Core.Helpers
 {
-    public class Fileuploader
+    public class FileHelper
     {
         public async Task<List<FileInformationEntity>> UploadFiles(List<IFormFile> files, FileUploadType fileUploadType, Guid id)
         {
@@ -40,7 +40,7 @@ namespace Patient.Core.Helpers
                     await file.CopyToAsync(fileStream);
                     var fileInformationEntity = new FileInformationEntity
                     {
-                        Path = string.Concat(basePath,"/", id.ToString()),
+                        Path = string.Concat(basePath, "/", id.ToString()),
                         Name = fileName,
                         Size = file.Length,
                         CreationDate = DateTime.Now,
@@ -50,6 +50,25 @@ namespace Patient.Core.Helpers
                 }
             }
             return fileInformationEntityList;
+        }
+
+        public async Task DeleteFiles(Guid id, FileUploadType fileUploadType)
+        {
+            var imagesStoragePath = string.Empty;
+            if (fileUploadType == FileUploadType.Patient)
+            {
+                imagesStoragePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "PatientImages", id.ToString());
+            }
+            if (fileUploadType == FileUploadType.Treatment)
+            {
+                imagesStoragePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "TreatmentImages", id.ToString());
+            }
+
+            if (Directory.Exists(imagesStoragePath))
+            {
+                Directory.Delete(imagesStoragePath, true);
+            }
+            await Task.CompletedTask;
         }
     }
 }

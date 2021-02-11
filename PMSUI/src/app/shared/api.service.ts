@@ -19,6 +19,10 @@ export class ApiService {
     return this.http.post<T>(this.getAPIEndpoint(action), body, options);
   }
 
+  delete<T>(action: string, options?:Object): Observable<T> {
+    return this.http.delete<T>(this.getAPIEndpoint(action), options);
+  }
+
   getAPIEndpoint(action: string) {
     return `${this.config.apiBaseUrl}api/${action}`; 
   }

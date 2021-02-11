@@ -98,5 +98,12 @@ namespace Patient.Data.Repository
             }
             return true;
         }
+
+        public async Task DeletePatientInformation(Guid patientId)
+        {
+            var patientInformation = await _pmsContext.PatientsInformation.Where(x => x.Id == patientId).Include(x => x.PatientPhoto).FirstOrDefaultAsync();
+            _pmsContext.Remove(patientInformation);
+            await _pmsContext.SaveChangesAsync();
+        }
     }
 }

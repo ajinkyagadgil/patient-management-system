@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using PMSBackend.Handler.Patient;
 using PMSBackend.Handler.Patient.ViewModels;
 using System;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace PMSBackend.Controllers
@@ -40,6 +41,21 @@ namespace PMSBackend.Controllers
                 var patientInformation = JsonConvert.DeserializeObject<PostPatientInformationViewModel>(patientInformationFormDataViewModel.patientInformation);
                 patientInformation.patientPhoto = patientInformationFormDataViewModel.patientPhoto;
                 await _patientHandler.SavePatientInformation(patientInformation);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [Route("delete/{patientId}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeletePatientAndTreatmentInformation([FromRoute]Guid patientId)
+        {
+            try
+            {
+                await _patientHandler.DeletePatientAndTreatmentInformation(patientId);
                 return Ok();
             }
             catch(Exception ex)

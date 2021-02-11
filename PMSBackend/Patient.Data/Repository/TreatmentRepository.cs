@@ -80,5 +80,17 @@ namespace Patient.Data.Repository
                 return result.Id;
             }
         }
+
+        public async Task<List<Guid>> DeleteTreatmentInformationByPatientId(Guid patientId)
+        {
+            var treatmentInformation = await _pmsDBContext.TreatmentInformation.Where(x => x.PatientId == patientId).Include(x => x.TreatmentFiles).ToListAsync();
+            var treatmentIds = treatmentInformation.Select(x => x.Id).ToList();
+            if (treatmentInformation.Count > 0)
+            {
+                _pmsDBContext.RemoveRange(treatmentInformation);
+                await _pmsDBContext.SaveChangesAsync();
+            }
+            return treatmentIds;
+        }
     }
 }

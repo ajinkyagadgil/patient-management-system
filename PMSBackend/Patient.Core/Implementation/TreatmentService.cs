@@ -26,7 +26,7 @@ namespace Patient.Core.Implementation
             var treatmentId = await _treatmentQuery.SaveTreatmentInformation(postTreatmentInformationEntity);
             if (postTreatmentInformationEntity.TreatmentFiles != null)
             {
-                Fileuploader fileuploader = new Fileuploader();
+                FileHelper fileuploader = new FileHelper();
                 var uploadedFileData = await fileuploader.UploadFiles(postTreatmentInformationEntity.TreatmentFiles, Common.Enums.FileUploadType.Treatment, treatmentId);
                 await _treatmentQuery.SaveTreatmentFilesInformation(treatmentId, uploadedFileData);
             }

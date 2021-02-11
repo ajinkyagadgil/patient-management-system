@@ -11,5 +11,6 @@ namespace PMSBackend.Handler.Patient
         Task<GetPatientInfomationViewModel> GetPatientInformation(Guid patientId);
         Task SavePatientAndTreatmentInformation(SavePatientAndTreatmentInformationViewModel savePatientAndTreatmentInformationViewModel);
         Task SavePatientInformation(PostPatientInformationViewModel postPatientInformationViewModel);
+        Task DeletePatientAndTreatmentInformation(Guid patientId);
     }
 }

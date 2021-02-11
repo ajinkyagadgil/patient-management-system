@@ -36,7 +36,7 @@ namespace Patient.Core.Implementation
         public async Task SavePatientAndTreatmentInformation(PostPatientInformationEntity postPatientInformationEntity, PostTreatmentInformationEntity postTreatmentInformationEntity)
         {
             var patientId = await _patientQuery.SavePatientInformation(postPatientInformationEntity);
-            Fileuploader fileuploader = new Fileuploader();
+            FileHelper fileuploader = new FileHelper();
             if (postPatientInformationEntity.PatientPhoto != null)
             {
                 List<IFormFile> patientPhoto = new List<IFormFile>
@@ -56,7 +56,7 @@ namespace Patient.Core.Implementation
             var patientId = await _patientQuery.SavePatientInformation(postPatientInformationEntity);
             if (postPatientInformationEntity.PatientPhoto != null)
             {
-                Fileuploader fileuploader = new Fileuploader();
+                FileHelper fileuploader = new FileHelper();
                 List<IFormFile> patientPhoto = new List<IFormFile>
                     {
                         postPatientInformationEntity.PatientPhoto,
@@ -64,6 +64,18 @@ namespace Patient.Core.Implementation
                 var uploadedFileData = await fileuploader.UploadFiles(patientPhoto, Common.Enums.FileUploadType.Patient, patientId);
                 await _patientQuery.SavePatientPhoto(patientId, uploadedFileData.FirstOrDefault());
             }
+        }
+
+        public async Task DeletePatientAndTreatmentInformation(Guid patientId)
+        {
+            FileHelper fileDelete = new FileHelper();
+            var treatmentDelete = await _treatmentQuery.DeleteTreatmentInformationByPatientId(patientId);
+            foreach (var treatmentId in treatmentDelete)
+            {
+                await fileDelete.DeleteFiles(treatmentId, Common.Enums.FileUploadType.Treatment);
+            }
+            await _patientQuery.DeletePatientInformation(patientId);
+            await fileDelete.DeleteFiles(patientId, Common.Enums.FileUploadType.Patient);
         }
     }
 }

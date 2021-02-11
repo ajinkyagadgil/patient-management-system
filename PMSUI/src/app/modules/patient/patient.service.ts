@@ -66,4 +66,8 @@ export class PatientService {
     formData.append("treatmentInformation", JSON.stringify(treatmentInformation));
     return this.Api.post('Treatment/save', formData);
   }
+
+  deletePatient(patientId: string): Observable<any> {
+    return this.Api.delete(`Patient/delete/${patientId}`);
+  }
 }

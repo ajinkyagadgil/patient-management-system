@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { EditPatientComponent } from '../edit-patient/edit-patient.component';
 import { GuidModel } from 'src/app/models/common/GuidModel';
 import { FileInformationModel } from 'src/app/models/common/FileInformationModel';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-patient-list',
@@ -26,7 +27,7 @@ export class PatientListComponent implements OnInit {
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'age', 'phone', 'gender', 'history', 'caseNo', 'patientActions'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
+
   constructor(private patientService: PatientService,
     public dialog: MatDialog,
     private loading: LoadingService,
@@ -38,23 +39,23 @@ export class PatientListComponent implements OnInit {
 
   initData() {
     this.patientPhotoInformation = {
-      id : new GuidModel().Empty,
-      name : null,
-      size : null,
-      creationDate : null,
-      path : null,
+      id: new GuidModel().Empty,
+      name: null,
+      size: null,
+      creationDate: null,
+      path: null,
       type: null
     }
 
-     this.patientData = {
-      id : new GuidModel().Empty,
-      firstName : null,
-      lastName : null,
-      email : null,
-      age : null,
-      gender : null,
-      caseNo : null,
-      history : null,
+    this.patientData = {
+      id: new GuidModel().Empty,
+      firstName: null,
+      lastName: null,
+      email: null,
+      age: null,
+      gender: null,
+      caseNo: null,
+      history: null,
       phone: null,
       patientPhotoInformation: this.patientPhotoInformation
     };
@@ -83,27 +84,27 @@ export class PatientListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.loadNext();
       }
     });
   }
 
-  OnRowClick(patient: GetPatientInformationModel){
+  OnRowClick(patient: GetPatientInformationModel) {
     this.loading.show();
     this.router.navigate(['patient/details', patient.id])
     this.loading.hide();
   }
 
-  onPatientEdit(patient: GetPatientInformationModel= {
+  onPatientEdit(patient: GetPatientInformationModel = {
     id: new GuidModel().Empty,
-    firstName : null,
-    lastName : null,
-    email : null,
-    age : null,
-    gender : null,
-    caseNo : null,
-    history : null,
+    firstName: null,
+    lastName: null,
+    email: null,
+    age: null,
+    gender: null,
+    caseNo: null,
+    history: null,
     phone: null,
     patientPhotoInformation: null
   }) {
@@ -113,13 +114,26 @@ export class PatientListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.loadNext();
       }
     });
   }
 
   onPatientDelete(patientId: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      data: { title: 'Delete Patient', message: 'Are you sure you want to delete the patient along with all the treatment information' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loading.show();
+        this.patientService.deletePatient(patientId).subscribe(res => {
+          this.loadNext();
+          this.loading.hide();
+        })
+      }
+    });
   }
 
   onPatientDetails(patientId: string) {

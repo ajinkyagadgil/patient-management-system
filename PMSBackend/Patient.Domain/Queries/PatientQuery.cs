@@ -41,5 +41,10 @@ namespace Patient.Domain.Queries
         {
             return await _patientRepository.SavePatientPhoto(patientId, patientPhoto);
         }
+
+        public async Task DeletePatientInformation(Guid patientId)
+        {
+            await _patientRepository.DeletePatientInformation(patientId);
+        }
     }
 }
