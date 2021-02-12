@@ -81,7 +81,11 @@
                   <div class="timeline-arrow"></div>
                   <h2 class="h5 mb-0">{{treatment.title}}<span (click)="onTreatmentEdit(treatment)" class="float-right" style="cursor: pointer;">
                       <mat-icon>edit</mat-icon>
-                    </span></h2>
+                    </span>
+                    <span (click)="onTreatmentDelete(treatment.id)" class="float-right" style="cursor: pointer;">
+                      <mat-icon>delete</mat-icon>
+                    </span>
+                  </h2>
                   <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>{{treatment.treatmentDate | date:'fullDate'}}</span>
                   <p class="text-small mt-2 font-weight-light">{{treatment.summary}}</p>
                   <div class="row">

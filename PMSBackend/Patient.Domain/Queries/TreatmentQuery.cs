@@ -38,5 +38,10 @@ namespace Patient.Domain.Queries
         {
             return await _treatmentRepository.DeleteTreatmentInformationByPatientId(patientId);
         }
+
+        public async Task DeleteTreatmentInformationById(Guid treatmentId)
+        {
+            await _treatmentRepository.DeleteTreatmentInformationById(treatmentId);
+        }
     }
 }

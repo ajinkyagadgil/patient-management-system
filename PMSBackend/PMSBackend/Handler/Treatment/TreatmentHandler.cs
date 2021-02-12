@@ -25,5 +25,10 @@ namespace PMSBackend.Handler.Treatment
         {
             await _treatmentService.SavePatientTreatment(postTreatmentInformationViewModel.ToEntityModel());
         }
+
+        public async Task DeleteTreatmentInformation(Guid treatmentId)
+        {
+            await _treatmentService.DeleteTreatmentInformation(treatmentId);
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace Patient.Core.Services
     {
         Task<List<GetTreatmentInformationEntity>> GetPatientTreatments(Guid patientId);
         Task SavePatientTreatment(PostTreatmentInformationEntity postTreatmentInformationEntity);
+        Task DeleteTreatmentInformation(Guid treatmentId);
     }
 }

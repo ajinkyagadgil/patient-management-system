@@ -34,5 +34,21 @@ namespace PMSBackend.Controllers
             await _treatmentHandler.SavePatientTreatment(treatmentInformation);
             return Ok();
         }
+
+        [Route("delete/{treatmentId}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteTreatmentInformation([FromRoute]Guid treatmentId)
+        {
+            try
+            {
+
+                await _treatmentHandler.DeleteTreatmentInformation(treatmentId);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

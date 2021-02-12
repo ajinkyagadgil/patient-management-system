@@ -70,4 +70,8 @@ export class PatientService {
   deletePatient(patientId: string): Observable<any> {
     return this.Api.delete(`Patient/delete/${patientId}`);
   }
+
+  deleteTreatment(treatmentId: string): Observable<any> {
+    return this.Api.delete(`Treatment/delete/${treatmentId}`);
+  }
 }

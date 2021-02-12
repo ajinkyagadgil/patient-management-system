@@ -9,5 +9,6 @@ namespace PMSBackend.Handler.Treatment
     {
         Task<List<GetTreatmentInformationViewModel>> GetPatientTreatments(Guid patientId);
         Task SavePatientTreatment(PostTreatmentInformationViewModel postTreatmentInformationViewModel);
+        Task DeleteTreatmentInformation(Guid treatmentId);
     }
 }

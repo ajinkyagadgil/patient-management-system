@@ -12,6 +12,7 @@ import { AppconfigService } from 'src/app/shared/appconfig.service';
 import { FileInformationModel } from 'src/app/models/common/FileInformationModel';
 import { ThisReceiver } from '@angular/compiler';
 import { EditPatientComponent } from '../edit-patient/edit-patient.component';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-patient-details',
@@ -46,6 +47,21 @@ export class PatientDetailsComponent implements OnInit {
     return fullPath.concat(this.apiUrl, treatmentFile.path, "/", treatmentFile.name);
   }
 
+  onTreatmentDelete(treatmentId: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      data: { title: 'Delete Treatment?', message: 'Are you sure you want to delete the treatment information' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loading.show();
+        this.patientService.deleteTreatment(treatmentId).subscribe(res => {
+          this.getPatientTreatments();
+          this.loading.hide();
+        })
+      }
+    });
+  }
   onTreatmentEdit(treatmentInformation: GetTreatmentInformationModel = {
     id: new GuidModel().Empty,
     patientId: this.patientId,
