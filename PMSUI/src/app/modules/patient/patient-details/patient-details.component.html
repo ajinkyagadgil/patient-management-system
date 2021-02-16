@@ -90,7 +90,7 @@
                   <p class="text-small mt-2 font-weight-light">{{treatment.summary}}</p>
                   <div class="row">
                     <div *ngFor="let treatmentFile of treatment.treatmentFiles">
-                      <div class="col-md-3 mb-2">
+                      <div class="col-md-3 mb-2" (click)="openImage(treatmentFile, treatment.treatmentFiles)">
                       <img [src]="getImagePath(treatmentFile)" height="200px" width="200px" alt="Treatment image">
                       </div>
                     </div>
@@ -106,7 +106,7 @@
           <div class="tab-pane" id="settings" *ngIf="allFilesAdded">
             <div class="row">
               <div *ngFor="let file of allFiles">
-                <div class="col-md-3 mb-2">
+                <div class="col-md-3 mb-2" (click)="openImage(file, allFiles)">
                 <img [src]="getImagePath(file)" height="200px" width="200px" alt="Treatment image">
                 </div>
               </div>

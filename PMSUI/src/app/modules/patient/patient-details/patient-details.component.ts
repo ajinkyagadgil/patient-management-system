@@ -13,6 +13,7 @@ import { FileInformationModel } from 'src/app/models/common/FileInformationModel
 import { ThisReceiver } from '@angular/compiler';
 import { EditPatientComponent } from '../edit-patient/edit-patient.component';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ImagesViewerComponent } from '../../shared/components/images-viewer/images-viewer.component';
 
 @Component({
   selector: 'app-patient-details',
@@ -85,6 +86,21 @@ export class PatientDetailsComponent implements OnInit {
       }
     });
   }
+
+  openImage(treatmentFile: FileInformationModel, treatmentFiles: FileInformationModel[]) {
+    debugger;
+    let imageUrl = this.getImagePath(treatmentFile);
+    let imagesArray: string[] = [];
+    imagesArray.push(imageUrl);
+    let otherFiles = treatmentFiles.filter(x=>x.id != treatmentFile.id);
+    otherFiles.forEach(file => {
+    imagesArray.push(this.getImagePath(file))
+    })
+    const dialogRef = this.dialog.open(ImagesViewerComponent, {
+      data: imagesArray
+    });
+  }
+
   loadNext() {
     this.loading.show();
     forkJoin(
