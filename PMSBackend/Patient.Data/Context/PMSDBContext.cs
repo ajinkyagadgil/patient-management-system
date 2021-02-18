@@ -14,7 +14,7 @@ namespace Patient.Data.Context
         public virtual DbSet<TreatmentInformation> TreatmentInformation { get; set; }
         public virtual DbSet<TreatmentFiles> TreatmentFiles { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
-        
+        public virtual DbSet<RecordInformation> RecordInformation { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }
 }

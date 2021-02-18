@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { EditTreatmentComponent } from './edit-treatment/edit-treatment.component';
+import { RecordListComponent } from './record-list/record-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'patient', pathMatch: 'full' },
@@ -15,12 +16,11 @@ const routes: Routes = [
     {path: 'add', component: EditPatientComponent},
     {path: 'details/:patientId', component: PatientDetailsComponent}
   ] },
-  {path: 'add', component: EditPatientComponent},
-  { path: 'patient/:id', component: PatientDetailsComponent }
+  {path: 'record', component: RecordListComponent}
 ];
 
 @NgModule({
-  declarations: [PatientListComponent, PatientDetailsComponent, EditPatientComponent, EditTreatmentComponent],
+  declarations: [PatientListComponent, PatientDetailsComponent, EditPatientComponent, EditTreatmentComponent, RecordListComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

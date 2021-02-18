@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using PMS.Dependencies;
 using PMSBackend.Handler.Common;
 using PMSBackend.Handler.Patient;
+using PMSBackend.Handler.Record;
 using PMSBackend.Handler.Treatment;
 using System.IO;
 
@@ -32,6 +33,7 @@ namespace PMSBackend
             services.AddScoped<IPatientHandler, PatientHandler>();
             services.AddScoped<ICommonHandler, CommonHandler>();
             services.AddScoped<ITreatmentHandler, TreatmentHandler>();
+            services.AddScoped<IRecordHandler, RecordHandler>();
             services.RegisterServices(); //custom method in dependency project
             services.AddCorsDependencies(); //custom method in dependency project
         }

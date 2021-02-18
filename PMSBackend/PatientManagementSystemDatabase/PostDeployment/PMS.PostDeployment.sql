@@ -14,3 +14,4 @@ Post-Deployment Script Template
 :r .\User.Users.sql
 :r .\Patient.PatientInformation.sql
 :r .\Treatment.TreatmentInformation.sql
+:r .\Record.RecordInformation.sql

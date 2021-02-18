@@ -18,6 +18,9 @@ namespace PMS.Dependencies
             services.AddScoped<ITreatmentQuery, TreatmentQuery>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<ITreatmentRepository, TreatmentRepository>();
+            services.AddScoped<IRecordService, RecordService>();
+            services.AddScoped<IRecordQuery, RecordQuery>();
+            services.AddScoped<IRecordRepository, RecordRepository>();
             return services;
         }
     }
