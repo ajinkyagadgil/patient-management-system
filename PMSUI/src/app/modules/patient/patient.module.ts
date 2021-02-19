@@ -8,6 +8,7 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { EditTreatmentComponent } from './edit-treatment/edit-treatment.component';
 import { RecordListComponent } from './record-list/record-list.component';
+import { EditRecordComponent } from './record-list/edit-record/edit-record.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'patient', pathMatch: 'full' },
@@ -20,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PatientListComponent, PatientDetailsComponent, EditPatientComponent, EditTreatmentComponent, RecordListComponent],
+  declarations: [PatientListComponent, PatientDetailsComponent, EditPatientComponent, EditTreatmentComponent, RecordListComponent, EditRecordComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

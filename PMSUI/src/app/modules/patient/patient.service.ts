@@ -7,6 +7,7 @@ import { GetGenderInformationModel } from 'src/app/models/common/GetGenderInform
 import { PostPatientInformationModel } from 'src/app/models/patient/PostPatientInformationModel';
 import { PostTreatmentInformationModel } from 'src/app/models/treatment/PostTreatmentInformationModel';
 import { GetTreatmentInformationModel } from 'src/app/models/treatment/GetTreatmentInformationModel';
+import { RecordInformationModel } from 'src/app/models/records/RecordInformationModel';
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +26,13 @@ export class PatientService {
 
   savePatientAndTreatmentInformation(patientInformation: GetPatientInformationModel, treatmentInformation: PostTreatmentInformationModel, patientPhoto: File): Observable<any> {
     let formData = new FormData();
-    if(patientPhoto != null) {
+    if (patientPhoto != null) {
       formData.append("patientPhoto", patientPhoto, patientPhoto.name)
     }
     formData.append("patientInformation", JSON.stringify(patientInformation));
 
-    if(treatmentInformation.treatmentFiles.length > 0) {
-      for(var i=0; i< treatmentInformation.treatmentFiles.length; i++) {
+    if (treatmentInformation.treatmentFiles.length > 0) {
+      for (var i = 0; i < treatmentInformation.treatmentFiles.length; i++) {
         formData.append("treatmentPhoto", treatmentInformation.treatmentFiles[i], treatmentInformation.treatmentFiles[i].name)
       }
       formData.append("treatmentInformation", JSON.stringify(treatmentInformation));
@@ -41,7 +42,7 @@ export class PatientService {
 
   savePatientInformation(patientInformation: PostPatientInformationModel): Observable<any> {
     let formData = new FormData();
-    if(patientInformation.patientPhoto != null) {
+    if (patientInformation.patientPhoto != null) {
       formData.append("patientPhoto", patientInformation.patientPhoto, patientInformation.patientPhoto.name);
     }
     formData.append("patientInformation", JSON.stringify(patientInformation));
@@ -58,8 +59,8 @@ export class PatientService {
 
   savePatientTreatment(treatmentInformation: PostTreatmentInformationModel): Observable<any> {
     let formData = new FormData();
-    if(treatmentInformation.treatmentFiles?.length > 0){
-      for(var file=0; file<treatmentInformation.treatmentFiles.length; file++){
+    if (treatmentInformation.treatmentFiles?.length > 0) {
+      for (var file = 0; file < treatmentInformation.treatmentFiles.length; file++) {
         formData.append("treatmentFiles", treatmentInformation.treatmentFiles[file], treatmentInformation.treatmentFiles[file].name)
       }
     }
@@ -73,5 +74,9 @@ export class PatientService {
 
   deleteTreatment(treatmentId: string): Observable<any> {
     return this.Api.delete(`Treatment/delete/${treatmentId}`);
+  }
+
+  getAllRecords(): Observable<RecordInformationModel[]> {
+    return this.Api.get('Record/all');
   }
 }
