@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PMSBackend.Handler.Record;
+using PMSBackend.Handler.Record.ViewModels;
 using System;
 using System.Threading.Tasks;
 
@@ -23,6 +24,21 @@ namespace PMSBackend.Controllers
             try
             {
                 return Ok(await _recordHandler.GetAllRecords());
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [Route("save")]
+        [HttpPost]
+        public async Task<IActionResult> SaveRecord([FromBody] RecordInformationViewModel recordInformationViewModel)
+        {
+            try
+            {
+                await _recordHandler.SaveRecord(recordInformationViewModel);
+                return Ok();
             }
             catch(Exception ex)
             {

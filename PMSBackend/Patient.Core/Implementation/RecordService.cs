@@ -21,5 +21,10 @@ namespace Patient.Core.Implementation
         {
             return await _recordQuery.GetAllRecords();
         }
+
+        public async Task SaveRecord(RecordInformationEntity recordInformationEntity)
+        {
+            await _recordQuery.SaveRecord(recordInformationEntity);
+        }
     }
 }

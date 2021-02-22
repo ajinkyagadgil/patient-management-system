@@ -7,5 +7,6 @@ namespace Patient.Core.IQueries
     public interface IRecordQuery
     {
         Task<List<RecordInformationEntity>> GetAllRecords();
+        Task SaveRecord(RecordInformationEntity recordInformationEntity);
     }
 }

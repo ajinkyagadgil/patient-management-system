@@ -1,15 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
-using Patient.Core.Common.Enums;
-using Patient.Core.Entities;
-using Patient.Core.Entities.Patient;
-using Patient.Core.Entities.Treatment;
+﻿using Patient.Core.Entities.Patient;
 using PMSBackend.Handler.Patient.ViewModels;
-using System.Collections.Generic;
 
 namespace PMSBackend.Handler.Patient.Converters
 {
     public static class ToEntityModels
     {
+        public static PatientInformationBaseEntity ToEntityModel(this PatientInformationBaseViewModel patientInformationBaseViewModel)
+        => patientInformationBaseViewModel == null ? null : new PatientInformationBaseEntity
+        {
+            Id = patientInformationBaseViewModel.id,
+            FirstName = patientInformationBaseViewModel.firstName,
+            LastName = patientInformationBaseViewModel.lastName,
+            Email = patientInformationBaseViewModel.email,
+            Age = patientInformationBaseViewModel.age,
+            Phone = patientInformationBaseViewModel.phone,
+            Gender = patientInformationBaseViewModel.gender,
+            History = patientInformationBaseViewModel.history,
+            CaseNo = patientInformationBaseViewModel.caseNo
+        };
+
         public static PostPatientInformationEntity ToEntityModel(this PostPatientInformationViewModel postPatientInformationViewModel)
         => postPatientInformationViewModel == null ? null : new PostPatientInformationEntity
         {

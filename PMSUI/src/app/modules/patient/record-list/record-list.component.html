@@ -13,7 +13,7 @@
     Record</button>
 
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="recordInformation" matSort>
+    <table mat-table [dataSource]="recordInformation" matSort *ngIf="allRecordInformation">
 
         <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
@@ -42,22 +42,18 @@
 
         <ng-container matColumnDef="recordActions">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions </th>
-            <td mat-cell *matCellDef="let patient">
+            <td mat-cell *matCellDef="let record">
                 <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)= "onRecordEdit(record)">
                         <mat-icon>edit</mat-icon>
-                        <span>Edit Patient</span>
+                        <span>Edit Record</span>
                     </button>
                     <button mat-menu-item>
                         <mat-icon>delete</mat-icon>
-                        <span>Delete Patient</span>
-                    </button>
-                    <button mat-menu-item>
-                        <mat-icon>details</mat-icon>
-                        <span>Patient Details</span>
+                        <span>Delete Record</span>
                     </button>
                 </mat-menu>
 

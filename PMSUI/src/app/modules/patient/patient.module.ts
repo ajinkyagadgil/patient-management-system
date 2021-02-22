@@ -36,7 +36,8 @@ const routes: Routes = [
     so that the Angular compiler knows to create the ComponentFactory for it.
     */
    EditPatientComponent,
-   EditTreatmentComponent
+   EditTreatmentComponent,
+   EditRecordComponent
   ]
 })
 export class PatientModule { }

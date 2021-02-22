@@ -5,6 +5,9 @@ import { RecordInformationModel } from 'src/app/models/records/RecordInformation
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { GuidModel } from 'src/app/models/common/GuidModel';
+import { MatDialog } from '@angular/material/dialog';
+import { EditRecordComponent } from './edit-record/edit-record.component';
 
 @Component({
   selector: 'app-record-list',
@@ -17,9 +20,11 @@ export class RecordListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   recordInformation: MatTableDataSource<RecordInformationModel>;
+  allRecordInformation: RecordInformationModel[];
 
   constructor(private loading: LoadingService,
-    private patientService: PatientService) { }
+    private patientService: PatientService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadNext();
@@ -29,6 +34,7 @@ export class RecordListComponent implements OnInit {
     this.loading.show();
     this.patientService.getAllRecords().subscribe(res => {
       this.recordInformation = new MatTableDataSource(res);
+      this.allRecordInformation = res;
       this.recordInformation.sort = this.sort;
       this.recordInformation.paginator = this.paginator;
       this.loading.hide();
@@ -38,12 +44,31 @@ export class RecordListComponent implements OnInit {
     })
   }
 
-  onRecordEdit() {
+  onRecordEdit(recordInformation: RecordInformationModel = {
+    id : new GuidModel().Empty,
+    patientId : new GuidModel().Empty,
+    recordDate : null,
+    amount : null,
+    treatment : null,
+    patientInformation : null
+  }) {
+    const dialogRef = this.dialog.open(EditRecordComponent, {
+      disableClose: true,
+      data: recordInformation
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadNext();
+      }
+    });
   }
 
   getTotalAmount() {
-    return 100;
-  }
-
+    let total = 0;
+    this.allRecordInformation.forEach(record => {
+      total = total + record.amount;
+    })
+    return total;
+    }
 }

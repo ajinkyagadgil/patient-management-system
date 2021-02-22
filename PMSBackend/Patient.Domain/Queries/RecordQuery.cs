@@ -21,5 +21,10 @@ namespace Patient.Domain.Queries
         {
             return (await _recordRepository.GetAllRecords()).Select(x => x.ToModelEntity()).ToList();
         }
+
+        public async Task SaveRecord(RecordInformationEntity recordInformationEntity)
+        {
+            await _recordRepository.SaveRecord(recordInformationEntity);
+        }
     }
 }

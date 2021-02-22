@@ -21,5 +21,10 @@ namespace PMSBackend.Handler.Record
         {
             return (await _recordService.GetAllRecords()).Select(x => x.ToViewModel()).ToList();
         }
+
+        public async Task SaveRecord(RecordInformationViewModel recordInformationViewModel)
+        {
+            await _recordService.SaveRecord(recordInformationViewModel.ToEntityModel());
+        }
     }
 }

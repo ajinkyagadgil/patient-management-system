@@ -16,6 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatTabsModule} from '@angular/material/tabs'; 
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
 // import {} from '@angular/material-moment-adapter';
 
 @NgModule({
@@ -37,7 +38,8 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatDatepickerModule,
         MatCardModule,
         MatMenuModule,
-        MatTabsModule
+        MatTabsModule,
+        MatAutocompleteModule
     ],
     exports: [
         MatTableModule,
@@ -56,7 +58,8 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatDatepickerModule,
         MatCardModule,
         MatMenuModule,
-        MatTabsModule
+        MatTabsModule,
+        MatAutocompleteModule
     ],
     // providers: [
     //     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {strict: true}}
