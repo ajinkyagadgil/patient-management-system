@@ -79,4 +79,9 @@ export class PatientService {
   getAllRecords(): Observable<RecordInformationModel[]> {
     return this.Api.get('Record/all');
   }
+
+  saveRecord(recordInformation: RecordInformationModel): Observable<any> {
+    console.log(JSON.stringify(recordInformation));
+    return this.Api.post('Record/save', recordInformation);
+  }
 }
