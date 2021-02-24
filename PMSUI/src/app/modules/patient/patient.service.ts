@@ -81,7 +81,10 @@ export class PatientService {
   }
 
   saveRecord(recordInformation: RecordInformationModel): Observable<any> {
-    console.log(JSON.stringify(recordInformation));
     return this.Api.post('Record/save', recordInformation);
+  }
+
+  deleteRecord(recordId): Observable<any> {
+    return this.Api.delete(`Record/delete/${recordId}`)
   }
 }

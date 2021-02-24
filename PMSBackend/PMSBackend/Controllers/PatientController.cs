@@ -22,7 +22,7 @@ namespace PMSBackend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPatientsInformation()
         {
-            return Ok(await _patientHandler.GetPatientsInformation());
+            return Ok(await _patientHandler.GetPatientsInformation ());
         }
 
         [Route("get/{patientId}")]

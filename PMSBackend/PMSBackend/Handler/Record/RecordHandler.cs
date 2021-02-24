@@ -26,5 +26,10 @@ namespace PMSBackend.Handler.Record
         {
             await _recordService.SaveRecord(recordInformationViewModel.ToEntityModel());
         }
+
+        public async Task DeleteRecord(Guid recordId)
+        {
+            await _recordService.DeleteRecord(recordId);
+        }
     }
 }

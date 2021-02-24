@@ -26,5 +26,10 @@ namespace Patient.Core.Implementation
         {
             await _recordQuery.SaveRecord(recordInformationEntity);
         }
+
+        public async Task DeleteRecord(Guid recordId)
+        {
+            await _recordQuery.DeleteRecord(recordId);
+        }
     }
 }

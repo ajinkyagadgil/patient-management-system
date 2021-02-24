@@ -4,10 +4,25 @@
   </div>
 </section> -->
 
-<mat-form-field>
-    <mat-label>Search</mat-label>
-    <input matInput placeholder="Ex. Anything" #input>
+<mat-form-field appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [formGroup]="dateRangeFormGroup" [rangePicker]="picker" >
+            <input matStartDate formControlName="start" placeholder="Start date" [disabled]="true">
+            <input matEndDate formControlName="end" placeholder="End date" [disabled]="true">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker disabled="false">
+            <!-- <mat-date-range-picker-actions>
+                <button mat-button matDateRangePickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+              </mat-date-range-picker-actions> -->
+        </mat-date-range-picker>
+
+        <mat-error *ngIf="dateRangeFormGroup.get('start').hasError('matStartDateInvalid')">Invalid start date
+        </mat-error>
+        <mat-error *ngIf="dateRangeFormGroup.get('end').hasError('matEndDateInvalid')">Invalid end date</mat-error>
 </mat-form-field>
+
 
 <button class="float-right add-record-btn" mat-raised-button color="primary" (click)="onRecordEdit()">Add
     Record</button>
@@ -47,11 +62,11 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)= "onRecordEdit(record)">
+                    <button mat-menu-item (click)="onRecordEdit(record)">
                         <mat-icon>edit</mat-icon>
                         <span>Edit Record</span>
                     </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="onRecordDelete(record.id)">
                         <mat-icon>delete</mat-icon>
                         <span>Delete Record</span>
                     </button>

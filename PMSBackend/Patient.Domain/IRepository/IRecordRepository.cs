@@ -11,5 +11,6 @@ namespace Patient.Domain.IRepository
     {
         Task<List<RecordInformation>> GetAllRecords();
         Task SaveRecord(RecordInformationEntity recordInformationEntity);
+        Task DeleteRecord(Guid recordId);
     }
 }

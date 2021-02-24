@@ -8,6 +8,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { GuidModel } from 'src/app/models/common/GuidModel';
 import { MatDialog } from '@angular/material/dialog';
 import { EditRecordComponent } from './edit-record/edit-record.component';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-record-list',
@@ -21,15 +23,24 @@ export class RecordListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   recordInformation: MatTableDataSource<RecordInformationModel>;
   allRecordInformation: RecordInformationModel[];
+  dateRangeFormGroup: FormGroup;
 
   constructor(private loading: LoadingService,
     private patientService: PatientService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.initForm();
     this.loadNext();
   }
 
+  initForm() {
+    this.dateRangeFormGroup = this.fb.group({
+      start: [new Date()],
+      end: [new Date()]
+    })
+  }
   loadNext() {
     this.loading.show();
     this.patientService.getAllRecords().subscribe(res => {
@@ -62,6 +73,22 @@ export class RecordListComponent implements OnInit {
         this.loadNext();
       }
     });
+  }
+
+  onRecordDelete(recordId: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {title: 'Delete Record?', message:'Are you sure you want to permanently delete the record'}
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.loading.show();
+        this.patientService.deleteRecord(recordId).subscribe(res => {
+          this.loadNext();
+          this.loading.hide();
+        })
+      }
+    })
   }
 
   getTotalAmount() {

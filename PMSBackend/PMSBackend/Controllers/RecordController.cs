@@ -45,5 +45,20 @@ namespace PMSBackend.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        [Route("delete/{recordId}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteRecord([FromRoute]Guid recordId)
+        {
+            try
+            {
+                await _recordHandler.DeleteRecord(recordId);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

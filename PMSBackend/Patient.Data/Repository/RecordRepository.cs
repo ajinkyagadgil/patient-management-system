@@ -27,7 +27,7 @@ namespace Patient.Data.Repository
         public async Task SaveRecord(RecordInformationEntity recordInformationEntity)
         {
             var result = await _pmsDBContext.RecordInformation.Where(x => x.Id == recordInformationEntity.Id).FirstOrDefaultAsync();
-            if(result == null)
+            if (result == null)
             {
                 var recordInformation = new RecordInformation
                 {
@@ -47,6 +47,20 @@ namespace Patient.Data.Repository
                 result.RecordDate = recordInformationEntity.RecordDate;
             }
             await _pmsDBContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteRecord(Guid recordId)
+        {
+            var result = await _pmsDBContext.RecordInformation.Where(x => x.Id == recordId).FirstOrDefaultAsync();
+            if (result != null)
+            {
+                _pmsDBContext.RecordInformation.Remove(result);
+                await _pmsDBContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Record not found");
+            }
         }
     }
 }

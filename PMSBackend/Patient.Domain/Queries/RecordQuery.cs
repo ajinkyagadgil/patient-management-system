@@ -2,6 +2,7 @@
 using Patient.Core.IQueries;
 using Patient.Domain.IRepository;
 using Patient.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +26,11 @@ namespace Patient.Domain.Queries
         public async Task SaveRecord(RecordInformationEntity recordInformationEntity)
         {
             await _recordRepository.SaveRecord(recordInformationEntity);
+        }
+
+        public async Task DeleteRecord(Guid recordId)
+        {
+            await _recordRepository.DeleteRecord(recordId);
         }
     }
 }

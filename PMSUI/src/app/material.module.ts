@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatTabsModule} from '@angular/material/tabs'; 
@@ -33,9 +33,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
         MatSelectModule,
         MatIconModule,
         MatToolbarModule,
-        MatNativeDateModule,
-        // MatMomentDateModule,
         MatDatepickerModule,
+        MatNativeDateModule,
         MatCardModule,
         MatMenuModule,
         MatTabsModule,
@@ -53,9 +52,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
         MatSelectModule,
         MatIconModule,
         MatToolbarModule,
-        MatNativeDateModule,
-        // MatMomentDateModule,
         MatDatepickerModule,
+        MatNativeDateModule,
         MatCardModule,
         MatMenuModule,
         MatTabsModule,
@@ -64,6 +62,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     // providers: [
     //     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {strict: true}}
     //   ]
+    providers: [
+        {provide: MAT_DATE_LOCALE, useValue: 'en-IN'},
+      ],
 })
 
 export class AngularMaterialModule { }
