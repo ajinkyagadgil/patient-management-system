@@ -22,7 +22,14 @@ namespace PMSBackend.Controllers
         [HttpGet]
         public IActionResult GetGenders()
         {
-            return Ok(_commonHandler.GetGenders());
+            try
+            {
+                return Ok(_commonHandler.GetGenders());
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

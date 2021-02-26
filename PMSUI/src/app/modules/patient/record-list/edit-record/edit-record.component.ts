@@ -8,6 +8,7 @@ import { GuidModel } from 'src/app/models/common/GuidModel';
 import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInformationModel';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { ToasterService } from 'src/app/modules/shared/toaster.service';
 
 @Component({
   selector: 'app-edit-record',
@@ -23,7 +24,8 @@ export class EditRecordComponent implements OnInit {
     private loading: LoadingService,
     private patientService: PatientService,
     @Inject(MAT_DIALOG_DATA) public recordInformation: RecordInformationModel,
-    public dialogRef: MatDialogRef<EditRecordComponent>,) { }
+    public dialogRef: MatDialogRef<EditRecordComponent>,
+    private toasterService: ToasterService) { }
 
   ngOnInit() {
     this.loading.show();
@@ -42,6 +44,9 @@ export class EditRecordComponent implements OnInit {
           map(value => typeof value === 'string' ? value : value.patient),
           map(patient => patient ? this._filter(patient) : this.patientInformation.slice())
         );
+      this.loading.hide();
+    }, error => {
+      this.toasterService.error("Failed", error.error);
       this.loading.hide();
     })
   }
@@ -69,13 +74,19 @@ export class EditRecordComponent implements OnInit {
         const control = this.recordInformationFormGroup.get(field);
         control.markAsTouched({ onlySelf: true });
       });
+      this.toasterService.warning("Warning", "There are errors in the form")
     }
-    else{
+    else {
       this.loading.show();
-      this.patientService.saveRecord(this.prepareToSendRecordInformation()).subscribe(res => {
+      this.patientService.saveRecord(this.prepareToSendRecordInformation()).subscribe(() => {
         this.loading.hide();
+        this.toasterService.success("Success", "Changes saved");
         this.dialogRef.close(true);
-      })
+      }, error => {
+        this.toasterService.error("Failed", error.error);
+        this.loading.hide();
+      }
+      )
     }
   }
 
@@ -95,7 +106,7 @@ export class EditRecordComponent implements OnInit {
       amount: Number(recordInformationFormData.amount),
       recordDate: this.formatDate(recordInformationFormData.date),
       patientInformation: recordInformationFormData.patient
-     
+
     };
     return postRecordInformation;
   }
@@ -105,5 +116,4 @@ export class EditRecordComponent implements OnInit {
     var offsetMs = date.getTimezoneOffset() * 60000;
     return new Date(date.getTime() - offsetMs);
   }
-
 }

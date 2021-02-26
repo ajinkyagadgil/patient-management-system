@@ -19,9 +19,20 @@ namespace Patient.Data.Repository
             _pmsDBContext = pmsDBContext;
         }
 
-        public async Task<List<RecordInformation>> GetAllRecords()
+        public async Task<List<RecordInformation>> GetAllRecords(DateRangeEntity dateRangeEntity)
         {
-            return await _pmsDBContext.RecordInformation.Include(x => x.PatientInformation).ToListAsync();
+            if(dateRangeEntity.StartDate != null && dateRangeEntity.EndDate != null)
+            {
+                return await _pmsDBContext.RecordInformation.Include(x => x.PatientInformation).Where(x => x.RecordDate.Date >= Convert.ToDateTime(dateRangeEntity.StartDate).Date && x.RecordDate.Date <= Convert.ToDateTime(dateRangeEntity.EndDate).Date).ToListAsync();
+            }
+            else if(dateRangeEntity.StartDate != null && dateRangeEntity.EndDate == null)
+            {
+                return await _pmsDBContext.RecordInformation.Include(x => x.PatientInformation).Where(x => x.RecordDate.Date >= Convert.ToDateTime(dateRangeEntity.StartDate).Date).ToListAsync();
+            }
+            else
+            {
+                return await _pmsDBContext.RecordInformation.Include(x => x.PatientInformation).Where(x => x.RecordDate.Date <= Convert.ToDateTime(dateRangeEntity.EndDate).Date).ToListAsync();
+            }
         }
 
         public async Task SaveRecord(RecordInformationEntity recordInformationEntity)
@@ -60,6 +71,16 @@ namespace Patient.Data.Repository
             else
             {
                 throw new Exception("Record not found");
+            }
+        }
+
+        public async Task DeleteRecordByPatientId(Guid patientId)
+        {
+            var result = await _pmsDBContext.RecordInformation.Where(x => x.PatientId == patientId).ToListAsync();
+            if(result != null)
+            {
+                _pmsDBContext.RecordInformation.RemoveRange(result);
+                await _pmsDBContext.SaveChangesAsync();
             }
         }
     }

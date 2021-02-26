@@ -22,14 +22,28 @@ namespace PMSBackend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPatientsInformation()
         {
-            return Ok(await _patientHandler.GetPatientsInformation ());
+            try
+            {
+                return Ok(await _patientHandler.GetPatientsInformation());
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("get/{patientId}")]
         [HttpGet]
         public async Task<IActionResult> GetPatientInformation([FromRoute]Guid patientId)
         {
-            return Ok(await _patientHandler.GetPatientInformation(patientId));
+            try
+            {
+                return Ok(await _patientHandler.GetPatientInformation(patientId));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("save")]
@@ -45,7 +59,7 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -60,7 +74,7 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -68,8 +82,15 @@ namespace PMSBackend.Controllers
         [HttpPost]
         public async Task<IActionResult> SavePatientAndTreatmentInformation([FromForm]SavePatientAndTreatmentInformationViewModel savePatientAndTreatmentInformationViewModel)
         {
-            await _patientHandler.SavePatientAndTreatmentInformation(savePatientAndTreatmentInformationViewModel);
-            return Ok();
+            try
+            {
+                await _patientHandler.SavePatientAndTreatmentInformation(savePatientAndTreatmentInformationViewModel);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

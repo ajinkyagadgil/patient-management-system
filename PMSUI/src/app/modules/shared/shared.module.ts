@@ -7,13 +7,14 @@ import { FilePathPipe } from './Pipes/file-path.pipe';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ImagesViewerComponent } from './components/images-viewer/images-viewer.component';
 import { AngularImageViewerModule } from "angular-x-image-viewer";
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [EmptyStringPipe, GenderToStringPipe, FilePathPipe, ConfirmDialogComponent, ImagesViewerComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,
-    AngularImageViewerModule
+    AngularImageViewerModule,
   ],
   exports: [
     AngularMaterialModule,

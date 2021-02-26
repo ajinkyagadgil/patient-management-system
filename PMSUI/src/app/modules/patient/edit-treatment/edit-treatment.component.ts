@@ -7,6 +7,7 @@ import { LoadingService } from 'src/app/shared/loading.service';
 import { PostTreatmentInformationModel } from 'src/app/models/treatment/PostTreatmentInformationModel';
 import { PatientService } from '../patient.service';
 import { AppconfigService } from 'src/app/shared/appconfig.service';
+import { ToasterService } from '../../shared/toaster.service';
 // import * as moment from 'moment';
 
 @Component({
@@ -24,7 +25,8 @@ export class EditTreatmentComponent implements OnInit {
     public dialogRef: MatDialogRef<EditTreatmentComponent>,
     private loading: LoadingService,
     private patientService: PatientService,
-    private appConfigService: AppconfigService) { }
+    private appConfigService: AppconfigService,
+    private toasterService: ToasterService) { }
 
   ngOnInit() {
     this.loading.show();
@@ -63,12 +65,17 @@ export class EditTreatmentComponent implements OnInit {
         const control = this.treatmentInformationFormGroup.get(field);
         control.markAsTouched({ onlySelf: true });
       });
+      this.toasterService.warning("Warning", "There are errors in the form")
     }
     else {
       this.loading.show();
-      this.patientService.savePatientTreatment(this.prepareToSendTreatmentInformation()).subscribe(res => {
+      this.patientService.savePatientTreatment(this.prepareToSendTreatmentInformation()).subscribe(() => {
         this.loading.hide();
+        this.toasterService.success("Success", "Changes saved");
         this.dialogRef.close(true);
+      }, error => {
+        this.toasterService.error("Failed", error.error);
+        this.loading.hide();
       })
     }
   }
@@ -89,7 +96,6 @@ export class EditTreatmentComponent implements OnInit {
   }
 
   formatDate(treatmentDate: Date) {
-    debugger;
     var offsetMs = treatmentDate.getTimezoneOffset() * 60000;
     return new Date(treatmentDate.getTime() - offsetMs);
   }

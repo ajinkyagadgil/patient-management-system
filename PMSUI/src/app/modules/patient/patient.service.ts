@@ -8,6 +8,7 @@ import { PostPatientInformationModel } from 'src/app/models/patient/PostPatientI
 import { PostTreatmentInformationModel } from 'src/app/models/treatment/PostTreatmentInformationModel';
 import { GetTreatmentInformationModel } from 'src/app/models/treatment/GetTreatmentInformationModel';
 import { RecordInformationModel } from 'src/app/models/records/RecordInformationModel';
+import { DateRangeModel } from 'src/app/models/records/DateRangeModel';
 
 @Injectable({
   providedIn: 'root'
@@ -76,8 +77,8 @@ export class PatientService {
     return this.Api.delete(`Treatment/delete/${treatmentId}`);
   }
 
-  getAllRecords(): Observable<RecordInformationModel[]> {
-    return this.Api.get('Record/all');
+  getAllRecords(dateRange: DateRangeModel): Observable<RecordInformationModel[]> {
+    return this.Api.post('Record/all', dateRange);
   }
 
   saveRecord(recordInformation: RecordInformationModel): Observable<any> {

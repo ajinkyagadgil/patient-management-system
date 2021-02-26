@@ -17,9 +17,9 @@ namespace Patient.Core.Implementation
             _recordQuery = recordQuery;
         }
 
-        public async Task<List<RecordInformationEntity>> GetAllRecords()
+        public async Task<List<RecordInformationEntity>> GetAllRecords(DateRangeEntity dateRangeEntity)
         {
-            return await _recordQuery.GetAllRecords();
+            return await _recordQuery.GetAllRecords(dateRangeEntity);
         }
 
         public async Task SaveRecord(RecordInformationEntity recordInformationEntity)

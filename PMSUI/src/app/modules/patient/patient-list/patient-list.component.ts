@@ -12,6 +12,7 @@ import { EditPatientComponent } from '../edit-patient/edit-patient.component';
 import { GuidModel } from 'src/app/models/common/GuidModel';
 import { FileInformationModel } from 'src/app/models/common/FileInformationModel';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ToasterService } from '../../shared/toaster.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -31,7 +32,8 @@ export class PatientListComponent implements OnInit {
   constructor(private patientService: PatientService,
     public dialog: MatDialog,
     private loading: LoadingService,
-    private router: Router) { }
+    private router: Router,
+    private toasterService: ToasterService) { }
 
   ngOnInit(): void {
     this.loadNext();
@@ -67,6 +69,9 @@ export class PatientListComponent implements OnInit {
       this.patientInformation = new MatTableDataSource(res);
       this.patientInformation.sort = this.sort;
       this.patientInformation.paginator = this.paginator;
+      this.loading.hide();
+    }, error => {
+      this.toasterService.error("Failed", error.error);
       this.loading.hide();
     })
   }
@@ -123,13 +128,17 @@ export class PatientListComponent implements OnInit {
   onPatientDelete(patientId: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       disableClose: true,
-      data: { title: 'Delete Patient', message: 'Are you sure you want to delete the patient along with all the treatment information' }
+      data: { title: 'Delete Patient', message: 'Are you sure you want to delete the patient along with all the treatment and record information' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.loading.show();
-        this.patientService.deletePatient(patientId).subscribe(res => {
+        this.patientService.deletePatient(patientId).subscribe(() => {
           this.loadNext();
+          this.toasterService.success("Success", "Patient information deleted successfully");
+          this.loading.hide();
+        }, error => {
+          this.toasterService.error("Failed", error.error);
           this.loading.hide();
         })
       }

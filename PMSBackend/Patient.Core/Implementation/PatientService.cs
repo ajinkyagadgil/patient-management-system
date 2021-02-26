@@ -16,11 +16,13 @@ namespace Patient.Core.Implementation
     {
         private readonly IPatientQuery _patientQuery;
         private readonly ITreatmentQuery _treatmentQuery;
+        private readonly IRecordQuery _recordQuery;
 
-        public PatientService(IPatientQuery patientQuery, ITreatmentQuery treatmentQuery)
+        public PatientService(IPatientQuery patientQuery, ITreatmentQuery treatmentQuery, IRecordQuery recordQuery)
         {
             _patientQuery = patientQuery;
             _treatmentQuery = treatmentQuery;
+            _recordQuery = recordQuery;
         }
 
         public async Task<List<GetPatientInformationEntity>> GetPatientsInformation()
@@ -69,6 +71,7 @@ namespace Patient.Core.Implementation
         public async Task DeletePatientAndTreatmentInformation(Guid patientId)
         {
             FileHelper fileDelete = new FileHelper();
+            await _recordQuery.DeleteRecordByPatientId(patientId);
             var treatmentDelete = await _treatmentQuery.DeleteTreatmentInformationByPatientId(patientId);
             foreach (var treatmentId in treatmentDelete)
             {

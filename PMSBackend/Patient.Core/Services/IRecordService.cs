@@ -7,7 +7,7 @@ namespace Patient.Core.Services
 {
     public interface IRecordService
     {
-        Task<List<RecordInformationEntity>> GetAllRecords();
+        Task<List<RecordInformationEntity>> GetAllRecords(DateRangeEntity dateRangeEntity);
         Task SaveRecord(RecordInformationEntity recordInformationEntity);
         Task DeleteRecord(Guid recordId);
     }

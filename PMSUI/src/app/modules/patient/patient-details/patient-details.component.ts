@@ -14,6 +14,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { EditPatientComponent } from '../edit-patient/edit-patient.component';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { ImagesViewerComponent } from '../../shared/components/images-viewer/images-viewer.component';
+import { ToasterService } from '../../shared/toaster.service';
 
 @Component({
   selector: 'app-patient-details',
@@ -35,7 +36,8 @@ export class PatientDetailsComponent implements OnInit {
     private patientService: PatientService,
     private loading: LoadingService,
     public dialog: MatDialog,
-    private appConfigService: AppconfigService) { }
+    private appConfigService: AppconfigService,
+    private toasterService: ToasterService) { }
 
   ngOnInit(): void {
     this.apiUrl = this.appConfigService.apiBaseUrl
@@ -56,8 +58,12 @@ export class PatientDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.loading.show();
-        this.patientService.deleteTreatment(treatmentId).subscribe(res => {
+        this.patientService.deleteTreatment(treatmentId).subscribe(() => {
           this.getPatientTreatments();
+          this.toasterService.success("Success", "Treatment deleted Sucessfully");
+          this.loading.hide();
+        }, error => {
+          this.toasterService.error("Failed", error.error);
           this.loading.hide();
         })
       }
@@ -84,6 +90,9 @@ export class PatientDetailsComponent implements OnInit {
       if(result) {
         this.getPatientTreatments();
       }
+    }, error => {
+      this.toasterService.error("Failed", error.error);
+      this.loading.hide();
     });
   }
 
@@ -113,6 +122,9 @@ export class PatientDetailsComponent implements OnInit {
       console.log("Treatment information from API", JSON.stringify(this.patientTreatments));
       this.isPatientTreatmentDataAvailable = true;
       this.loading.hide();
+    }, error => {
+      this.toasterService.error("Failed", error.error);
+      this.loading.hide();
     })
   }
 
@@ -121,6 +133,9 @@ export class PatientDetailsComponent implements OnInit {
     this.patientService.getPatientDetails(this.patientId).subscribe(res => {
       this.patientInformation = res;
       this.loading.hide();
+    }, error => {
+      this.toasterService.error("Failed", error.error);
+      this.loading.hide();
     })
   }
 
@@ -128,6 +143,9 @@ export class PatientDetailsComponent implements OnInit {
     this.loading.show();
     this.patientService.getPatientTreatments(this.patientId).subscribe(res => {
       this.patientTreatments = res;
+      this.loading.hide();
+    }, error => {
+      this.toasterService.error("Failed", error.error);
       this.loading.hide();
     })
   }
@@ -142,6 +160,9 @@ export class PatientDetailsComponent implements OnInit {
       if(result) {
         this.getPatientDetails();
       }
+    }, error => {
+      this.toasterService.error("Failed", error.error);
+      this.loading.hide();
     });
   }
 

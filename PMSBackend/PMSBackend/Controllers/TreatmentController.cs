@@ -22,17 +22,31 @@ namespace PMSBackend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPatientTreatments([FromRoute]Guid patientId)
         {
-            return Ok(await _treatmentHandler.GetPatientTreatments(patientId));
+            try
+            {
+                return Ok(await _treatmentHandler.GetPatientTreatments(patientId));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("save")]
         [HttpPost]
         public async Task<IActionResult> SavePatientTreatment([FromForm]TreatmentInformationFormDataViewModel treatmentInformationFormDataViewModel )
         {
-            var treatmentInformation = JsonConvert.DeserializeObject<PostTreatmentInformationViewModel>(treatmentInformationFormDataViewModel.treatmentInformation);
-            treatmentInformation.treatmentFiles = treatmentInformationFormDataViewModel.treatmentFiles;
-            await _treatmentHandler.SavePatientTreatment(treatmentInformation);
-            return Ok();
+            try
+            {
+                var treatmentInformation = JsonConvert.DeserializeObject<PostTreatmentInformationViewModel>(treatmentInformationFormDataViewModel.treatmentInformation);
+                treatmentInformation.treatmentFiles = treatmentInformationFormDataViewModel.treatmentFiles;
+                await _treatmentHandler.SavePatientTreatment(treatmentInformation);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("delete/{treatmentId}")]
@@ -41,13 +55,12 @@ namespace PMSBackend.Controllers
         {
             try
             {
-
                 await _treatmentHandler.DeleteTreatmentInformation(treatmentId);
                 return Ok();
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }

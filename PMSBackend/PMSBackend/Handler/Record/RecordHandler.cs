@@ -17,9 +17,9 @@ namespace PMSBackend.Handler.Record
             _recordService = recordService;
         }
 
-        public async Task<List<RecordInformationViewModel>> GetAllRecords()
+        public async Task<List<RecordInformationViewModel>> GetAllRecords(DateRangeViewModel dateRangeViewModel)
         {
-            return (await _recordService.GetAllRecords()).Select(x => x.ToViewModel()).ToList();
+            return (await _recordService.GetAllRecords(dateRangeViewModel.ToEntityModel())).Select(x => x.ToViewModel()).ToList();
         }
 
         public async Task SaveRecord(RecordInformationViewModel recordInformationViewModel)

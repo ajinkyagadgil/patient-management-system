@@ -7,7 +7,7 @@ namespace PMSBackend.Handler.Record
 {
     public interface IRecordHandler
     {
-        Task<List<RecordInformationViewModel>> GetAllRecords();
+        Task<List<RecordInformationViewModel>> GetAllRecords(DateRangeViewModel dateRangeViewModel);
         Task SaveRecord(RecordInformationViewModel recordInformationViewModel);
         Task DeleteRecord(Guid recordId);
     }

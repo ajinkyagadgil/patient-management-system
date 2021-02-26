@@ -18,9 +18,16 @@ namespace Patient.Domain.Queries
             _recordRepository = recordRepository;
         }
 
-        public async Task<List<RecordInformationEntity>> GetAllRecords()
+        public async Task<List<RecordInformationEntity>> GetAllRecords(DateRangeEntity dateRangeEntity)
         {
-            return (await _recordRepository.GetAllRecords()).Select(x => x.ToModelEntity()).ToList();
+            try
+            {
+                return (await _recordRepository.GetAllRecords(dateRangeEntity)).Select(x => x.ToModelEntity()).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task SaveRecord(RecordInformationEntity recordInformationEntity)
@@ -31,6 +38,11 @@ namespace Patient.Domain.Queries
         public async Task DeleteRecord(Guid recordId)
         {
             await _recordRepository.DeleteRecord(recordId);
+        }
+
+        public async Task DeleteRecordByPatientId(Guid patientId)
+        {
+            await _recordRepository.DeleteRecordByPatientId(patientId);
         }
     }
 }

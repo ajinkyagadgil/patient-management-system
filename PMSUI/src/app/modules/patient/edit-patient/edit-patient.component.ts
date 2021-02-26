@@ -8,6 +8,7 @@ import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInf
 import { PostPatientInformationModel } from 'src/app/models/patient/PostPatientInformationModel';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppconfigService } from 'src/app/shared/appconfig.service';
+import { ToasterService } from '../../shared/toaster.service';
 
 @Component({
   selector: 'app-edit-patient',
@@ -28,7 +29,8 @@ export class EditPatientComponent implements OnInit {
     private loading: LoadingService,
     private appConfigService: AppconfigService,
     public dialogRef: MatDialogRef<EditPatientComponent>,
-    @Inject(MAT_DIALOG_DATA) public patientInformation: GetPatientInformationModel,) { }
+    @Inject(MAT_DIALOG_DATA) public patientInformation: GetPatientInformationModel,
+    private toasterService: ToasterService) { }
 
   ngOnInit() {
     this.loading.show();
@@ -48,8 +50,10 @@ export class EditPatientComponent implements OnInit {
     }
     this.patientService.getGender().subscribe(res => {
       this.genders = res;
-
       this.initForm()
+      this.loading.hide();
+    }, error => {
+      this.toasterService.error("Failed", error.error);
       this.loading.hide();
     })
   }
@@ -87,13 +91,18 @@ export class EditPatientComponent implements OnInit {
         const control = this.patientInformationFormGroup.get(field);
         control.markAsTouched({ onlySelf: true });
       });
+      this.toasterService.warning("Warning", "There are errors in the form");
     }
     else {
       this.loading.show();
-      this.patientService.savePatientInformation(this.prepareToSendPatientInformation()).subscribe(res => {
+      this.patientService.savePatientInformation(this.prepareToSendPatientInformation()).subscribe(() => {
         this.loading.hide();
+        this.toasterService.success("Sucess", "Changes Saved")
         this.dialogRef.close(true);
-      }, error => { })
+      }, error => {
+        this.toasterService.error("Failed", error.error);
+        this.loading.hide();
+       })
     }
   }
 

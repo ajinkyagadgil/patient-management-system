@@ -9,8 +9,9 @@ namespace Patient.Domain.IRepository
 {
     public interface IRecordRepository
     {
-        Task<List<RecordInformation>> GetAllRecords();
+        Task<List<RecordInformation>> GetAllRecords(DateRangeEntity dateRangeEntity);
         Task SaveRecord(RecordInformationEntity recordInformationEntity);
         Task DeleteRecord(Guid recordId);
+        Task DeleteRecordByPatientId(Guid patientId);
     }
 }

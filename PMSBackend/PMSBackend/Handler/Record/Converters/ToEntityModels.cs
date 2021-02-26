@@ -16,5 +16,12 @@ namespace PMSBackend.Handler.Record.Converters
             RecordDate = recordInformationViewModel.recordDate,
             PatientInformation = recordInformationViewModel.PatientInformation.ToEntityModel()
         };
+
+        public static DateRangeEntity ToEntityModel(this DateRangeViewModel dateRangeViewModel)
+        => dateRangeViewModel == null ? null : new DateRangeEntity
+        {
+            StartDate = dateRangeViewModel.startDate,
+            EndDate = dateRangeViewModel.endDate
+        };
     }
 }

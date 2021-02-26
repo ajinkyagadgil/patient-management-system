@@ -18,16 +18,16 @@ namespace PMSBackend.Controllers
         }
 
         [Route("all")]
-        [HttpGet]
-        public async Task<IActionResult> GetAllRecords()
+        [HttpPost]
+        public async Task<IActionResult> GetAllRecords([FromBody]DateRangeViewModel dateRangeViewModel)
         {
             try
             {
-                return Ok(await _recordHandler.GetAllRecords());
+                return Ok(await _recordHandler.GetAllRecords(dateRangeViewModel));
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -42,7 +42,7 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -57,7 +57,7 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }

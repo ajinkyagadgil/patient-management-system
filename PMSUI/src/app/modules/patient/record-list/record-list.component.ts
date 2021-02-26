@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditRecordComponent } from './edit-record/edit-record.component';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DateRangeModel } from 'src/app/models/records/DateRangeModel';
+import { ToasterService } from '../../shared/toaster.service';
 
 @Component({
   selector: 'app-record-list',
@@ -28,7 +30,8 @@ export class RecordListComponent implements OnInit {
   constructor(private loading: LoadingService,
     private patientService: PatientService,
     public dialog: MatDialog,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private toasterService: ToasterService) { }
 
   ngOnInit() {
     this.initForm();
@@ -43,25 +46,25 @@ export class RecordListComponent implements OnInit {
   }
   loadNext() {
     this.loading.show();
-    this.patientService.getAllRecords().subscribe(res => {
+    this.patientService.getAllRecords(this.getDateRangeValue()).subscribe(res => {
       this.recordInformation = new MatTableDataSource(res);
       this.allRecordInformation = res;
       this.recordInformation.sort = this.sort;
       this.recordInformation.paginator = this.paginator;
       this.loading.hide();
-    },
-    err => {
-      console.log(err.message);
+    }, error => {
+      this.toasterService.error("Failed", error.error);
+      this.loading.hide();
     })
   }
 
   onRecordEdit(recordInformation: RecordInformationModel = {
-    id : new GuidModel().Empty,
-    patientId : new GuidModel().Empty,
-    recordDate : null,
-    amount : null,
-    treatment : null,
-    patientInformation : null
+    id: new GuidModel().Empty,
+    patientId: new GuidModel().Empty,
+    recordDate: null,
+    amount: null,
+    treatment: null,
+    patientInformation: null
   }) {
     const dialogRef = this.dialog.open(EditRecordComponent, {
       disableClose: true,
@@ -77,25 +80,58 @@ export class RecordListComponent implements OnInit {
 
   onRecordDelete(recordId: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {title: 'Delete Record?', message:'Are you sure you want to permanently delete the record'}
+      data: { title: 'Delete Record?', message: 'Are you sure you want to permanently delete the record' }
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.loading.show();
-        this.patientService.deleteRecord(recordId).subscribe(res => {
+        this.patientService.deleteRecord(recordId).subscribe(() => {
           this.loadNext();
+          this.toasterService.success("Success", "Record deleted Successfully");
           this.loading.hide();
         })
       }
     })
   }
 
+  onDateRangeApply() {
+    this.loading.show();
+    this.patientService.getAllRecords(this.getDateRangeValue()).subscribe(res => {
+      this.recordInformation = new MatTableDataSource(res);
+      this.allRecordInformation = res;
+      this.recordInformation.sort = this.sort;
+      this.recordInformation.paginator = this.paginator;
+      this.loading.hide();
+    }, error => {
+      this.toasterService.error("Failed", error.error);
+      this.loading.hide();
+    })
+  }
+
+  getDateRangeValue() {
+    let dateRangeFormGroupData = this.dateRangeFormGroup.value;
+    let dateRange: DateRangeModel = {
+      startDate: this.formatDate(dateRangeFormGroupData.start),
+      endDate: this.formatDate(dateRangeFormGroupData.end)
+    }
+    return dateRange;
+  }
   getTotalAmount() {
     let total = 0;
     this.allRecordInformation.forEach(record => {
       total = total + record.amount;
     })
     return total;
+  }
+
+  formatDate(date: Date) {
+    if (date != null) {
+      var offsetMs = date.getTimezoneOffset() * 60000;
+      return new Date(date.getTime() - offsetMs);
     }
+    else {
+      return null;
+    }
+  }
 }
