@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PMSBackend.Handler.Record;
 using PMSBackend.Handler.Record.ViewModels;
 using System;
@@ -11,10 +12,12 @@ namespace PMSBackend.Controllers
     public class RecordController : ControllerBase
     {
         private readonly IRecordHandler _recordHandler;
+        private readonly ILogger<RecordController> _logger;
 
-        public RecordController(IRecordHandler recordHandler)
+        public RecordController(IRecordHandler recordHandler, ILogger<RecordController> logger)
         {
             _recordHandler = recordHandler;
+            _logger = logger;
         }
 
         [Route("all")]
@@ -27,7 +30,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while fetching the records.");
             }
         }
 
@@ -42,7 +46,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while saving record.");
             }
         }
 
@@ -57,7 +62,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while deleting record.");
             }
         }
     }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PMSBackend.Handler.Patient;
 using PMSBackend.Handler.Patient.ViewModels;
 using System;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace PMSBackend.Controllers
@@ -13,9 +13,11 @@ namespace PMSBackend.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IPatientHandler _patientHandler;
-        public PatientController(IPatientHandler patientHandler)
+        private readonly ILogger<PatientController> _logger;
+        public PatientController(IPatientHandler patientHandler, ILogger<PatientController> logger)
         {
             _patientHandler = patientHandler;
+            _logger = logger;
         }
 
         [Route("get/all")]
@@ -28,7 +30,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while fetching the patients.");
             }
         }
 
@@ -42,7 +45,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while fetching the patient details.");
             }
         }
 
@@ -59,7 +63,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while saving the patient details.");
             }
         }
 
@@ -74,7 +79,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while deleting patient details.");
             }
         }
 
@@ -89,7 +95,8 @@ namespace PMSBackend.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while saving patient information");
             }
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PMSBackend.Handler.Common;
 
 namespace PMSBackend.Controllers
@@ -13,9 +14,11 @@ namespace PMSBackend.Controllers
     public class CommonController : ControllerBase
     {
         private readonly ICommonHandler _commonHandler;
-        public CommonController(ICommonHandler commonHandler)
+        private readonly ILogger<CommonController> _logger;
+        public CommonController(ICommonHandler commonHandler, ILogger<CommonController> logger)
         {
             _commonHandler = commonHandler;
+            _logger = logger;
         }
 
         [Route("genders")]
@@ -28,7 +31,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while fetching genders.");
             }
         }
     }

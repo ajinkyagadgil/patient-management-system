@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PMSBackend.Handler.Patient.ViewModels;
 using PMSBackend.Handler.Treatment;
@@ -13,9 +14,12 @@ namespace PMSBackend.Controllers
     public class TreatmentController : ControllerBase
     {
         private readonly ITreatmentHandler _treatmentHandler;
-        public TreatmentController(ITreatmentHandler treatmentHandler)
+        private readonly ILogger<TreatmentController> _logger;
+
+        public TreatmentController(ITreatmentHandler treatmentHandler, ILogger<TreatmentController> logger)
         {
             _treatmentHandler = treatmentHandler;
+            _logger = logger;
         }
 
         [Route("all/{patientId}")]
@@ -28,7 +32,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while fetching the patient treatments.");
             }
         }
 
@@ -45,7 +50,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while fetching the saving patient treatment.");
             }
         }
 
@@ -60,7 +66,8 @@ namespace PMSBackend.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while fetching the deleting patient treatment.");
             }
         }
     }

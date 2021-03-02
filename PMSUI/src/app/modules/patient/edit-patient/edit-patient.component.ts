@@ -55,6 +55,7 @@ export class EditPatientComponent implements OnInit {
     }, error => {
       this.toasterService.error("Failed", error.error);
       this.loading.hide();
+      this.dialogRef.close();
     })
   }
 
