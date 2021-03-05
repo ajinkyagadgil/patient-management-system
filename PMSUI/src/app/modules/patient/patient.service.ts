@@ -73,6 +73,10 @@ export class PatientService {
     return this.Api.delete(`Patient/delete/${patientId}`);
   }
 
+  deletePatientPhoto(patientPhotoId): Observable<any> {
+    return this.Api.delete(`Patient/photo/delete/${patientPhotoId}`);
+  }
+
   deleteTreatment(treatmentId: string): Observable<any> {
     return this.Api.delete(`Treatment/delete/${treatmentId}`);
   }
@@ -87,5 +91,9 @@ export class PatientService {
 
   deleteRecord(recordId): Observable<any> {
     return this.Api.delete(`Record/delete/${recordId}`)
+  }
+
+  deleteTreatmentImage(treatmentImageId: string): Observable<any> {
+    return this.Api.delete(`Treatment/image/delete/${treatmentImageId}`);
   }
 }

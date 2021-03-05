@@ -99,5 +99,21 @@ namespace PMSBackend.Controllers
                 return BadRequest("Some error occured while saving patient information");
             }
         }
+
+        [Route("photo/delete/{patientPhotoId}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeletePatientPhoto([FromRoute] Guid patientPhotoId)
+        {
+            try
+            {
+                await _patientHandler.DeletePatientPhoto(patientPhotoId);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while deleting patient photo");
+            }
+        }
     }
 }

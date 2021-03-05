@@ -43,5 +43,10 @@ namespace Patient.Domain.Queries
         {
             await _treatmentRepository.DeleteTreatmentInformationById(treatmentId);
         }
+
+        public async Task<FileInformationEntity> DeleteTreatmentImage(Guid treatmentImageId)
+        {
+            return (await _treatmentRepository.DeleteTreatmentImage(treatmentImageId)).ToEntityModel();
+        }
     }
 }

@@ -53,7 +53,6 @@ export class EditRecordComponent implements OnInit {
   }
 
   private _filter(value: any): GetPatientInformationModel[] {
-    debugger;
     const filterValue = value.toLowerCase();
 
     return this.patientInformation.filter(option => option.firstName.toLowerCase().includes(filterValue) || option.lastName.toLowerCase().includes(filterValue));
@@ -65,7 +64,7 @@ export class EditRecordComponent implements OnInit {
       patient: [this.recordInformation.patientInformation == null ? null : this.recordInformation.patientInformation, Validators.required],
       date: [this.recordInformation.recordDate == null ? new Date() : new Date(this.recordInformation.recordDate), [Validators.required]],
       treatment: [this.recordInformation.treatment, [Validators.required]],
-      amount: [this.recordInformation.amount, [Validators.required]]
+      amount: [this.recordInformation.amount, [Validators.required, Validators.pattern("^[0-9*]+$")]]
     })
   }
 
@@ -92,12 +91,10 @@ export class EditRecordComponent implements OnInit {
   }
 
   displayFn(patient: GetPatientInformationModel): string {
-    debugger;
     return patient && patient.id != new GuidModel().Empty ? patient.firstName + ' ' + patient.lastName : null;
   }
 
   prepareToSendRecordInformation() {
-    debugger;
     let recordInformationFormData = this.recordInformationFormGroup.value
 
     let postRecordInformation: RecordInformationModel = {
@@ -113,7 +110,6 @@ export class EditRecordComponent implements OnInit {
   }
 
   formatDate(date: Date) {
-    debugger;
     var offsetMs = date.getTimezoneOffset() * 60000;
     return new Date(date.getTime() - offsetMs);
   }

@@ -79,3 +79,28 @@ li.timeline-item::before {
     height: 100px;
     border-radius: 50%;
   }
+
+  .img-wrap {
+    position: relative;
+    display: inline-block;
+    font-size: 0;
+}
+.img-wrap .close {
+    position: absolute;
+    top: 5px;
+    left: 185px;
+    z-index: 100;
+    background-color: red;
+    padding: 4px 3px 4px 3px;
+    color: #fff;
+    font-weight: normal;
+    cursor: pointer;
+    opacity: .4;
+    text-align: center;
+    font-size: 24px;
+    line-height: 10px;
+    border-radius: 50%;
+}
+.img-wrap:hover .close {
+    opacity: 1;
+}

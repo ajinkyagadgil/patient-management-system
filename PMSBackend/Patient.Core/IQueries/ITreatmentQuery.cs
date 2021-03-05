@@ -14,5 +14,7 @@ namespace Patient.Core.IQueries
         Task<bool> SaveTreatmentFilesInformation(Guid treatmentId, List<FileInformationEntity> fileInformationEntityList);
         Task<List<Guid>> DeleteTreatmentInformationByPatientId(Guid patientId);
         Task DeleteTreatmentInformationById(Guid treatmentId);
+        Task<FileInformationEntity> DeleteTreatmentImage(Guid treatmentImageId);
+
     }
 }

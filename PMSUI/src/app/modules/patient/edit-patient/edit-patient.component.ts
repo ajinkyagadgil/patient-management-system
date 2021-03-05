@@ -6,9 +6,10 @@ import { GetGenderInformationModel } from 'src/app/models/common/GetGenderInform
 import { GuidModel } from 'src/app/models/common/GuidModel';
 import { GetPatientInformationModel } from 'src/app/models/patient/GetPatientInformationModel';
 import { PostPatientInformationModel } from 'src/app/models/patient/PostPatientInformationModel';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppconfigService } from 'src/app/shared/appconfig.service';
 import { ToasterService } from '../../shared/toaster.service';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-edit-patient',
@@ -30,7 +31,8 @@ export class EditPatientComponent implements OnInit {
     private appConfigService: AppconfigService,
     public dialogRef: MatDialogRef<EditPatientComponent>,
     @Inject(MAT_DIALOG_DATA) public patientInformation: GetPatientInformationModel,
-    private toasterService: ToasterService) { }
+    private toasterService: ToasterService,
+    public dialog: MatDialog,) { }
 
   ngOnInit() {
     this.loading.show();
@@ -57,6 +59,27 @@ export class EditPatientComponent implements OnInit {
       this.loading.hide();
       this.dialogRef.close();
     })
+  }
+
+  onImageDelete(imageId: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      data: { title: 'Delete Image?', message: 'Are you sure you want to delete the patient photo' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loading.show();
+        this.patientService.deletePatientPhoto(imageId).subscribe(() => {
+          this.patientInformation.patientPhotoInformation = null;
+          this.imageUrl = null;
+          this.loading.hide();
+        }, error => {
+          this.toasterService.error("Failed", error.error);
+          this.loading.hide();
+        })
+      }
+    })
+
   }
 
   initForm() {

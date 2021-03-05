@@ -38,5 +38,15 @@ namespace Patient.Core.Implementation
             await _treatmentQuery.DeleteTreatmentInformationById(treatmentId);
             await fileDelete.DeleteFiles(treatmentId, Common.Enums.FileUploadType.Treatment);
         }
+
+        public async Task DeleteTreatmentImage(Guid treatmentImageId)
+        {
+            var treatmentFileInformation = await _treatmentQuery.DeleteTreatmentImage(treatmentImageId);
+            if(treatmentFileInformation != null)
+            {
+                FileHelper fileDelete = new FileHelper();
+                await fileDelete.DeleteFilesById(treatmentFileInformation.ParentId, treatmentFileInformation.Name, Common.Enums.FileUploadType.Treatment);
+            }
+        }
     }
 }

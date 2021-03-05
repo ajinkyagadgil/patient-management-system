@@ -31,7 +31,7 @@ export class PatientDetailsComponent implements OnInit {
   treatmentInformation: GetTreatmentInformationModel;
   patientId: string;
   isPatientDataAvailable: boolean;
-  isPatientTreatmentDataAvailable:boolean;
+  isPatientTreatmentDataAvailable: boolean;
   constructor(private route: ActivatedRoute,
     private patientService: PatientService,
     private loading: LoadingService,
@@ -76,8 +76,7 @@ export class PatientDetailsComponent implements OnInit {
     title: null,
     treatmentDate: null,
     treatmentFiles: null
-  }){
-    console.log("Patient Details edit button", JSON.stringify(treatmentInformation));
+  }) {
     this.treatmentInformation = treatmentInformation;
 
     const dialogRef = this.dialog.open(EditTreatmentComponent, {
@@ -87,7 +86,7 @@ export class PatientDetailsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.getPatientTreatments();
       }
     }, error => {
@@ -97,19 +96,48 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   openImage(treatmentFile: FileInformationModel, treatmentFiles: FileInformationModel[]) {
-    debugger;
     let imageUrl = this.getImagePath(treatmentFile);
     let imagesArray: string[] = [];
     imagesArray.push(imageUrl);
-    let otherFiles = treatmentFiles.filter(x=>x.id != treatmentFile.id);
+    let otherFiles = treatmentFiles.filter(x => x.id != treatmentFile.id);
     otherFiles.forEach(file => {
-    imagesArray.push(this.getImagePath(file))
+      imagesArray.push(this.getImagePath(file))
     })
     const dialogRef = this.dialog.open(ImagesViewerComponent, {
       data: imagesArray
     });
   }
 
+  onImageDelete(imageId: string, treatment?: GetTreatmentInformationModel) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      data: { title: 'Delete Image?', message: 'Are you sure you want to delete the treatment image' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loading.show();
+        this.patientService.deleteTreatmentImage(imageId).subscribe(() => {
+          if (treatment != null || treatment != undefined) {
+            this.patientTreatments.find(x => x.id == treatment.id).treatmentFiles = treatment.treatmentFiles.filter(x => x.id != imageId);
+          }
+          else {
+            //this.getPatientTreatments();
+            this.patientTreatments.forEach(treatment => {
+              if (treatment.treatmentFiles.find(x => x.id == imageId)) {
+                treatment.treatmentFiles = treatment.treatmentFiles.filter(x => x.id != imageId);
+              }
+            })
+            this.allFiles = this.allFiles.filter(x => x.id != imageId);
+          }
+          this.toasterService.success("Success", "Treatment image deleted Sucessfully");
+          this.loading.hide();
+        }, error => {
+          this.toasterService.error("Failed", error.error);
+          this.loading.hide();
+        })
+      }
+    });
+  }
   loadNext() {
     this.loading.show();
     forkJoin(
@@ -119,7 +147,6 @@ export class PatientDetailsComponent implements OnInit {
       this.patientInformation = patientDetails;
       this.isPatientDataAvailable = true;
       this.patientTreatments = patientTreatments;
-      console.log("Treatment information from API", JSON.stringify(this.patientTreatments));
       this.isPatientTreatmentDataAvailable = true;
       this.loading.hide();
     }, error => {
@@ -157,7 +184,7 @@ export class PatientDetailsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.getPatientDetails();
       }
     }, error => {

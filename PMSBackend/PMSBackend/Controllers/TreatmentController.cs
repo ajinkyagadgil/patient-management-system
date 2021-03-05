@@ -70,5 +70,20 @@ namespace PMSBackend.Controllers
                 return BadRequest("Some error occured while fetching the deleting patient treatment.");
             }
         }
+
+        [HttpDelete("image/delete/{treatmentImageId}")]
+        public async Task<IActionResult> DeleteTreatmentImage([FromRoute]Guid treatmentImageId)
+        {
+            try
+            {
+                await _treatmentHandler.DeleteTreatmentImage(treatmentImageId);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, ex.Message, null);
+                return BadRequest("Some error occured while deleting treatment image.");
+            }
+        }
     }
 }

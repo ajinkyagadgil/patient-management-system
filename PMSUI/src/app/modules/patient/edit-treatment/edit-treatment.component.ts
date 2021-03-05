@@ -51,7 +51,6 @@ export class EditTreatmentComponent implements OnInit {
   }
 
   onTreatmentImageChange(e) {
-    debugger;
     const files: File[] = e.target.files;
     if (e.target.files == 0) {
       return

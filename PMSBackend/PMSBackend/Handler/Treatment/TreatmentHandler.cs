@@ -30,5 +30,10 @@ namespace PMSBackend.Handler.Treatment
         {
             await _treatmentService.DeleteTreatmentInformation(treatmentId);
         }
+
+        public async Task DeleteTreatmentImage(Guid treatmentImageId)
+        {
+            await _treatmentService.DeleteTreatmentImage(treatmentImageId);
+        }
     }
 }

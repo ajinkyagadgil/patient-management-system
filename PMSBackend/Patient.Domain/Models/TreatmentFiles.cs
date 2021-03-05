@@ -27,6 +27,7 @@ namespace Patient.Domain.Models
         => treatmentFile == null ? null : new FileInformationEntity
         {
             Id = treatmentFile.Id,
+            ParentId = treatmentFile.TreatmentId,
             Name = treatmentFile.Name,
             Path = treatmentFile.Path,
             Size = treatmentFile.Size,

@@ -59,6 +59,10 @@
                             *ngIf="recordInformationFormGroup.get('amount').invalid && (recordInformationFormGroup.get('amount').dirty || recordInformationFormGroup.get('amount').touched) && recordInformationFormGroup.get('amount').errors.required">
                             Amount is required
                         </mat-error>
+                        <mat-error
+                        *ngIf="recordInformationFormGroup.get('amount').invalid && (recordInformationFormGroup.get('amount').dirty || recordInformationFormGroup.get('amount').touched) && recordInformationFormGroup.get('amount').errors.pattern">
+                        Enter valid amount
+                    </mat-error>
                         <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                     </mat-form-field>
                 </div>

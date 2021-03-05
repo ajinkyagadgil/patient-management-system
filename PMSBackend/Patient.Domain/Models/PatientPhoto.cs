@@ -27,6 +27,7 @@ namespace Patient.Domain.Models
         => patientPhoto == null ? null : new FileInformationEntity
         {
             Id = patientPhoto.Id,
+            ParentId = patientPhoto.PatientId,
             Path = patientPhoto.Path,
             Name = patientPhoto.Name,
             Type = patientPhoto.Type,

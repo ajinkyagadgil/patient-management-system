@@ -23,12 +23,17 @@
         <mat-error *ngIf="dateRangeFormGroup.get('end').hasError('matEndDateInvalid')">Invalid end date</mat-error>
 </mat-form-field>
 
+<mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Anything" #input>
+  </mat-form-field>
+
 
 <button class="float-right add-record-btn" mat-raised-button color="primary" (click)="onRecordEdit()">Add
     Record</button>
 
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="recordInformation" matSort *ngIf="allRecordInformation">
+    <table mat-table [dataSource]="recordInformation" matSort *ngIf="isAllInformation">
 
         <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
@@ -82,5 +87,5 @@
             <td class="mat-cell" colspan="4">No data</td>
         </tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]=10></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]=25></mat-paginator>
 </div>

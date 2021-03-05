@@ -90,8 +90,9 @@
                   <p class="text-small mt-2 font-weight-light">{{treatment.summary}}</p>
                   <div class="row">
                     <div *ngFor="let treatmentFile of treatment.treatmentFiles">
-                      <div class="col-md-3 mb-2" (click)="openImage(treatmentFile, treatment.treatmentFiles)">
-                      <img [src]="getImagePath(treatmentFile)" height="200px" width="200px" alt="Treatment image">
+                      <div class="img-wrap col-md-3 mb-2" >
+                        <span class="close" (click)="onImageDelete(treatmentFile.id, treatment)">&times;</span>
+                      <img [src]="getImagePath(treatmentFile)" (click)="openImage(treatmentFile, treatment.treatmentFiles)" height="200px" width="200px" alt="Treatment image">
                       </div>
                     </div>
                   </div>
@@ -106,8 +107,9 @@
           <div class="tab-pane" id="settings" *ngIf="allFilesAdded">
             <div class="row">
               <div *ngFor="let file of allFiles">
-                <div class="col-md-3 mb-2" (click)="openImage(file, allFiles)">
-                <img [src]="getImagePath(file)" height="200px" width="200px" alt="Treatment image">
+                <div class="img-wrap col-md-3 mb-2">
+                  <span class="close" (click)="onImageDelete(file.id)">&times;</span>
+                <img [src]="getImagePath(file)" (click)="openImage(file, allFiles)" height="200px" width="200px" alt="Treatment image">
                 </div>
               </div>
             </div>

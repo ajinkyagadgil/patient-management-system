@@ -102,5 +102,20 @@ namespace Patient.Data.Repository
                 await _pmsDBContext.SaveChangesAsync();
             }
         }
+
+        public async Task<TreatmentFiles> DeleteTreatmentImage(Guid treatmentImageId)
+        {
+            var result = await _pmsDBContext.TreatmentFiles.Where(x => x.Id == treatmentImageId).FirstOrDefaultAsync();
+            if(result != null)
+            {
+                _pmsDBContext.TreatmentFiles.Remove(result);
+                await _pmsDBContext.SaveChangesAsync();
+                return result;
+            }
+            else
+            {
+                throw new Exception("Image with id is not found");
+            }
+        }
     }
 }

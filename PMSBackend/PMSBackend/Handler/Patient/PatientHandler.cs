@@ -50,5 +50,10 @@ namespace PMSBackend.Handler.Patient
         {
             await _patientService.DeletePatientAndTreatmentInformation(patientId);
         }
+
+        public async Task DeletePatientPhoto(Guid patientPhotoId)
+        {
+            await _patientService.DeletePatientPhoto(patientPhotoId);
+        }
     }
 }

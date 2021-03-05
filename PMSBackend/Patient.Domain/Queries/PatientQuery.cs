@@ -46,5 +46,10 @@ namespace Patient.Domain.Queries
         {
             await _patientRepository.DeletePatientInformation(patientId);
         }
+
+        public async Task<FileInformationEntity> DeletePatientPhoto(Guid patientPhotoId)
+        {
+            return (await _patientRepository.DeletePatientPhoto(patientPhotoId)).ToEntityModel();
+        }
     }
 }

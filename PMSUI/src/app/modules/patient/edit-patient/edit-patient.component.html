@@ -114,7 +114,8 @@
                 <div class="col-md-6">
                     <div class="profile-image-section">
                         <input id="imageUpload" type="file" />
-                        <div *ngIf="imageUrl != null" class="profile-image">
+                        <div *ngIf="imageUrl != null" class="profile-image img-wrap">
+                            <span class="close" (click)="onImageDelete(patientInformation.patientPhotoInformation.id)">&times;</span>
                             <img for="imageUpload" [src]="imageUrl" alt="Profile Image" class="profile-image">
                         </div>
                     </div>

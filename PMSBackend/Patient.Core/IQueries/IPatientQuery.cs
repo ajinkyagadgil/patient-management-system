@@ -15,5 +15,6 @@ namespace Patient.Core.IQueries
         Task<Guid> SavePatientInformation(PostPatientInformationEntity postPatientInformationEntity);
         Task<bool> SavePatientPhoto(Guid patientId, FileInformationEntity patientPhoto);
         Task DeletePatientInformation(Guid patientId);
+        Task<FileInformationEntity> DeletePatientPhoto(Guid patientPhotoId);
     }
 }

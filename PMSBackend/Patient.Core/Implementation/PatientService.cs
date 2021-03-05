@@ -80,5 +80,15 @@ namespace Patient.Core.Implementation
             await _patientQuery.DeletePatientInformation(patientId);
             await fileDelete.DeleteFiles(patientId, Common.Enums.FileUploadType.Patient);
         }
+
+        public async Task DeletePatientPhoto(Guid patientPhotoId)
+        {
+            var patientPhotoInformation = await _patientQuery.DeletePatientPhoto(patientPhotoId);
+            if(patientPhotoInformation != null)
+            {
+                FileHelper fileDelete = new FileHelper();
+                await fileDelete.DeleteFilesById(patientPhotoInformation.ParentId, patientPhotoInformation.Name, Common.Enums.FileUploadType.Patient);
+            }
+        }
     }
 }

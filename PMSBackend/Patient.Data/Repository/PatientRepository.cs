@@ -102,8 +102,30 @@ namespace Patient.Data.Repository
         public async Task DeletePatientInformation(Guid patientId)
         {
             var patientInformation = await _pmsContext.PatientsInformation.Where(x => x.Id == patientId).Include(x => x.PatientPhoto).FirstOrDefaultAsync();
-            _pmsContext.Remove(patientInformation);
-            await _pmsContext.SaveChangesAsync();
+            if(patientInformation != null)
+            {
+                _pmsContext.Remove(patientInformation);
+                await _pmsContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("No record found");
+            }
+        }
+
+        public async Task<PatientPhoto> DeletePatientPhoto(Guid patientPhotoId)
+        {
+            var result = await _pmsContext.PatientPhoto.Where(x => x.Id == patientPhotoId).FirstOrDefaultAsync();
+            if(result != null)
+            {
+                _pmsContext.PatientPhoto.Remove(result);
+                await _pmsContext.SaveChangesAsync();
+                return result;
+            }
+            else
+            {
+                throw new Exception("No record found");
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ export class RecordListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   recordInformation: MatTableDataSource<RecordInformationModel>;
-  allRecordInformation: RecordInformationModel[];
+  isAllInformation: boolean;
   dateRangeFormGroup: FormGroup;
 
   constructor(private loading: LoadingService,
@@ -46,9 +46,10 @@ export class RecordListComponent implements OnInit {
   }
   loadNext() {
     this.loading.show();
+    this.isAllInformation = false;
     this.patientService.getAllRecords(this.getDateRangeValue()).subscribe(res => {
       this.recordInformation = new MatTableDataSource(res);
-      this.allRecordInformation = res;
+      this.isAllInformation = true
       this.recordInformation.sort = this.sort;
       this.recordInformation.paginator = this.paginator;
       this.loading.hide();
@@ -95,11 +96,27 @@ export class RecordListComponent implements OnInit {
     })
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.recordInformation.filter = filterValue.trim().toLowerCase();
+
+    this.recordInformation.filterPredicate = (data, filter: string)  => {
+      const accumulator = (currentTerm, key) => {
+        return key === 'patientInformation' ? currentTerm + data.patientInformation.firstName + data.patientInformation.lastName : currentTerm + data[key];
+      };
+      const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+      // Transform the filter by converting it to lowercase and removing whitespace.
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    };
+  }
+
   onDateRangeApply() {
     this.loading.show();
+    this.isAllInformation = false;
     this.patientService.getAllRecords(this.getDateRangeValue()).subscribe(res => {
       this.recordInformation = new MatTableDataSource(res);
-      this.allRecordInformation = res;
+      this.isAllInformation = true;
       this.recordInformation.sort = this.sort;
       this.recordInformation.paginator = this.paginator;
       this.loading.hide();
@@ -119,7 +136,7 @@ export class RecordListComponent implements OnInit {
   }
   getTotalAmount() {
     let total = 0;
-    this.allRecordInformation.forEach(record => {
+    this.recordInformation.data.forEach(record => {
       total = total + record.amount;
     })
     return total;

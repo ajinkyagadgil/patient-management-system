@@ -70,5 +70,24 @@ namespace Patient.Core.Helpers
             }
             await Task.CompletedTask;
         }
+
+        public async Task DeleteFilesById(Guid parentFolderId, string fileName, FileUploadType fileUploadType)
+        {
+            var imagesStoragePath = string.Empty;
+            if (fileUploadType == FileUploadType.Patient)
+            {
+                imagesStoragePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "PatientImages", parentFolderId.ToString(), fileName);
+            }
+            if (fileUploadType == FileUploadType.Treatment)
+            {
+                imagesStoragePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "TreatmentImages", parentFolderId.ToString(), fileName);
+            }
+
+            if (File.Exists(imagesStoragePath))
+            {
+                File.Delete(imagesStoragePath);
+            }
+            await Task.CompletedTask;
+        }
     }
 }
