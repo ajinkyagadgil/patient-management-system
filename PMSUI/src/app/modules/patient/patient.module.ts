@@ -9,6 +9,7 @@ import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { EditTreatmentComponent } from './edit-treatment/edit-treatment.component';
 import { RecordListComponent } from './record-list/record-list.component';
 import { EditRecordComponent } from './record-list/edit-record/edit-record.component';
+import { NotFoundComponent } from '../shared/components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'patient', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
     {path: 'add', component: EditPatientComponent},
     {path: 'details/:patientId', component: PatientDetailsComponent}
   ] },
-  {path: 'record', component: RecordListComponent}
+  {path: 'record', component: RecordListComponent},
+  {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({

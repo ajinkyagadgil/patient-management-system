@@ -8,11 +8,14 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { ImagesViewerComponent } from './components/images-viewer/images-viewer.component';
 import { AngularImageViewerModule } from "angular-x-image-viewer";
 import { ToastrModule } from 'ngx-toastr';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [EmptyStringPipe, GenderToStringPipe, FilePathPipe, ConfirmDialogComponent, ImagesViewerComponent],
+  declarations: [EmptyStringPipe, GenderToStringPipe, FilePathPipe, ConfirmDialogComponent, ImagesViewerComponent, NotFoundComponent],
   imports: [
     CommonModule,
+    RouterModule,
     AngularMaterialModule,
     AngularImageViewerModule,
   ],
@@ -20,6 +23,7 @@ import { ToastrModule } from 'ngx-toastr';
     AngularMaterialModule,
     EmptyStringPipe,
     GenderToStringPipe,
+    NotFoundComponent
   ],
   providers: [],
   entryComponents: [
