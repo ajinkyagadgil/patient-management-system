@@ -49,6 +49,7 @@ export class RecordListComponent implements OnInit {
     this.isAllInformation = false;
     this.patientService.getAllRecords(this.getDateRangeValue()).subscribe(res => {
       this.recordInformation = new MatTableDataSource(res);
+      this.sortAccessor();
       this.recordInformation.sort = this.sort;
       this.recordInformation.paginator = this.paginator;
       
@@ -58,6 +59,16 @@ export class RecordListComponent implements OnInit {
       this.toasterService.error("Failed", error.error);
       this.loading.hide();
     })
+  }
+
+  sortAccessor() {
+    this.recordInformation.sortingDataAccessor = (item, property) => {
+      switch(property) {
+        case 'firstName': return item.patientInformation.firstName;
+        case 'lastName' : return item.patientInformation.lastName;
+        default: return item[property];
+      }
+    };
   }
 
   onRecordEdit(recordInformation: RecordInformationModel = {
@@ -117,9 +128,11 @@ export class RecordListComponent implements OnInit {
     this.isAllInformation = false;
     this.patientService.getAllRecords(this.getDateRangeValue()).subscribe(res => {
       this.recordInformation = new MatTableDataSource(res);
-      this.isAllInformation = true;
+      this.sortAccessor();
       this.recordInformation.sort = this.sort;
       this.recordInformation.paginator = this.paginator;
+      
+      this.isAllInformation = true;
       this.loading.hide();
     }, error => {
       this.toasterService.error("Failed", error.error);
@@ -137,7 +150,7 @@ export class RecordListComponent implements OnInit {
   }
   getTotalAmount() {
     let total = 0;
-    this.recordInformation.filteredData.forEach(record => {
+    this.recordInformation?.filteredData.forEach(record => {
       total = total + record.amount;
     })
     return total;

@@ -33,7 +33,7 @@
     Record</button>
 
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="recordInformation" matSort *ngIf="recordInformation">
+    <table mat-table [dataSource]="recordInformation" matSort [hidden]="!recordInformation">
 
         <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
