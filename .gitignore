@@ -21,3 +21,8 @@
 /PMSBackend/PatientManagementSystemDatabase/PatientManagementSystemDatabase.jfm
 /PMSBackend/Patient.Data/bin/Debug/netcoreapp3.1
 /PMSBackend/Patient.Data/obj
+/PMSBackend/Patient.Core/bin/Release/netcoreapp3.1
+/PMSBackend/Patient.Data/bin/Release/netcoreapp3.1
+/PMSBackend/Patient.Domain/bin/Release/netcoreapp3.1
+/PMSBackend/PMS.Dependencies/bin/Release/netcoreapp3.1
+/PMSBackend/PMSBackend/bin/Release/netcoreapp3.1
