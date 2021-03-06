@@ -90,7 +90,6 @@ export class EditTreatmentComponent implements OnInit {
       treatmentDate: this.formatDate(treatmentInformationFormData.treatmentDate),
       treatmentFiles: this.treatmentFiles == null ? null : this.treatmentFiles
     };
-    console.log("In post treatment", JSON.stringify(postPatientInformation));
     return postPatientInformation;
   }
 

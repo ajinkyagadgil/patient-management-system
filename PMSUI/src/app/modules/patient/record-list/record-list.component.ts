@@ -49,9 +49,10 @@ export class RecordListComponent implements OnInit {
     this.isAllInformation = false;
     this.patientService.getAllRecords(this.getDateRangeValue()).subscribe(res => {
       this.recordInformation = new MatTableDataSource(res);
-      this.isAllInformation = true
       this.recordInformation.sort = this.sort;
       this.recordInformation.paginator = this.paginator;
+      
+      this.isAllInformation = true
       this.loading.hide();
     }, error => {
       this.toasterService.error("Failed", error.error);
@@ -136,7 +137,7 @@ export class RecordListComponent implements OnInit {
   }
   getTotalAmount() {
     let total = 0;
-    this.recordInformation.data.forEach(record => {
+    this.recordInformation.filteredData.forEach(record => {
       total = total + record.amount;
     })
     return total;
