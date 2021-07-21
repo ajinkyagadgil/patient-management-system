@@ -1,0 +1,91 @@
+<!-- <section class="content-header">
+  <div class="container-fluid">
+    <h1>Patient Listing</h1>
+  </div>
+</section> -->
+
+<mat-form-field appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [formGroup]="dateRangeFormGroup" [rangePicker]="picker" >
+            <input matStartDate formControlName="start" placeholder="Start date" [disabled]="true">
+            <input matEndDate formControlName="end" placeholder="End date" [disabled]="true">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker disabled="false">
+            <mat-date-range-picker-actions>
+                <button mat-button matDateRangePickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDateRangePickerApply (click)="onDateRangeApply()">Apply</button>
+              </mat-date-range-picker-actions>
+        </mat-date-range-picker>
+
+        <mat-error *ngIf="dateRangeFormGroup.get('start').hasError('matStartDateInvalid')">Invalid start date
+        </mat-error>
+        <mat-error *ngIf="dateRangeFormGroup.get('end').hasError('matEndDateInvalid')">Invalid end date</mat-error>
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Anything" #input>
+  </mat-form-field>
+
+
+<button class="float-right add-record-btn" mat-raised-button color="primary" (click)="onRecordEdit()">Add
+    Record</button>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="recordInformation" matSort [hidden]="!recordInformation">
+
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+            <td mat-cell *matCellDef="let record"> {{record.patientInformation.firstName | emptyString}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+            <td mat-cell *matCellDef="let record"> {{record.patientInformation.lastName | emptyString}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="treatment">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Treatment </th>
+            <td mat-cell *matCellDef="let record"> {{record.treatment | emptyString}} </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+            <td mat-cell *matCellDef="let record"> {{record.amount}} </td>
+            <td mat-footer-cell *matFooterCellDef> {{getTotalAmount() | currency:'INR'}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="recordActions">
+            <th mat-header-cell *matHeaderCellDef>Actions </th>
+            <td mat-cell *matCellDef="let record">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onRecordEdit(record)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit Record</span>
+                    </button>
+                    <button mat-menu-item (click)="onRecordDelete(record.id)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete Record</span>
+                    </button>
+                </mat-menu>
+
+            </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr class="element-row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="total-footer-row" mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data</td>
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]=25></mat-paginator>
+</div>

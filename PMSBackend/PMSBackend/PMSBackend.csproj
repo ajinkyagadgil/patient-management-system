@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>3733ea61-6c31-436e-91c3-e14f7fddd829</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Patient.Core\Patient.Core.csproj" />
+    <ProjectReference Include="..\PMS.Dependencies\PMS.Dependencies.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\TreatmentImages\" />
+    <Folder Include="Resources\PatientImages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\**" CopyToPublishDirectory="PreserveNewest"/>
+  </ItemGroup>
+
+
+</Project>
