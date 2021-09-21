@@ -11,3 +11,7 @@ Patient Management System is web application to maintain the the patient informa
 ```
 npm start
 ```
+- Above steps would run development environment of .net core API and angular.
+
+## Screens
+
