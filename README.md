@@ -66,6 +66,6 @@ npm start
 2. [Visual Studio Code](https://code.visualstudio.com/)
 3. [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1)
 4. [Angular](https://angular.io/)
-5. MS SQL Server Community(https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
+5. [MS SQL Server Community](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
 
 
