@@ -14,6 +14,6 @@ npm start
 5. Above steps would run development environment of .net core API and angular.
 
 ## Screens
-1. Patient Listing
-![Patient Listing](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/PatientListing.png)
+Patient Listing
+![Patient Listing](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/PatientListing.png | width=100)
 
