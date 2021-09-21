@@ -15,5 +15,30 @@ npm start
 
 ## Screens
 Patient Listing
-![Patient Listing](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/PatientListing.png | width=100)
+![Patient Listing with pagination, filtering and sorting](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/PatientListing.png)
+
+Searching
+![Searching Patients on any value](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/Search.png)
+
+Add/Edit patient Dialog
+![Add/Edit Patient Dialog](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/EditPatient.png)
+
+Patient Treatment Details
+![Patient Treatment Details](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/PatientTreatmentDetails.png)
+
+Add/Edit Treatment Dialog
+![Add/Edit Treatment Dialog](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/EditTreatmentDialog.png)
+
+Billing Listing for Day
+![Add/Edit Treatment Dialog](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/BillingForTheDay.png)
+
+Add/Edit Billing Dialog
+![Add/Edit Billing Dialog](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/EditBilling.png)
+
+Billing Information Date Range Filter
+![Billing Information Date Range Filter](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/DateRangeFilterToFilterDates.png)
+
+Delete Patient Confirmation
+![Billing Information Date Range Filter](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/DeletePatient.png)
+
 
