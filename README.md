@@ -15,15 +15,10 @@ Patient Management System is web application to maintain the the patient informa
 
 ## Screens
 Patient Listing
-<details>
-  <summary>The title of the image group</summary><details>
- 
 ![Patient Listing with pagination, filtering and sorting](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/PatientListing.png)
   
 Add/Edit patient Dialog
 ![Add/Edit Patient Dialog](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/EditPatient.png)
-  <img src="image-url" name="image-name">
-</details>
 
 Searching
 ![Searching Patients on any value](https://github.com/ajinkyagadgil/patient-management-system/blob/main/Screens/Search.png)
