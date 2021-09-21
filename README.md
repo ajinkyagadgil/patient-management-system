@@ -7,4 +7,7 @@ Patient Management System is web application to maintain the the patient informa
 - Open the solution file in PMSBackend folder.
 - Change the connection string appsettings.json file and publish the database project which seeds the database with some values.
 - Run the solution which would run the .NET core API and that would open the Swagger UI to get the list of APIs.
-- Open the angular code from PMSUI folder and type 'npm start
+- Open the angular code from PMSUI folder and enter the command in the terminal 
+```
+npm start
+```
